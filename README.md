@@ -35,6 +35,7 @@ Companion app for the IonicFramework book published by Bleeding Edge Press.
   * [Ionic Creator](http://ionicframework.com/creator/)
   * [Full Stack Hybrid Mobile Platform](http://ionic.io/)
   * [Ionic View App](https://itunes.apple.com/us/app/ionic-view/id849930087?mt=8)
+  * [Ionic Collide](https://github.com/driftyco/collide)
 
 
 ### App Ideas
