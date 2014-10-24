@@ -40,10 +40,41 @@ angular.module('Trendicity', [
 
     .state('app.home', {
       url: '/home',
+      abstract: true,
       views: {
         'menuContent' :{
           templateUrl: 'templates/home.html',
           controller: 'HomeCtrl'
+        }
+      }
+    })
+
+    .state('app.home.map', {
+      url: '/map',
+      views: {
+        'tab-map' :{
+          templateUrl: 'templates/tab-map.html',
+          controller: ''
+        }
+      }
+    })
+
+    .state('app.home.card', {
+      url: '/card',
+      views: {
+        'tab-card' :{
+          templateUrl: 'templates/tab-card.html',
+          controller: ''
+        }
+      }
+    })
+
+    .state('app.home.list', {
+      url: '/list',
+      views: {
+        'tab-list' :{
+          templateUrl: 'templates/tab-list.html',
+          controller: ''
         }
       }
     })
@@ -59,6 +90,6 @@ angular.module('Trendicity', [
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/home');
+  $urlRouterProvider.otherwise('/app/home/map');
 });
 

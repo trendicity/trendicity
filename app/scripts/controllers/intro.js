@@ -13,7 +13,7 @@ angular.module('Trendicity')
  
   // Called to navigate to the main app
   $scope.startApp = function() {
-    $state.go('app.home');
+    $state.go('app.home.map');
   };
   $scope.next = function() {
     $ionicSlideBoxDelegate.next();
