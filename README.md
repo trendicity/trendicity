@@ -1,6 +1,14 @@
-learning-ionic-app
+TrendiCity
 ==================
 Companion app for the IonicFramework book published by Bleeding Edge Press.
+
+### Running
+Clone this repo then run the following commands:
+````
+npm install && bower install
+grunt init
+grunt serve
+````
 
 ### Rough Outline
 1. **Forward**
