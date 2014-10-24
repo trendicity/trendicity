@@ -1,0 +1,57 @@
+<ion-view title="">
+  <ion-nav-buttons side="left">
+    <button class="button button-positive button-clear no-animation"
+      nav-clear ng-click="startApp()" ng-if="!slideIndex">
+      Skip
+    </button>
+    <button class="button button-positive button-clear no-animation"
+      ng-click="previous()" ng-if="slideIndex > 0">
+      Back
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-buttons side="right"> 
+    <button class="button button-positive button-clear no-animation"
+      ng-click="next()" ng-if="slideIndex != 2">
+      Next
+    </button>
+    <button class="button button-positive button-clear no-animation"
+      nav-clear ng-click="startApp()" ng-if="slideIndex == 2">
+      Explore
+    </button>
+  </ion-nav-buttons>
+
+  <ion-slide-box on-slide-changed="slideChanged(index)">
+    <ion-slide>
+      <h3>Welcome to Trendicity</h3>
+      <div id="logo">
+        <img src="images/placeholder-city.jpg">
+      </div>
+      <p>
+        Explore Instagram posts by popular locations,
+      </p>
+      <p>
+        or Log In to visualize your feed on a map.
+      </p>
+    </ion-slide>
+
+    <ion-slide>
+      <h3>Using TrendiCity</h3>
+      <div id="list">
+        <ol>
+          <li>Explore</li>
+          <li>Swipe</li>
+          <li>Favorite</li>
+        </ol>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <h3>Any questions?</h3>
+      <p>
+        Mention something about the book and list all our names here.
+      </p>
+    </ion-slide>
+  </ion-slide-box>
+</ion-view>
+
