@@ -3,7 +3,7 @@
     <h2>Display search results in swipe cards</h2>
     <h3>Nearby followers posts (for now just dump posts for a specific location)</h3>
     <div ng-repeat="post in nearbyPosts">
-        {{ post }}
+        <img ng-src="{{ post.images.thumbnail.url}}" />
         <br />
         <br />
     </div>
