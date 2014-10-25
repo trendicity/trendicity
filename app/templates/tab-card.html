@@ -1,5 +1,11 @@
 <ion-view title="Card View">
   <ion-content class="has-header padding">
-    <h3>Display search results in swipe cards</h3>
+    <h2>Display search results in swipe cards</h2>
+    <h3>Nearby followers posts (for now just dump posts for a specific location)</h3>
+    <div ng-repeat="post in nearbyPosts">
+        {{ post }}
+        <br />
+        <br />
+    </div>
   </ion-content>
 </ion-view>

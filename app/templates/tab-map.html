@@ -1,5 +1,11 @@
 <ion-view title="Map View">
   <ion-content class="has-header padding">
-    <h3>Display search results on a map</h3>
+    <h2>Display search results on a map</h2>
+    <h3>Nearby Posts (for now just dump posts nearby a hard coded location</h3>
+    <div ng-repeat="post in nearbyPosts">
+          {{ post }}
+          <br />
+          <br />
+    </div>
   </ion-content>
 </ion-view>
