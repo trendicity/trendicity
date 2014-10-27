@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, InstagramService) {
   // Check if use has seen intro
   if (!localStorage['TrendiCity:seenIntro'] || false) {
     $state.go('app.intro');
@@ -24,17 +24,16 @@ angular.module('Trendicity')
 
   // Open the login modal
   $scope.login = function() {
-    $scope.modal.show();
+      $scope.modal.show();
   };
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay.
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
+    // console.log('Doing login', $scope.loginData);
+    console.log("about to hide login modal....");
+    $scope.modal.hide();
+    console.log("about to obtain access token....");
+    InstagramService.obtainAccessToken();
   };
 });
 

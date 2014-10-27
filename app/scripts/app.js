@@ -2,10 +2,14 @@
 
 angular.module('Trendicity', [
   'ionic',
+  'ionic.contrib.ui.tinderCards',
   'config'
 ])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope) {
+  // By default, allow the left side menu to be displayed by dragging content to the right
+  $rootScope.canDragContent = true;
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -13,8 +17,8 @@ angular.module('Trendicity', [
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if(window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
+        // org.apache.cordova.statusbar required
+        StatusBar.styleDefault();
     }
   });
 })
@@ -54,7 +58,7 @@ angular.module('Trendicity', [
       views: {
         'tab-map' :{
           templateUrl: 'templates/tab-map.html',
-          controller: ''
+          controller: 'MapViewCtrl'
         }
       }
     })
@@ -64,7 +68,7 @@ angular.module('Trendicity', [
       views: {
         'tab-card' :{
           templateUrl: 'templates/tab-card.html',
-          controller: ''
+          controller: 'CardViewCtrl'
         }
       }
     })
@@ -74,7 +78,7 @@ angular.module('Trendicity', [
       views: {
         'tab-list' :{
           templateUrl: 'templates/tab-list.html',
-          controller: ''
+          controller: 'ListViewCtrl'
         }
       }
     })
