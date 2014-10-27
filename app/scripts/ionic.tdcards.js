@@ -270,11 +270,11 @@
               var leftText = el.querySelector('.no-text');
               var rightText = el.querySelector('.yes-text');
               if (amt < 0) {
-                leftText.style.opacity = 1;
+                leftText.style.opacity = Math.abs(amt) + 0.5;
                 rightText.style.opacity = 0;
               } else {
                 leftText.style.opacity = 0;
-                rightText.style.opacity = 1;
+                rightText.style.opacity = amt + 0.5;
               }
 
               $timeout(function() {
@@ -299,7 +299,6 @@
             onSnapBack: function(startX, startY, startRotation) {
               var leftText = el.querySelector('.no-text');
               var rightText = el.querySelector('.yes-text');
-
               rightText.style.opacity = 0;
               leftText.style.opacity = 0;
 
