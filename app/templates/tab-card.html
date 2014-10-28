@@ -5,7 +5,7 @@
         <td-cards>
             <td-card ng-repeat="post in userFeedPosts" on-destroy="cardDestroyed($index)"
                      on-swipe-left="cardSwipedLeft($index)" on-swipe-right="cardSwipedRight($index)"
-                     on-partial-swipe="cardPartialSwipe(amt)" class="card-{{$index}}" ng-controller="CardCtrl">
+                     class="card-{{$index}}" ng-controller="CardCtrl">
                 <div class="image">
                     <div class="no-text">NOPE</div>
                     <img ng-src="{{ post.images.thumbnail.url }}" />

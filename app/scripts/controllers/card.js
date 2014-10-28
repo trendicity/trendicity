@@ -31,11 +31,6 @@ angular.module('Trendicity')
     // TODO: Issue a "like" on the post
   };
 
-  $scope.cardPartialSwipe = function(amt) {
-    // Could do something here
-    console.log('cardPartialSwipe amt:' + amt);
-  };
-
   $scope.cardDestroyed = function(index) {
     $scope.userFeedPosts.splice(index, 1);
   };
