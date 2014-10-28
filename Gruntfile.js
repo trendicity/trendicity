@@ -104,7 +104,8 @@ module.exports = function (grunt) {
     jshint: {
       options: {
         jshintrc: '.jshintrc',
-        reporter: require('jshint-stylish')
+        reporter: require('jshint-stylish'),
+        force: true // Report errors, don't fail the task when an error occurs
       },
       all: [
         'Gruntfile.js',
