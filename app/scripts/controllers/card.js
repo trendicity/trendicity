@@ -2,7 +2,7 @@
 angular.module('Trendicity')
 
 .controller('CardViewCtrl', function ($scope, InstagramService) {
-  console.log("Inside CardsCtrl...");
+  console.log('Inside CardViewCtrl...');
   $scope.$root.canDragContent = false;
 
   $scope.userFeedPosts = [];
@@ -19,23 +19,24 @@ angular.module('Trendicity')
 })
 
 .controller('CardCtrl', function ($scope) {
-  console.log("inside CardCtrl....");
+  console.log('inside CardCtrl....');
 
   $scope.cardSwipedLeft = function(index) {
-      console.log('LEFT SWIPE');
-      // TODO: Issue a "non-like" on the post
+    console.log('LEFT SWIPE index:' + index);
+    // TODO: Issue a "non-like" on the post
   };
 
   $scope.cardSwipedRight = function(index) {
-      console.log('RIGHT SWIPE');
-      // TODO: Issue a "like" on the post
+    console.log('RIGHT SWIPE index:' + index);
+    // TODO: Issue a "like" on the post
   };
 
   $scope.cardPartialSwipe = function(amt) {
-      // Could do something here
+    // Could do something here
+    console.log('cardPartialSwipe amt:' + amt);
   };
 
   $scope.cardDestroyed = function(index) {
-      $scope.userFeedPosts.splice(index, 1);
+    $scope.userFeedPosts.splice(index, 1);
   };
-})
+});

@@ -1,9 +1,9 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('HomeCtrl', function ($scope) {
-  console.log("Inside HomeCtrl...");
-})
+.controller('HomeCtrl', function () {
+  console.log('Inside HomeCtrl...');
+});
 
 
 
