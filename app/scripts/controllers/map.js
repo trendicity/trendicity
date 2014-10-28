@@ -3,7 +3,6 @@ angular.module('Trendicity')
 
 .controller('MapViewCtrl', function ($scope, InstagramService) {
   console.log('Inside MapViewCtrl...');
-  $scope.$root.canDragContent = true;
 
   $scope.nearbyPosts = [];
 
