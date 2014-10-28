@@ -233,7 +233,6 @@
 
       var self = this;
       setTimeout(function() {
-        console.log("about to call onPartialSwipe with:" + self.thresholdAmount);
         self.onPartialSwipe(self.thresholdAmount);
       });
     },
@@ -267,22 +266,18 @@
             el: el,
             onPartialSwipe: function(amt) {
               swipeCards.partial(amt);
-              $timeout(function() {
-                $scope.leftTextOpacity = {
-                  'opacity': amt > 0 ? Math.abs(amt) * 100 : 10
-                };
-                $scope.rightTextOpacity = {
-                  'opacity': amt < 0 ? Math.abs(amt) * 100 : 20
-                };
-                //console.log("$scope.leftTextOpacity:" + $scope.leftTextOpacity.opacity);
-                //console.log("$scope.rightTextOpacity:" + $scope.rightTextOpacity.opacity);
 
-                  var leftText = el.querySelector('.yes-text');
-                  var rightText = el.querySelector('.no-text');
-                  // TODO: Fix the issue with showing the NOPE/LIKE text
-                  // The way it is currently attempting to do it doesnt work
-                  // TODO: Use css to tilt the NOPE/LIKE text similar to the way Tinder does
-                  // rightText.style.opacity = 400;
+              var leftText = el.querySelector('.no-text');
+              var rightText = el.querySelector('.yes-text');
+              if (amt < 0) {
+                leftText.style.opacity = Math.abs(amt) + 0.5;
+                rightText.style.opacity = 0;
+              } else {
+                leftText.style.opacity = 0;
+                rightText.style.opacity = amt + 0.5;
+              }
+
+              $timeout(function() {
                 $scope.onPartialSwipe({amt: amt});
               });
             },
@@ -302,8 +297,10 @@
               });
             },
             onSnapBack: function(startX, startY, startRotation) {
-              var leftText = el.querySelector('.yes-text');
-              var rightText = el.querySelector('.no-text');
+              var leftText = el.querySelector('.no-text');
+              var rightText = el.querySelector('.yes-text');
+              rightText.style.opacity = 0;
+              leftText.style.opacity = 0;
 
               var animation = collide.animation({
                 // 'linear|ease|ease-in|ease-out|ease-in-out|cubic-bezer(x1,y1,x2,y2)',
@@ -324,9 +321,6 @@
               .on('step', function(v) {
                 //Have the element spring over 400px
                 el.style.transform = el.style.webkitTransform = 'translate3d(' + (startX - startX*v) + 'px, ' + (startY - startY*v) + 'px, 0) rotate(' + (startRotation - startRotation*v) + 'rad)';
-                // TODO: This is where style was being set upon snap back
-               // rightText.style.opacity = Math.max(rightText.style.opacity - rightText.style.opacity * v, 0);
-               // leftText.style.opacity = Math.max(leftText.style.opacity - leftText.style.opacity * v, 0);
               })
               .start();
               /*
@@ -360,7 +354,7 @@
 
         var sortCards = function() {
           existingCards = $element[0].querySelectorAll('td-card');
-          console.log('Existing', existingCards);
+          // console.log('Existing', existingCards);
 
           for(i = 0; i < existingCards.length; i++) {
             card = existingCards[i];
@@ -383,7 +377,7 @@
           //console.log(window.getComputedStyle(secondCard));
           newTop = Math.max(0, Math.min(max, max - (max * Math.abs(amt))));
           //console.log(top);
-          console.log(newTop);
+          //console.log(newTop);
           card.style.transform = card.style.webkitTransform = 'translate3d(0, ' + newTop + 'px, 0)';
         };
 

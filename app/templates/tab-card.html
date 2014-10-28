@@ -7,9 +7,9 @@
                      on-swipe-left="cardSwipedLeft($index)" on-swipe-right="cardSwipedRight($index)"
                      on-partial-swipe="cardPartialSwipe(amt)" class="card-{{$index}}" ng-controller="CardCtrl">
                 <div class="image">
-                    <div class="no-text" ng-style="leftTextOpacity">NOPE</div>
+                    <div class="no-text">NOPE</div>
                     <img ng-src="{{ post.images.thumbnail.url }}" />
-                    <div class="yes-text" ng-style="rightTextOpacity">LIKE</div>
+                    <div class="yes-text">LIKE</div>
                 </div>
             </td-card>
         </td-cards>
