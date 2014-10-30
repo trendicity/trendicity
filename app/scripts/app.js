@@ -3,7 +3,8 @@
 angular.module('Trendicity', [
   'ionic',
   'ionic.contrib.ui.tinderCards',
-  'config'
+  'config',
+  'LocalStorageModule'
 ])
 
 .run(function($ionicPlatform, $rootScope) {
@@ -20,6 +21,11 @@ angular.module('Trendicity', [
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    // Enable image caching
+    ImgCache.init(function(){
+      console.log('Image caching enabled!');
+    });
   });
 })
 
