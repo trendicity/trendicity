@@ -26,10 +26,17 @@ angular.module('Trendicity')
     }
   };
 
-  this.findPopularPosts = function() {
+  this.findPopularPosts = function(options) {
+    if (!options) {
+      options = {};
+    }
+
+    options.client_id = CLIENT_ID; // jshint ignore:line
+    options.callback = 'JSON_CALLBACK';
+
     var promise =
-      $http.get(API_ROOT + 'media/popular', {
-        params: { client_id: CLIENT_ID }
+      $http.jsonp(API_ROOT + 'media/popular', {
+        params: options
       })
       .error(function(data, status) {
         console.log('findPopularPosts returned status:'  + status);
@@ -39,13 +46,16 @@ angular.module('Trendicity')
 
   // options.distance by default is 1 Kilometer
   this.findNearbyPosts = function(lat, lng, options) {
-    if (!options) { options = {}; }
+    if (!options) {
+      options = {};
+    }
 
-    options.client_id = CLIENT_ID;
+    options.client_id = CLIENT_ID; // jshint ignore:line
     options.lat = lat;
     options.lng = lng;
+    options.callback = 'JSON_CALLBACK';
 
-    var promise = $http.get(API_ROOT + 'media/search', {
+    var promise = $http.jsonp(API_ROOT + 'media/search', {
       params: options
     })
     .error(function(data, status) {
@@ -55,15 +65,21 @@ angular.module('Trendicity')
   };
 
   this.findUserFeedPosts = function(options) {
-    if (!options) { options = {}; }
+    if (!options) {
+      options = {};
+    }
+
+    options.callback = 'JSON_CALLBACK';
 
     var accessToken = localStorage['TrendiCity:accessToken'];
 
-    if (accessToken) { options.access_token = accessToken; }
+    if (accessToken) {
+      options.access_token = accessToken; // jshint ignore:line
+    }
 
-    console.log('options.access_token:' + options.access_token);
+    console.log('options.access_token:' + options.access_token); // jshint ignore:line
 
-    var promise = $http.get(API_ROOT + 'users/self/feed', {
+    var promise = $http.jsonp(API_ROOT + 'users/self/feed', {
       params: options
     })
     .error(function (data, status) {
