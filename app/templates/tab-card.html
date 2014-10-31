@@ -2,9 +2,10 @@
     <ion-content class="has-header padding" scroll="false">
         <h3>User Feed - Swipe left for dislike, Swipe right for like</h3>
 
+        <!--  on-swipe-left="cardSwipedLeft($index)" on-swipe-right="cardSwipedRight($index)" -->
         <td-cards>
             <td-card ng-repeat="post in userFeedPosts" on-destroy="cardDestroyed($index)"
-                     on-swipe-left="cardSwipedLeft($index)" on-swipe-right="cardSwipedRight($index)"
+                     on-swipe-card-left="cardSwipedLeft($index)" on-swipe-card-right="cardSwipedRight($index)"
                      class="card-{{$index}}" ng-controller="CardCtrl">
                 <div class="image">
                     <div class="no-text">NOPE</div>

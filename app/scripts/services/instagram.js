@@ -8,7 +8,8 @@ angular.module('Trendicity')
   this.obtainAccessToken = function() {
     // TOOD: See if we already have one and return that one first
     // TODO: May need to return a promise
-    var ref = window.open('https://instagram.com/oauth/authorize?client_id=' + CLIENT_ID + '&response_type=token&redirect_uri=http://localhost', '_blank', 'location=no');
+    var ref = window.open('https://instagram.com/oauth/authorize?client_id=' + CLIENT_ID + '&scope=likes+comments&response_type=token&redirect_uri=http://localhost'
+      , '_blank', 'location=no');
     console.log('Window opened....');
     console.log('ref:', ref);
     if (ref) { // maybe we are being launched by a desktop browser
@@ -27,9 +28,7 @@ angular.module('Trendicity')
   };
 
   this.findPopularPosts = function(options) {
-    if (!options) {
-      options = {};
-    }
+    options = options || {};
 
     options.client_id = CLIENT_ID; // jshint ignore:line
     options.callback = 'JSON_CALLBACK';
@@ -46,9 +45,7 @@ angular.module('Trendicity')
 
   // options.distance by default is 1 Kilometer
   this.findNearbyPosts = function(lat, lng, options) {
-    if (!options) {
-      options = {};
-    }
+    options = options || {};
 
     options.client_id = CLIENT_ID; // jshint ignore:line
     options.lat = lat;
@@ -65,13 +62,12 @@ angular.module('Trendicity')
   };
 
   this.findUserFeedPosts = function(options) {
-    if (!options) {
-      options = {};
-    }
+    options = options || {};
 
     options.callback = 'JSON_CALLBACK';
 
-    var accessToken = localStorage['TrendiCity:accessToken'];
+    var accessToken = '1536218758.75d27c9.77db16a4e36d48c59fe9174173a38415';
+      //localStorage['TrendiCity:accessToken'];
 
     if (accessToken) {
       options.access_token = accessToken; // jshint ignore:line
@@ -84,6 +80,17 @@ angular.module('Trendicity')
     })
     .error(function (data, status) {
       console.log('userFeedPosts returned status:' + status);
+    });
+    return promise;
+  };
+
+  this.likePost = function(mediaId) {
+    var access_token = '1536218758.75d27c9.77db16a4e36d48c59fe9174173a38415';
+      //localStorage['TrendiCity:accessToken'];
+
+    var promise = $http.post(API_ROOT + 'media/' + mediaId + '/likes?access_token=' + access_token)
+    .error(function (data, status) {
+      console.log('likePost returned status:' + status);
     });
     return promise;
   };

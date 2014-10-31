@@ -7,7 +7,7 @@ angular.module('Trendicity')
 
   $scope.userFeedPosts = [];
 
-  InstagramService.findPopularPosts() // change this back to findUserFeedPosts !!!!
+  InstagramService.findUserFeedPosts() // change this back to findUserFeedPosts !!!!
     .success(function(data) {
       $scope.userFeedPosts = data.data;
     })
@@ -18,7 +18,7 @@ angular.module('Trendicity')
 
 })
 
-.controller('CardCtrl', function ($scope) {
+.controller('CardCtrl', function ($scope, InstagramService) {
   console.log('inside CardCtrl....');
 
   $scope.cardSwipedLeft = function(index) {
@@ -29,6 +29,14 @@ angular.module('Trendicity')
   $scope.cardSwipedRight = function(index) {
     console.log('RIGHT SWIPE index:' + index);
     // TODO: Issue a "like" on the post
+    var post = $scope.userFeedPosts[index];
+    console.log('post.id:' + post.id);
+    //console.log(angular.toJson(post,true));
+
+    InstagramService.likePost(post.id)
+    .success(function(data) {
+      console.log("you liked it!  data:" + angular.toJson(data,true));
+    })
   };
 
   $scope.cardDestroyed = function(index) {
