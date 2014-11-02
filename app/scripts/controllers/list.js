@@ -1,8 +1,6 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('ListViewCtrl', function ($scope) {
+.controller('ListViewCtrl', function () {
   console.log('Inside ListViewCtrl...');
-  $scope.$root.canDragContent = true;
-
 });
