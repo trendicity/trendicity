@@ -9,20 +9,24 @@
 
   <ion-side-menu side="left">
     <header class="bar bar-header bar-stable">
-      <h1 class="title">Left</h1>
+      <h1 class="title">Menu</h1>
     </header>
     <ion-content class="has-header">
       <ion-list>
-        <ion-item nav-clear menu-close href="#/app/home/map">
+        <ion-item nav-clear menu-close class="item-icon-left" href="#/app/home/map">
+          <i class="icon ion-home"></i>
           Home
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/favorites">
+        <ion-item nav-clear menu-close class="item-icon-left" href="#/app/favorites">
+          <i class="icon ion-star"></i>
           Favorites
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/intro">
+        <ion-item nav-clear menu-close class="item-icon-left" href="#/app/intro">
+          <i class="icon ion-information-circled"></i>
           About
         </ion-item>
-        <ion-item nav-clear menu-close ng-click="login()">
+        <ion-item nav-clear menu-close class="item-icon-left" ng-click="login()">
+          <i class="icon ion-log-in"></i>
           Login
         </ion-item>
       </ion-list>
