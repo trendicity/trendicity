@@ -1,8 +1,6 @@
 <ion-view title="List View">
   <ion-content class="has-header padding">
-    <h2>Display search results in a list with thumbnails</h2>
-    <h3>Popular Posts</h3>
-    <div ng-repeat="post in popularPosts">
+    <div ng-repeat="post in posts">
         <img ng-src="{{ post.images.thumbnail.url }}" />
         <br />
         <br />

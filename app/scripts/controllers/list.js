@@ -1,11 +1,8 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('ListViewCtrl', function ($scope, InstagramService) {
+.controller('ListViewCtrl', function ($scope) {
   console.log('Inside ListViewCtrl...');
   $scope.$root.canDragContent = true;
 
-  InstagramService.findPopularPosts().success(function(data) {
-    $scope.popularPosts = data.data;
-  });
 });

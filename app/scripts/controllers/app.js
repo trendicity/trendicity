@@ -29,10 +29,7 @@ angular.module('Trendicity')
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
-    // console.log('Doing login', $scope.loginData);
-    console.log('about to hide login modal....');
     $scope.modal.hide();
-    console.log('about to obtain access token....');
     InstagramService.obtainAccessToken();
   };
 });

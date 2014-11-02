@@ -4,20 +4,26 @@ angular.module('Trendicity')
 .service('InstagramService', function($http) {
   var CLIENT_ID = '75d27c9457cd4d1abbacf80a228f4a10';
   var API_ROOT = 'https://api.instagram.com/v1/';
+  var AUTH_REDIRECT_URL = 'http://localhost:8100/instagram.html';
 
   this.obtainAccessToken = function() {
-    // TOOD: See if we already have one and return that one first
-    // TODO: May need to return a promise
-    var ref = window.open('https://instagram.com/oauth/authorize?client_id=' + CLIENT_ID + '&scope=likes+comments&response_type=token&redirect_uri=http://localhost'
-      , '_blank', 'location=no');
-    console.log('Window opened....');
-    console.log('ref:', ref);
+    // TOOD: See if we already have one and return that one first ?
+    // TODO: May need to return a promise?
+    
+    var ref = window.open('https://instagram.com/oauth/authorize?client_id=' +
+      CLIENT_ID + '&scope=likes+comments&response_type=token&redirect_uri=' +
+      AUTH_REDIRECT_URL, '_blank', 'location=no');
+
+    // If the app is being run outside a cordova webview envrionment, just return since we will use a
+    // different approach to get the access token.
+    if (!ionic.Platform.isWebView()) {
+      return;
+    }
+
     if (ref) { // maybe we are being launched by a desktop browser
       ref.addEventListener('loadstart', function(event) {
-         //alert(event.url);
         console.log('event.url:' + event.url);
         if((event.url).indexOf('http://localhost') === 0) {
-          console.log('inside if.....');
           var accessToken = (event.url).split('access_token=')[1];
           console.log('accessToken:' + accessToken);
           localStorage['TrendiCity:accessToken'] = accessToken;
@@ -66,8 +72,7 @@ angular.module('Trendicity')
 
     options.callback = 'JSON_CALLBACK';
 
-    var accessToken = '1536218758.75d27c9.77db16a4e36d48c59fe9174173a38415';
-      //localStorage['TrendiCity:accessToken'];
+    var accessToken = localStorage['TrendiCity:accessToken']; // jshint ignore:line
 
     if (accessToken) {
       options.access_token = accessToken; // jshint ignore:line
@@ -85,10 +90,9 @@ angular.module('Trendicity')
   };
 
   this.likePost = function(mediaId) {
-    var access_token = '1536218758.75d27c9.77db16a4e36d48c59fe9174173a38415';
-      //localStorage['TrendiCity:accessToken'];
+    var access_token = localStorage['TrendiCity:accessToken']; // jshint ignore:line
 
-    var promise = $http.post(API_ROOT + 'media/' + mediaId + '/likes?access_token=' + access_token)
+    var promise = $http.post(API_ROOT + 'media/' + mediaId + '/likes?access_token=' + access_token) // jshint ignore:line
     .error(function (data, status) {
       console.log('likePost returned status:' + status);
     });

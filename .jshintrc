@@ -22,6 +22,7 @@
         "angular": false,
         "cordova": false,
         "StatusBar": false,
-        "ImgCache": false
+        "ImgCache": false,
+        "ionic": false
     }
 }

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <script>
+      var accessToken = location.href.split('access_token=')[1];
+      localStorage['TrendiCity:accessToken'] = accessToken;
+      window.close();
+  </script>
+  <body>
+    This is just a hack for getting the access token when using a desktop browser.
+  </body>
+</html>
