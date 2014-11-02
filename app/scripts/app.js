@@ -101,5 +101,24 @@ angular.module('Trendicity', [
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home/map');
+})
+
+.constant('$ionicLoadingConfig', {
+  template: 'Loading...'
+})
+
+.config(function($httpProvider) {
+  $httpProvider.interceptors.push(function($injector) {
+    return {
+      'request': function(config) {
+        $injector.get('$ionicLoading').show();
+        return config;
+      },
+      'response': function(response) {
+        $injector.get('$ionicLoading').hide();
+        return response;
+      }
+    };
+  });
 });
 
