@@ -98,4 +98,14 @@ angular.module('Trendicity')
     });
     return promise;
   };
+
+  this.dislikePost = function(mediaId) {
+    var access_token = localStorage['TrendiCity:accessToken']; // jshint ignore:line
+
+    var promise = $http.delete(API_ROOT + 'media/' + mediaId + '/likes?access_token=' + access_token) // jshint ignore:line
+      .error(function (data, status) {
+        console.log('dislikePost returned status:' + status);
+      });
+    return promise;
+  };
 });

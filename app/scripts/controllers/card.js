@@ -11,13 +11,19 @@ angular.module('Trendicity')
 
   $scope.cardTransitionedLeft = function(index) {
     console.log('cardTransitionedLeft called with index:' + index);
-    // TODO: If user liked the post previously, unlike it
+    var post = $scope.posts[index];
+
+    if (post.user_has_liked) { // jshint ignore:line
+      InstagramService.dislikePost(post.id)
+        .success(function(data) {
+          console.log('you disliked it!  data:', angular.toJson(data,true));
+        });
+    }
   };
 
   $scope.cardTransitionedRight = function(index) {
     console.log('cardTransitionedRight called with index:' + index);
     var post = $scope.posts[index];
-    console.log('post.id:' + post.id);
 
     InstagramService.likePost(post.id)
     .success(function(data) {
