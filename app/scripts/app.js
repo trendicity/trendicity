@@ -112,17 +112,5 @@ angular.module('Trendicity', [
 })
 
 .config(function($httpProvider) {
-  $httpProvider.interceptors.push(function($injector) {
-    return {
-      'request': function(config) {
-        $injector.get('$ionicLoading').show();
-        return config;
-      },
-      'response': function(response) {
-        $injector.get('$ionicLoading').hide();
-        return response;
-      }
-    };
-  });
+  $httpProvider.interceptors.push('LoadingInterceptor');
 });
-
