@@ -1,9 +1,8 @@
 <ion-view title="Map View">
-  <ion-content class="has-header padding">
-    <div ng-repeat="post in posts">
-          <bg-image class="feed-image" image="{{post.images.standard_resolution.url}}"></bg-image>
-          <br />
-          <br />
-    </div>
+  <ion-content class="has-header">
+      <div id="map" data-tap-disabled="true"></div>
+      <div id="footer-overlay">
+          <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate"> My Location</a>
+      </div>
   </ion-content>
 </ion-view>
