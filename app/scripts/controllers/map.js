@@ -1,11 +1,11 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('MapViewCtrl', function ($scope, $ionicLoading, $compile) {
+.controller('MapViewCtrl', function ($scope, $ionicLoading, $compile, MapService) {
   console.log('Inside MapViewCtrl...');
 
-    function initialize() {
-        var myLatlng = new google.maps.LatLng(43.07493,-89.381388);
+    function initialize(position) {
+        var myLatlng = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
 
         console.log('INIT!');
 
@@ -38,7 +38,10 @@ angular.module('Trendicity')
         $scope.map = map;
     }
 
-        initialize();
+    MapService.getPosition()
+        .then(initialize);
+
+
 
     $scope.centerOnMe = function() {
         if(!$scope.map) {
@@ -52,7 +55,7 @@ angular.module('Trendicity')
 
         navigator.geolocation.getCurrentPosition(function(pos) {
                 $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-                $scope.loading.hide();
+                $ionicLoading.hide();
             }, function(error) {
                 alert('Unable to get location: ' + error.message);
             }
