@@ -4,7 +4,8 @@ angular.module('Trendicity', [
   'ionic',
   'ionic.contrib.ui.tinderCards',
   'config',
-  'LocalStorageModule'
+  'LocalStorageModule',
+  'ngCordova'
 ])
 
 .run(function($rootScope, $ionicPlatform, $ionicSideMenuDelegate) {
