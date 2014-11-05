@@ -4,7 +4,7 @@
   </head>
   <script>
       var accessToken = location.href.split('access_token=')[1];
-      localStorage['TrendiCity:accessToken'] = accessToken;
+      localStorage.setItem('TrendiCity:accessToken', accessToken);
       window.close();
   </script>
   <body>

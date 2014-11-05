@@ -26,7 +26,7 @@ angular.module('Trendicity')
         if((event.url).indexOf('http://localhost') === 0) {
           var accessToken = (event.url).split('access_token=')[1];
           console.log('accessToken:' + accessToken);
-          localStorage['TrendiCity:accessToken'] = accessToken;
+          localStorage.setItem('TrendiCity:accessToken', accessToken);
           ref.close();
         }
       });
@@ -71,12 +71,7 @@ angular.module('Trendicity')
     options = options || {};
 
     options.callback = 'JSON_CALLBACK';
-
-    var accessToken = localStorage['TrendiCity:accessToken']; // jshint ignore:line
-
-    if (accessToken) {
-      options.access_token = accessToken; // jshint ignore:line
-    }
+    options.access_token = localStorage.getItem('TrendiCity:accessToken'); // jshint ignore:line
 
     console.log('options.access_token:' + options.access_token); // jshint ignore:line
 
@@ -90,7 +85,7 @@ angular.module('Trendicity')
   };
 
   this.likePost = function(mediaId) {
-    var access_token = localStorage['TrendiCity:accessToken']; // jshint ignore:line
+    var access_token = localStorage.getItem('TrendiCity:accessToken'); // jshint ignore:line
 
     var promise = $http.post(API_ROOT + 'media/' + mediaId + '/likes?access_token=' + access_token) // jshint ignore:line
     .error(function (data, status) {
@@ -100,7 +95,7 @@ angular.module('Trendicity')
   };
 
   this.dislikePost = function(mediaId) {
-    var access_token = localStorage['TrendiCity:accessToken']; // jshint ignore:line
+    var access_token = localStorage.getItem('TrendiCity:accessToken'); // jshint ignore:line
 
     var promise = $http.delete(API_ROOT + 'media/' + mediaId + '/likes?access_token=' + access_token) // jshint ignore:line
       .error(function (data, status) {

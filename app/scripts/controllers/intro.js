@@ -9,8 +9,8 @@ angular.module('Trendicity')
   $ionicViewService.clearHistory();
 
   // Mark intro as seen
-  localStorage['TrendiCity:seenIntro'] = true;
- 
+  localStorage.setItem('TrendiCity:seenIntro', true);
+
   // Called to navigate to the main app
   $scope.startApp = function() {
     $state.go('app.home.map');

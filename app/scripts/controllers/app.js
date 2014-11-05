@@ -3,7 +3,7 @@ angular.module('Trendicity')
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, InstagramService) {
   // Check if use has seen intro
-  if (!localStorage['TrendiCity:seenIntro'] || false) {
+  if (!localStorage.getItem('TrendiCity:seenIntro') || false) {
     $state.go('app.intro');
   }
 
@@ -39,7 +39,7 @@ angular.module('Trendicity')
   };
 
   $scope.isLoggedIn = function() {
-    return localStorage['TrendiCity:accessToken'];
+    return localStorage.getItem('TrendiCity:accessToken') || false;
   };
 });
 
