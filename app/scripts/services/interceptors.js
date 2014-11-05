@@ -10,14 +10,14 @@ angular.module('Trendicity')
       },
       response: function(response) {
         var $http = $injector.get('$http');
-        if ($http.pendingRequests.length < 1) {
+        if ($http.pendingRequests.length === 0) {
           $injector.get('$ionicLoading').hide();
         }
         return response;
       },
       responseError: function(rejection) {
         var $http = $injector.get('$http');
-        if ($http.pendingRequests.length < 1) {
+        if ($http.pendingRequests.length === 0) {
           $injector.get('$ionicLoading').hide();
         }
         return rejection;
