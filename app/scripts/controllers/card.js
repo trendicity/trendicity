@@ -7,7 +7,7 @@ angular.module('Trendicity')
   $ionicSideMenuDelegate.canDragContent(false);
 })
 
-.controller('CardCtrl', function ($scope, InstagramService) {
+.controller('CardCtrl', function ($scope, InstagramService, TDCardDelegate) {
   console.log('Inside CardCtrl....');
 
   $scope.cardTransitionedLeft = function(index) {
@@ -24,6 +24,10 @@ angular.module('Trendicity')
 
   $scope.cardTransitionedRight = function(index) {
     console.log('cardTransitionedRight called with index:' + index);
+    if (!InstagramService.isLoggegIn()) {
+      return;
+    }
+
     var post = $scope.posts[index];
 
     InstagramService.likePost(post.id)
@@ -33,6 +37,11 @@ angular.module('Trendicity')
   };
 
   $scope.cardDestroyed = function(index) {
-    $scope.posts.splice(index, 1);
+    var card = TDCardDelegate.getSwipeableCard($scope);
+    if (!InstagramService.isLoggegIn()) {
+      card.snapBack();
+    } else {
+      $scope.posts.splice(index, 1);
+    }
   };
 });
