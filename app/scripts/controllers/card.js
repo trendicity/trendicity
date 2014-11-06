@@ -37,11 +37,12 @@ angular.module('Trendicity')
   };
 
   $scope.cardDestroyed = function(index) {
-    var card = TDCardDelegate.getSwipeableCard($scope);
-    if (!InstagramService.isLoggegIn()) {
-      card.snapBack();
-    } else {
-      $scope.posts.splice(index, 1);
-    }
+//    if (!InstagramService.isLoggegIn()) {
+//      var card = TDCardDelegate.getSwipeableCard($scope);
+//      card.snapBack();
+//    } else {
+//      $scope.posts.splice(index, 1);
+//    }
+    $scope.posts.splice(index, 1);
   };
 });
