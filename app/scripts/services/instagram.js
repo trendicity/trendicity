@@ -103,4 +103,25 @@ angular.module('Trendicity')
       });
     return promise;
   };
+
+  this.logout = function() {
+    var access_token = localStorage.getItem('TrendiCity:accessToken'); // jshint ignore:line
+    var promise = $http.post('https://instagram.com/oauth/revoke_access', 'token=' + access_token, // jshint ignore:line
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+      .error(function (data, status) {
+        console.log('logout returned status:' + status);
+      })
+      .finally(function() {
+        localStorage.removeItem('TrendiCity:accessToken');
+      });
+    return promise;
+  };
+
+  this.isLoggegIn = function() {
+    return localStorage.getItem('TrendiCity:accessToken') || false;
+  };
 });

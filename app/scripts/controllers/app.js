@@ -35,11 +35,11 @@ angular.module('Trendicity')
 
   // Perform the login action when the user submits the login form
   $scope.logout = function() {
-    localStorage.removeItem('TrendiCity:accessToken');
+    InstagramService.logout();
   };
 
   $scope.isLoggedIn = function() {
-    return localStorage.getItem('TrendiCity:accessToken') || false;
+    return InstagramService.isLoggegIn();
   };
 });
 
