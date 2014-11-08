@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, InstagramService) {
+.controller('AppCtrl', function($rootScope, $scope, $ionicModal, $timeout, $state, InstagramService) {
   // Check if use has seen intro
   if (!localStorage.getItem('TrendiCity:seenIntro') || false) {
     $state.go('app.intro');
@@ -39,7 +39,15 @@ angular.module('Trendicity')
   };
 
   $scope.isLoggedIn = function() {
-    return InstagramService.isLoggegIn();
+    return InstagramService.isLoggedIn();
   };
+
+  $scope.$on('event:loginSuccessful', function() {
+    console.log('handling event:loginSuccessful...');
+    if ($rootScope.afterLoginSuccessful) {
+      $rootScope.afterLoginSuccessful();
+      $rootScope.afterLoginSuccessful = null;
+    }
+  });
 });
 

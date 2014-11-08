@@ -1,10 +1,11 @@
 'use strict';
 angular.module('Trendicity')
 
-.service('InstagramService', function($http) {
+.service('InstagramService', function($rootScope, $http) {
   var CLIENT_ID = '75d27c9457cd4d1abbacf80a228f4a10';
   var API_ROOT = 'https://api.instagram.com/v1/';
   var AUTH_REDIRECT_URL = 'http://localhost:8100/instagram.html';
+  var self = this;
 
   this.obtainAccessToken = function() {
     // TOOD: See if we already have one and return that one first ?
@@ -15,7 +16,7 @@ angular.module('Trendicity')
       AUTH_REDIRECT_URL, '_blank', 'location=no');
 
     // If the app is being run outside a cordova webview envrionment, just return since we will use a
-    // different approach to get the access token.
+    // different approach to get the access token.  On the desktop, the event:loginSuccessful will not be raised.
     if (!ionic.Platform.isWebView()) {
       return;
     }
@@ -28,6 +29,9 @@ angular.module('Trendicity')
           console.log('accessToken:' + accessToken);
           localStorage.setItem('TrendiCity:accessToken', accessToken);
           ref.close();
+          if (self.isLoggedIn()) {
+            $rootScope.$broadcast('event:loginSuccessful');
+          }
         }
       });
     }
@@ -38,6 +42,7 @@ angular.module('Trendicity')
 
     options.client_id = CLIENT_ID; // jshint ignore:line
     options.callback = 'JSON_CALLBACK';
+    options.access_token = localStorage.getItem('TrendiCity:accessToken'); // jshint ignore:line
 
     var promise =
       $http.jsonp(API_ROOT + 'media/popular', {
@@ -57,6 +62,7 @@ angular.module('Trendicity')
     options.lat = lat;
     options.lng = lng;
     options.callback = 'JSON_CALLBACK';
+    options.access_token = localStorage.getItem('TrendiCity:accessToken'); // jshint ignore:line
 
     var promise = $http.jsonp(API_ROOT + 'media/search', {
       params: options
@@ -121,7 +127,7 @@ angular.module('Trendicity')
     return promise;
   };
 
-  this.isLoggegIn = function() {
+  this.isLoggedIn = function() {
     return localStorage.getItem('TrendiCity:accessToken') || false;
   };
 });

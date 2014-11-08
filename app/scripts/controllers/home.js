@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('HomeCtrl', function ($scope, $ionicPopover, InstagramService) {
+.controller('HomeCtrl', function ($rootScope, $scope, $ionicPopover, InstagramService) {
     console.log('Inside HomeCtrl...');
 
     $scope.posts = [];
@@ -17,12 +17,22 @@ angular.module('Trendicity')
           $scope.posts = data.data;
         });
       } else if (newValue === 'UF') {
-        InstagramService.findUserFeedPosts().success(function (data) {
-          $scope.posts = data.data;
-        });
+        if (InstagramService.isLoggedIn()) {
+          $scope.findUserFeedPosts();
+        } else {
+          $rootScope.afterLoginSuccessful = $scope.findUserFeedPosts;
+          $scope.closePopover();
+          $scope.modal.show();
+        }
       }
       $scope.closePopover();
     });
+
+    $scope.findUserFeedPosts = function() {
+      InstagramService.findUserFeedPosts().success(function (data) {
+        $scope.posts = data.data;
+      });
+    };
 
     $ionicPopover.fromTemplateUrl('templates/search.html', {
       scope: $scope,

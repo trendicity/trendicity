@@ -12,7 +12,7 @@ angular.module('Trendicity')
 
   $scope.cardTransitionedLeft = function(index) {
     console.log('cardTransitionedLeft called with index:' + index);
-    if (!InstagramService.isLoggegIn()) {
+    if (!InstagramService.isLoggedIn()) {
       return;
     }
     var post = $scope.posts[index];
@@ -27,7 +27,7 @@ angular.module('Trendicity')
 
   $scope.cardTransitionedRight = function(index) {
     console.log('cardTransitionedRight called with index:' + index);
-    if (!InstagramService.isLoggegIn()) {
+    if (!InstagramService.isLoggedIn()) {
       return;
     }
 
@@ -40,6 +40,13 @@ angular.module('Trendicity')
   };
 
   $scope.cardDestroyed = function(index) {
-    $scope.posts.splice(index, 1);
+    console.log('cardDestroyed called with index:' + index);
+    if (!InstagramService.isLoggedIn()) {
+      $scope.modal.show();
+      var card = TDCardDelegate.getSwipeableCard($scope);
+      card.snapBack();
+    } else {
+      $scope.posts.splice(index, 1);
+    }
   };
 });
