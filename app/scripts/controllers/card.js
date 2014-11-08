@@ -12,6 +12,9 @@ angular.module('Trendicity')
 
   $scope.cardTransitionedLeft = function(index) {
     console.log('cardTransitionedLeft called with index:' + index);
+    if (!InstagramService.isLoggegIn()) {
+      return;
+    }
     var post = $scope.posts[index];
 
     if (post.user_has_liked) { // jshint ignore:line
@@ -37,12 +40,6 @@ angular.module('Trendicity')
   };
 
   $scope.cardDestroyed = function(index) {
-//    if (!InstagramService.isLoggegIn()) {
-//      var card = TDCardDelegate.getSwipeableCard($scope);
-//      card.snapBack();
-//    } else {
-//      $scope.posts.splice(index, 1);
-//    }
     $scope.posts.splice(index, 1);
   };
 });
