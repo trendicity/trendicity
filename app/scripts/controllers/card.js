@@ -16,8 +16,8 @@ angular.module('Trendicity')
 
     if (post.user_has_liked) { // jshint ignore:line
       InstagramService.dislikePost(post.id)
-        .success(function(data) {
-          console.log('you disliked it!  data:', angular.toJson(data,true));
+        .success(function() {
+          console.log('you disliked it!');
         });
     }
   };
@@ -31,8 +31,8 @@ angular.module('Trendicity')
     var post = $scope.posts[index];
 
     InstagramService.likePost(post.id)
-    .success(function(data) {
-      console.log('you liked it!  data:', angular.toJson(data,true));
+    .success(function() {
+      console.log('you liked it!');
     });
   };
 

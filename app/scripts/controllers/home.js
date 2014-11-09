@@ -24,12 +24,26 @@ angular.module('Trendicity')
           $scope.closePopover();
           $scope.modal.show();
         }
+      } else if (newValue === 'LP') {
+        if (InstagramService.isLoggedIn()) {
+          $scope.findLikedPosts();
+        } else {
+          $rootScope.afterLoginSuccessful = $scope.findLikedPosts;
+          $scope.closePopover();
+          $scope.modal.show();
+        }
       }
       $scope.closePopover();
     });
 
     $scope.findUserFeedPosts = function() {
       InstagramService.findUserFeedPosts().success(function (data) {
+        $scope.posts = data.data;
+      });
+    };
+
+    $scope.findLikedPosts = function() {
+      InstagramService.findLikedPosts().success(function (data) {
         $scope.posts = data.data;
       });
     };

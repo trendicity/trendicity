@@ -8,25 +8,20 @@ angular.module('Trendicity')
   var self = this;
 
   this.obtainAccessToken = function() {
-    // TOOD: See if we already have one and return that one first ?
-    // TODO: May need to return a promise?
-    
     var ref = window.open('https://instagram.com/oauth/authorize?client_id=' +
       CLIENT_ID + '&scope=likes+comments&response_type=token&redirect_uri=' +
       AUTH_REDIRECT_URL, '_blank', 'location=no');
 
-    // If the app is being run outside a cordova webview envrionment, just return since we will use a
-    // different approach to get the access token.  On the desktop, the event:loginSuccessful will not be raised.
+    // If the app is being run outside a cordova webview envrionment, just return since we will use the
+    // redirect to instagram.html to get the access token.  On the desktop, the event:loginSuccessful will not be raised.
     if (!ionic.Platform.isWebView()) {
       return;
     }
 
     if (ref) { // maybe we are being launched by a desktop browser
       ref.addEventListener('loadstart', function(event) {
-        console.log('event.url:' + event.url);
         if((event.url).indexOf('http://localhost') === 0) {
           var accessToken = (event.url).split('access_token=')[1];
-          console.log('accessToken:' + accessToken);
           localStorage.setItem('TrendiCity:accessToken', accessToken);
           ref.close();
           if (self.isLoggedIn()) {
@@ -79,13 +74,26 @@ angular.module('Trendicity')
     options.callback = 'JSON_CALLBACK';
     options.access_token = localStorage.getItem('TrendiCity:accessToken'); // jshint ignore:line
 
-    console.log('options.access_token:' + options.access_token); // jshint ignore:line
-
     var promise = $http.jsonp(API_ROOT + 'users/self/feed', {
       params: options
     })
     .error(function (data, status) {
       console.log('userFeedPosts returned status:' + status);
+    });
+    return promise;
+  };
+
+  this.findLikedPosts = function(options) {
+    options = options || {};
+
+    options.callback = 'JSON_CALLBACK';
+    options.access_token = localStorage.getItem('TrendiCity:accessToken'); // jshint ignore:line
+
+    var promise = $http.jsonp(API_ROOT + 'users/self/media/liked', {
+      params: options
+    })
+    .error(function (data, status) {
+      console.log('findLikedPosts returned status:' + status);
     });
     return promise;
   };
@@ -115,7 +123,7 @@ angular.module('Trendicity')
     var promise = $http.post('https://instagram.com/oauth/revoke_access', 'token=' + access_token, // jshint ignore:line
       {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/x-www-form-urlencoded' // Use the normal form based logout; no REST API for this
         }
       })
       .error(function (data, status) {
@@ -128,6 +136,6 @@ angular.module('Trendicity')
   };
 
   this.isLoggedIn = function() {
-    return localStorage.getItem('TrendiCity:accessToken') || false;
+    return localStorage.getItem('TrendiCity:accessToken') ? true : false;
   };
 });
