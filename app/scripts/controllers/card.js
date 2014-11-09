@@ -12,13 +12,15 @@ angular.module('Trendicity')
     if (!InstagramService.isLoggedIn()) {
       return;
     }
-    var post = $scope.posts[index];
 
+    var post = $scope.posts[index];
     if (post.user_has_liked) { // jshint ignore:line
       InstagramService.dislikePost(post.id)
         .success(function() {
           console.log('you disliked it!');
         });
+    } else {
+      console.log('you didnt like it in the first place!');
     }
   };
 
@@ -29,11 +31,14 @@ angular.module('Trendicity')
     }
 
     var post = $scope.posts[index];
-
-    InstagramService.likePost(post.id)
-    .success(function() {
-      console.log('you liked it!');
-    });
+    if (!post.user_has_liked) { // jshint ignore:line
+      InstagramService.likePost(post.id)
+        .success(function () {
+          console.log('you liked it!');
+        });
+    } else {
+      console.log('you already liked it previously!');
+    }
   };
 
   $scope.cardDestroyed = function(index) {
