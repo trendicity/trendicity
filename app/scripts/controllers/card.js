@@ -2,14 +2,11 @@
 angular.module('Trendicity')
 
 .controller('CardViewCtrl', function ($scope, $ionicSideMenuDelegate) {
-  console.log('Inside CardViewCtrl...');
   // Disable side-menu drag so that it doesnt interfere with our swipe cards functionality
   $ionicSideMenuDelegate.canDragContent(false);
 })
 
 .controller('CardCtrl', function ($scope, InstagramService, TDCardDelegate) {
-  console.log('Inside CardCtrl....');
-
   $scope.cardTransitionedLeft = function(index) {
     console.log('cardTransitionedLeft called with index:' + index);
     if (!InstagramService.isLoggedIn()) {
