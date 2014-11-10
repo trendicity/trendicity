@@ -1,8 +1,7 @@
 <ion-view title="Map View">
   <ion-content class="has-header">
-      <div id="map" data-tap-disabled="true"></div>
-      <div id="footer-overlay">
-          <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate"> My Location</a>
+      <div data-tap-disabled="true">
+          <leaflet center="map.center" markers="map.markers" layers="map.layers"></leaflet>
       </div>
   </ion-content>
 </ion-view>
