@@ -5,7 +5,8 @@ angular.module('Trendicity', [
   'ionic.contrib.ui.tinderCards',
   'config',
   'LocalStorageModule',
-  'ngCordova'
+  'ngCordova',
+  'leaflet-directive'
 ])
 
 .run(function($rootScope, $ionicPlatform, $ionicSideMenuDelegate) {
@@ -28,9 +29,9 @@ angular.module('Trendicity', [
     }
 
     // Enable image caching
-    ImgCache.init(function(){
-      console.log('Image caching enabled!');
-    });
+//    ImgCache.init(function(){
+//      console.log('Image caching enabled!');
+//    });
   });
 })
 
