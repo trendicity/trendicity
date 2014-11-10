@@ -1,68 +1,82 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('MapViewCtrl', function ($scope, $ionicLoading, $compile, MapService) {
-  console.log('Inside MapViewCtrl...');
+.controller('MapViewCtrl', function ($scope, $ionicPlatform, $log, leafletData) {
+    var self = this;
 
-    function initialize(position) {
-        var myLatlng = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-
-        console.log('INIT!');
-
-        var mapOptions = {
-            center: myLatlng,
-            zoom: 16,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map"),
-            mapOptions);
-
-        //Marker + infowindow + angularjs compiled ng-click
-        var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
-        var compiled = $compile(contentString)($scope);
-
-        var infowindow = new google.maps.InfoWindow({
-            content: compiled[0]
-        });
-
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map,
-            title: 'Uluru (Ayers Rock)'
-        });
-
-        google.maps.event.addListener(marker, 'click', function() {
-            infowindow.open(map,marker);
-        });
-
-        $scope.map = map;
-    }
-
-    MapService.getPosition()
-        .then(initialize);
-
-
-
-    $scope.centerOnMe = function() {
-        if(!$scope.map) {
-            return;
-        }
-
-        $scope.loading = $ionicLoading.show({
-            content: 'Getting current location...',
-            showBackdrop: false
-        });
-
-        navigator.geolocation.getCurrentPosition(function(pos) {
-                $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-                $ionicLoading.hide();
-            }, function(error) {
-                alert('Unable to get location: ' + error.message);
+    $scope.map = {
+        center: {
+            lat: 52.52,
+            lng: 13.40,
+            zoom: 14
+        },
+        markers: {
+            m1: {
+                lat: 52.52,
+                lng: 13.40
             }
-        );
+        },
+        layers: {
+            baselayers: {
+                googleRoadmap: {
+                    name: 'Google Streets',
+                    layerType: 'ROADMAP',
+                    type: 'google'
+                }
+            }
+        }
     };
 
-    $scope.clickTest = function() {
-        alert('Example of infowindow with ng-click')
+    this.registerGeoLocationWatcher = function () {
+        var watcher;
+
+        $ionicPlatform.ready(function () {
+            watcher = navigator.geolocation.getCurrentPosition(
+                function (location) {
+                    console.log(location);
+                    $log.info('Got your location.', location);
+                    $scope.map.markers.currentPosition = {
+                        message: '<div class="fm-current-location">Current Location</div>',
+                        lat: location.coords.latitude,
+                        lng: location.coords.longitude
+                    };
+
+                    self.centerMap(location.coords.latitude, location.coords.longitude);
+                },
+                function (error) {
+                    $log.debug('Failed to detect location');
+                },
+                {
+                    enableHighAccuracy: true,
+                    maximumAge: 0
+                }
+            );
+        });
+
+        $scope.$on('$destroy', function () {
+            navigator.geolocation.clearWatch(watcher);
+        });
     };
+
+    this.centerMap = function (lat, lng, zoom) {
+        $log.info('Center map: ', lat, lng, zoom);
+
+        leafletData.getMap()
+            .then(function (Leaflet) {
+                Leaflet.panTo([
+                    parseFloat(lat),
+                    parseFloat(lng)
+                ]);
+
+                if (zoom) {
+                    Leaflet.setZoom(zoom); // Zoom in
+                }
+            });
+    };
+
+    this.init = function () {
+        this.registerGeoLocationWatcher();
+    };
+
+    this.init();
 });
