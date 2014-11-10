@@ -3,22 +3,25 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title>"Trendicity"</title>
+    <title>Trendicity</title>
 
     <!-- build:css styles/vendor.css -->
     <!-- <link rel="stylesheet" href="vendor/some.contrib.css"> -->
     <!-- bower:css -->
     <link rel="stylesheet" href="lib/ionic/release/css/ionic.css" />
     <link rel="stylesheet" href="lib/ionic-contrib-tinder-cards/ionic.tdcards.css" />
+    <link rel="stylesheet" href="lib/leaflet/dist/leaflet.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/tdcards.css">
+    <link rel="stylesheet" href="styles/map.css">
     <!-- endbuild -->
 
-    <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyB16sGmIekuGIvYOfNoW9T44377IU2d2Es&sensor=true"></script>
+
+      <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
   </head>
 
   <body ng-app="Trendicity">
@@ -26,6 +29,7 @@
 
     <!-- build:js scripts/vendor.js -->
     <!-- <script src="vendor/someContribJs.js"></script> -->
+
     <!-- bower:js -->
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular-animate/angular-animate.js"></script>
@@ -38,7 +42,11 @@
     <script src="lib/imgcache.js/js/imgcache.js"></script>
     <script src="lib/ionic-contrib-tinder-cards/ionic.tdcards.js"></script>
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <script src="lib/leaflet/dist/leaflet.js"></script>
+    <script src="lib/leaflet/dist/leaflet-src.js"></script>
+    <script src="lib/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
     <!-- endbower -->
+
     <!-- endbuild -->
 
     <!-- cordova script (this will be a 404 during development) -->
@@ -59,5 +67,8 @@
     <script src="scripts/services/interceptors.js"></script>
     <script src="scripts/directives/bg-image.js"></script>
     <!-- endbuild -->
+
+    <script src="lib/leaflet-plugins/layer/tile/Google.js"></script>
+
 </body>
 </html>
