@@ -27,11 +27,6 @@ angular.module('Trendicity', [
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-
-    // Enable image caching
-//    ImgCache.init(function(){
-//      console.log('Image caching enabled!');
-//    });
   });
 })
 
