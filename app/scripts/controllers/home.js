@@ -7,15 +7,21 @@ angular.module('Trendicity')
     $scope.posts = [];
     $scope.search = { value: 'TR'};
 
+    var watcher = navigator.geolocation.getCurrentPosition(
+      function (location) {
+        $scope.location = location;
+      });
+
     $scope.$watch('search.value', function(newValue) {
       if (newValue === 'TR') {
         InstagramService.findPopularPosts().success(function (data) {
           $scope.posts = data.data;
         });
       } else if (newValue === 'NB') {
-        InstagramService.findNearbyPosts(48.858844, 2.294351).success(function (data) {
-          $scope.posts = data.data;
-        });
+        InstagramService.findNearbyPosts($scope.location.coords.latitude,
+          $scope.location.coords.longitude).success(function (data) {
+            $scope.posts = data.data;
+          });
       } else if (newValue === 'UF') {
         if (InstagramService.isLoggedIn()) {
           $scope.findUserFeedPosts();

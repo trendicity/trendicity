@@ -27,6 +27,18 @@ angular.module('Trendicity')
         }
     };
 
+    $scope.$watch('posts', function () {
+        for (var i = 0; i < $scope.posts.length; i++) {
+            if ($scope.posts[i].location){
+                $scope.map.markers['instagram' + i] = {
+                    message: '<img src="' + $scope.posts[i].images.thumbnail.url + '" />',
+                    lat: $scope.posts[i].location.latitude,
+                    lng: $scope.posts[i].location.longitude
+                }
+            }
+        }
+    });
+
     this.registerGeoLocationWatcher = function () {
         var watcher;
 
