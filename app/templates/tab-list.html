@@ -1,9 +1,16 @@
 <ion-view title="List View">
-  <ion-content class="has-header padding">
-    <div ng-repeat="post in posts">
-        <img ng-src="{{ post.images.thumbnail.url }}" />
-        <br />
-        <br />
+  <ion-content class="has-header">
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="fetchPopularPosts(true)"></ion-refresher>
+    <div class="list-post" ng-repeat="post in posts">
+        <img ng-src="{{ post.images.standard_resolution.url }}" />
+        <div class="item item-avatar">
+            <img ng-src="{{ post.user.profile_picture }}" ng-dblclick="like(post)">
+            <h2>{{ post.user.username }}</h2>
+            <p>{{ post.caption.text }}</p>
+        </div>
     </div>
   </ion-content>
 </ion-view>
+
+<!-- other data -->
+<!-- {{ post.created_time | post.likes.count | post.images.standard_resolution | post.caption.text | post.user.username | post.user.profile_picture }} -->

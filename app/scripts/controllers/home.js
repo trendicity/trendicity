@@ -12,11 +12,20 @@ angular.module('Trendicity')
         $scope.location = location;
       });
 
+    $scope.fetchPopularPosts = function(finishRefresh) {
+      InstagramService.findPopularPosts().success(function (data) {
+        $scope.posts = data.data;
+
+        // Hide ion-refresher
+        if (finishRefresh === true) {
+          $scope.$broadcast('scroll.refreshComplete');
+        }
+      });
+    };
+
     $scope.$watch('search.value', function(newValue) {
       if (newValue === 'TR') {
-        InstagramService.findPopularPosts().success(function (data) {
-          $scope.posts = data.data;
-        });
+        $scope.fetchPopularPosts();
       } else if (newValue === 'NB') {
         InstagramService.findNearbyPosts($scope.location.coords.latitude,
           $scope.location.coords.longitude).success(function (data) {
