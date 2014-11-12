@@ -6,7 +6,7 @@ angular.module('Trendicity')
     var that = this;
 
     this.add = function (location) {
-        var currentFavorites = JSON.parse(localStorage.getItem('Trendicity:Favorites'));
+        var currentFavorites = this.getFavorites();
 
         currentFavorites.push(location);
         localStorage.setItem('Trendicity:Favorites', JSON.stringify(currentFavorites));
@@ -15,7 +15,7 @@ angular.module('Trendicity')
     };
 
     this.delete = function (favorite) {
-        var currentFavorites = JSON.parse(localStorage.getItem('Trendicity:Favorites'));
+        var currentFavorites = this.getFavorites();
 
         angular.forEach(currentFavorites, function(i){
             if(i.id === favorite.id) {
@@ -31,6 +31,20 @@ angular.module('Trendicity')
 
     this.getFavorites = function () {
         return JSON.parse(localStorage.getItem('Trendicity:Favorites'));
+    };
+
+    this.getFavorite = function (id) {
+        var currentFavorites = this.getFavorites(),
+            favorite;
+
+        angular.forEach(currentFavorites, function(i){
+            if(i.id === id) {
+                favorite = i;
+                return false;
+            }
+        });
+
+        return favorite;
     };
 
     return this;
