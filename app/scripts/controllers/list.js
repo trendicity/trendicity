@@ -14,6 +14,12 @@ angular.module('Trendicity')
 
   // Like a post
   $scope.like = function(index) {
+    if (!InstagramService.isLoggedIn()) {
+      // Show login modal
+      $scope.modal.show();
+      return;
+    }
+
     var post = $scope.posts[index];
     if (!post.user_has_liked) { // jshint ignore:line
       InstagramService.likePost(post.id)
