@@ -54,3 +54,8 @@
 .scroll {
     height: 100%;
 }
+
+.list-post > img {
+    display: block;
+    width: 100%;
+}
