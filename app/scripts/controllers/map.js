@@ -28,13 +28,21 @@ angular.module('Trendicity')
     };
 
     $scope.$watch('posts', function () {
+        if ($scope.map.markers.currentPosition) {
+            $scope.map.markers = {
+                currentPosition: $scope.map.markers.currentPosition
+            };
+        }
+
+        var location;
         for (var i = 0; i < $scope.posts.length; i++) {
-            if ($scope.posts[i].location){
+            location = $scope.posts[i].location;
+            if (location && location.latitude && location.longitude){
                 $scope.map.markers['instagram' + i] = {
                     message: '<img src="' + $scope.posts[i].images.thumbnail.url + '" />',
-                    lat: $scope.posts[i].location.latitude,
-                    lng: $scope.posts[i].location.longitude
-                }
+                    lat: location.latitude,
+                    lng: location.longitude
+                };
             }
         }
     });
