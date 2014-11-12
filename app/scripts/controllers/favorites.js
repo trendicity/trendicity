@@ -11,8 +11,11 @@ angular.module('Trendicity')
         localStorage.setItem('Trendicity:Favorites', JSON.stringify($scope.testLocations));
     };
 
-    $scope.setFavorites();
+    $scope.removeFavorite = function (favorite) {
+        $scope.favorites = FavoritesService.delete(favorite);
+    };
 
+    $scope.setFavorites();
 
     $scope.favorites = FavoritesService.getFavorites();
 
