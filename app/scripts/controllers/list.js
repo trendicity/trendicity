@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('ListViewCtrl', function ($scope) {
+.controller('ListViewCtrl', function ($scope, InstagramService) {
   console.log('Inside ListViewCtrl...');
 
   // Refresh feed posts
@@ -13,7 +13,15 @@ angular.module('Trendicity')
   };
 
   // Like a post
-  $scope.like = function(post) {
-    console.log(post);
+  $scope.like = function(index) {
+    var post = $scope.posts[index];
+    if (!post.user_has_liked) { // jshint ignore:line
+      InstagramService.likePost(post.id)
+        .success(function () {
+          console.log('you liked it!');
+        });
+    } else {
+      console.log('you already liked it previously!');
+    }
   };
 });
