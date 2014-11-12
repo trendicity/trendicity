@@ -64,6 +64,10 @@
   position: relative;
 }
 
+h2.list-post-user-expanded {
+    margin-top: 10px;
+}
+
 .list-post-timestamp {
   position: absolute;
   right: 0;
