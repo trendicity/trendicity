@@ -20,10 +20,6 @@ angular.module('Trendicity')
         buttons: buttons,
         titleText: 'Options',
         cancelText: 'Close',
-        cancel: function() {
-            // Close action sheet
-            actionSheet();
-        },
         buttonClicked: function(i) {
             if (i == 0) {
                 // Like post
