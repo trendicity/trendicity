@@ -12,26 +12,17 @@ angular.module('Trendicity')
         $scope.location = location;
       });
 
-    $scope.fetchPopularPosts = function(finishRefresh) {
-      InstagramService.findPopularPosts().success(function (data) {
-        $scope.posts = data.data;
-
-        // Hide ion-refresher
-        if (finishRefresh === true) {
-          $scope.$broadcast('scroll.refreshComplete');
-        }
-      });
-    };
-
-    $scope.$watch('search.value', function(newValue) {
-      if (newValue === 'TR') {
-        $scope.fetchPopularPosts();
-      } else if (newValue === 'NB') {
+    $scope.getPosts = function(value) {
+      if (value === 'TR') {
+        InstagramService.findPopularPosts().success(function (data) {
+          $scope.posts = data.data;
+        });
+      } else if (value === 'NB') {
         InstagramService.findNearbyPosts($scope.location.coords.latitude,
           $scope.location.coords.longitude).success(function (data) {
             $scope.posts = data.data;
           });
-      } else if (newValue === 'UF') {
+      } else if (value === 'UF') {
         if (InstagramService.isLoggedIn()) {
           $scope.findUserFeedPosts();
         } else {
@@ -39,7 +30,7 @@ angular.module('Trendicity')
           $scope.closePopover();
           $scope.modal.show();
         }
-      } else if (newValue === 'LP') {
+      } else if (value === 'LP') {
         if (InstagramService.isLoggedIn()) {
           $scope.findLikedPosts();
         } else {
@@ -48,6 +39,10 @@ angular.module('Trendicity')
           $scope.modal.show();
         }
       }
+    };
+
+    $scope.$watch('search.value', function(newValue) {
+      $scope.getPosts(newValue);
       $scope.closePopover();
     });
 

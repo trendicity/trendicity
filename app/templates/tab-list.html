@@ -1,6 +1,6 @@
 <ion-view title="List View">
   <ion-content class="has-header">
-    <ion-refresher pulling-text="Pull to refresh..." on-refresh="fetchPopularPosts(true)"></ion-refresher>
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
     <div class="list-post" ng-repeat="post in posts">
         <img ng-src="{{ post.images.standard_resolution.url }}" />
         <div class="item item-avatar">
