@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('MapViewCtrl', function ($scope, $ionicPlatform, $log, leafletData) {
+.controller('MapViewCtrl', function ($scope, $ionicPlatform, $log, leafletData, FavoritesService) {
     var self = this;
 
     $scope.map = {
@@ -56,7 +56,7 @@ angular.module('Trendicity')
                     console.log(location);
                     $log.info('Got your location.', location);
                     $scope.map.markers.currentPosition = {
-                        message: '<div class="fm-current-location">Current Location</div>',
+                        message: '<div class="fm-current-location">Current Location</div><i class="ion-ios7-star-outline add-favorite" ng-click="addToFavorites(location.coords.latitude, location.coords.longitude)"></i>',
                         lat: location.coords.latitude,
                         lng: location.coords.longitude
                     };
@@ -76,6 +76,10 @@ angular.module('Trendicity')
         $scope.$on('$destroy', function () {
             navigator.geolocation.clearWatch(watcher);
         });
+    };
+
+    this.addToFavorites = function (lat, lng) {
+
     };
 
     this.centerMap = function (lat, lng, zoom) {

@@ -7,6 +7,9 @@
       <ion-item class="item-icon-right" ng-repeat="favorite in favorites" href="#/app/favorite/{{favorite.id}}">
         {{favorite.city}}
         <i class="icon ion-chevron-right icon-accessory"></i>
+        <ion-option-button class="button-assertive" ng-click="removeFavorite(favorite)">
+          Remove
+        </ion-option-button>
       </ion-item>
     </ion-list>
   </ion-content>
