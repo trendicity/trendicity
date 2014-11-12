@@ -1,8 +1,50 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('ListViewCtrl', function ($scope, InstagramService) {
+.controller('ListViewCtrl', function ($scope, $ionicActionSheet, $ionicLoading, InstagramService, FavoritesService) {
   console.log('Inside ListViewCtrl...');
+
+  // Display action sheet
+  $scope.displayOptions = function(index) {
+    // Get post
+    var post = $scope.posts[index];
+
+    var buttons = [{ text: 'Like' }];
+
+    // Add button if location available
+    if (post.location !== null) {
+        buttons.push({ text: 'Favorite' });
+    }
+
+    var actionSheet = $ionicActionSheet.show({
+        buttons: buttons,
+        titleText: 'Options',
+        cancelText: 'Close',
+        cancel: function() {
+            // Close action sheet
+            actionSheet();
+        },
+        buttonClicked: function(i) {
+            if (i == 0) {
+                // Like post
+                $scope.like(index);
+            } else if (i == 1) {
+                // Add post to favorites
+                FavoritesService.add(post.location);
+
+                // Display confirmation
+                $ionicLoading.show({
+                    template: 'Added to Favorites',
+                    noBackdrop: true,
+                    duration: 1000
+                });
+            }
+
+            // Close action sheet
+            return true;
+        }
+    });
+  };
 
   // Refresh feed posts
   $scope.doRefresh = function() {
