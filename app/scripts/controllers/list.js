@@ -25,6 +25,9 @@ angular.module('Trendicity')
       InstagramService.likePost(post.id)
         .success(function () {
           console.log('you liked it!');
+
+          // Add 'user_has_liked' attribute to post
+          $scope.posts[index]['user_has_liked'] = true;
         });
     } else {
       console.log('you already liked it previously!');
