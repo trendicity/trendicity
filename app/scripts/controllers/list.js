@@ -13,7 +13,7 @@ angular.module('Trendicity')
 
     // Add button if location available
     if (post.location !== null) {
-        buttons.push({ text: 'Favorite' });
+      buttons.push({ text: 'Favorite' });
     }
 
     var actionSheet = $ionicActionSheet.show({
@@ -21,19 +21,19 @@ angular.module('Trendicity')
         titleText: 'Options',
         cancelText: 'Close',
         buttonClicked: function(i) {
-            if (i == 0) {
-                // Like post
-                $scope.like(index);
-            } else if (i == 1) {
-                // Add post to favorites
-                FavoritesService.add(post.location);
+            if (i === 0) {
+              // Like post
+              $scope.like(index);
+            } else if (i === 1) {
+              // Add post to favorites
+              FavoritesService.add(post.location);
 
-                // Display confirmation
-                $ionicLoading.show({
-                    template: 'Added to Favorites',
-                    noBackdrop: true,
-                    duration: 1000
-                });
+              // Display confirmation
+              $ionicLoading.show({
+                  template: 'Added to Favorites',
+                  noBackdrop: true,
+                  duration: 1000
+              });
             }
 
             // Close action sheet
