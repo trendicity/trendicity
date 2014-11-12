@@ -59,3 +59,15 @@
     display: block;
     width: 100%;
 }
+
+.list-post-user {
+  position: relative;
+}
+
+.list-post-timestamp {
+  position: absolute;
+  right: 0;
+  bottom: 2px;
+  font-weight: normal;
+  font-size: 12px;
+}

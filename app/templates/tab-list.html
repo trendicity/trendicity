@@ -5,7 +5,7 @@
         <img ng-src="{{ post.images.standard_resolution.url }}" ng-dblclick="like($index)"/>
         <div class="item item-avatar">
             <img ng-src="{{ post.user.profile_picture }}">
-            <h2>{{ post.user.username }}</h2>
+            <h2 class="list-post-user">{{ post.user.username }} <span class="list-post-timestamp"><i class="icon ion-clock"></i> {{ post.created_time * 1000 | date: 'MMM d, yyyy'}}</span></h2>
             <p>{{ post.caption.text }}</p>
         </div>
         <div class="button-bar bar-light">

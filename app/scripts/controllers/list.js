@@ -26,8 +26,9 @@ angular.module('Trendicity')
         .success(function () {
           console.log('you liked it!');
 
-          // Add 'user_has_liked' attribute to post
+          // Update post to reflect like
           $scope.posts[index]['user_has_liked'] = true;
+          $scope.posts[index]['likes']['count'] = post.likes.count + 1;
         });
     } else {
       console.log('you already liked it previously!');

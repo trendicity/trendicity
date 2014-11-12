@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('HomeCtrl', function ($rootScope, $scope, $ionicPopover, InstagramService) {
+.controller('HomeCtrl', function ($rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService) {
     console.log('Inside HomeCtrl...');
 
     $scope.posts = [];
@@ -44,6 +44,7 @@ angular.module('Trendicity')
     $scope.$watch('search.value', function(newValue) {
       $scope.getPosts(newValue);
       $scope.closePopover();
+      $ionicScrollDelegate.scrollTop();
     });
 
     $scope.findUserFeedPosts = function() {
