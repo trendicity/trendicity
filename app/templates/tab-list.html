@@ -9,7 +9,7 @@
             <p>{{ post.caption.text }}</p>
         </div>
         <div class="button-bar bar-light">
-            <button class="button" ng-click="like($index)"><i class="icon ion-heart"></i> {{ post.likes.count | number }}</button>
+            <button class="button" ng-click="like($index)" ng-style="{ 'button-assertive': post.user_has_liked }"><i class="icon ion-heart"></i> {{ post.likes.count | number }}</button>
             <button class="button"><i class="icon ion-chatbubbles"></i> {{ post.comments.count | number }}</button>
         </div>
     </div>
