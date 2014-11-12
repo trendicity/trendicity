@@ -8,9 +8,13 @@
             <h2>{{ post.user.username }}</h2>
             <p>{{ post.caption.text }}</p>
         </div>
+        <div class="button-bar bar-light">
+            <button class="button" ng-click="like($index)"><i class="icon ion-heart"></i> {{ post.likes.count | number }}</button>
+            <button class="button"><i class="icon ion-chatbubbles"></i> {{ post.comments.count | number }}</button>
+        </div>
     </div>
   </ion-content>
 </ion-view>
 
 <!-- other data -->
-<!-- {{ post.created_time | post.likes.count | post.images.standard_resolution | post.caption.text | post.user.username | post.user.profile_picture }} -->
+<!-- {{ post.created_time | post.likes.count | post.images.standard_resolution | post.caption.text | post.user.username | post.user.profile_picture | post.caption.text }} -->
