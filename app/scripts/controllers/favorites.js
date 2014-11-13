@@ -38,8 +38,8 @@ angular.module('Trendicity')
         {
             id: 1,
             city: 'Dallas, TX',
-            lat: 52.52,
-            lng: 13.40
+            lat: 32.7758,
+            lng: -96.7967
         },
         {
             id: 2,
