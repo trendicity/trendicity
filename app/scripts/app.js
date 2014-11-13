@@ -70,6 +70,10 @@ angular.module('Trendicity', [
       }
     })
 
+    .state('app.home.map.id', {
+      url: '/:id'
+    })
+
     .state('app.home.card', {
       url: '/card',
       views: {
@@ -98,12 +102,6 @@ angular.module('Trendicity', [
           controller: 'FavoritesCtrl'
         }
       }
-    })
-
-    .state('app.favorites.id', {
-      url: '/:id',
-      templateUrl: 'templates/tab-map.html',
-      controller: 'FavoritesCtrl'
     });
 
   // if none of the above states are matched, use this as the fallback
