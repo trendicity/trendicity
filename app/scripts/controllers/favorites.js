@@ -5,7 +5,7 @@ angular.module('Trendicity')
 
     $scope.favorite = {};
 
-    if ( $state.params ) {
+    if ( $state.params['id'] ) {
 
         $scope.favorite = FavoritesService.getFavorite( parseInt($state.params.id, 10) );
 
