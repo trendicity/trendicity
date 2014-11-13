@@ -13,7 +13,7 @@ angular.module('Trendicity')
 
     // Add button if location available
     if (post.location !== null) {
-      buttons.push({ text: 'Favorite' });
+      buttons.push({ text: 'Favorite Post\'s Location' });
     }
 
     var actionSheet = $ionicActionSheet.show({
