@@ -29,6 +29,7 @@ angular.module('Trendicity')
             } else if (i === 1) {
               // Add post's location to favorites
               FavoritesService.add({
+                id: post.id.replace(/\D/g, ''),
                 city: (post.location.name || post.user.username + '\'s post'),
                 lng: post.location.longitude,
                 lat: post.location.latitude
