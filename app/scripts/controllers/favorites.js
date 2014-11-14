@@ -1,11 +1,11 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('FavoritesCtrl', function($scope, FavoritesService, $state) {
+.controller('FavoritesCtrl', function($scope, FavoritesService, $state, $ionicModal) {
 
     $scope.favorite = {};
 
-    if ( $state.params ) {
+    if ( $state.params.id ) {
 
         $scope.favorite = FavoritesService.getFavorite( parseInt($state.params.id, 10) );
 
@@ -70,5 +70,24 @@ angular.module('Trendicity')
     };
 
     $scope.favorites = FavoritesService.getFavorites();
+
+    $ionicModal.fromTemplateUrl('add-favorite-modal.html', {
+     scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.modal = modal;
+    });
+
+    $scope.openAddFavoriteForm = function () {
+        $scope.modal.show();
+    };
+
+    $scope.closeAddFavoriteForm = function() {
+        $scope.modal.hide();
+    };
+
+    $scope.$on('$destroy', function() {
+        $scope.modal.remove();
+    });
 
 });
