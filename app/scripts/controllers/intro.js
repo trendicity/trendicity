@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate, $ionicSideMenuDelegate, $ionicViewService) {
+.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate, $ionicSideMenuDelegate, $ionicViewService, localStorageService) {
   // Temporarily disable side-menu drag
   $ionicSideMenuDelegate.canDragContent(false);
 
@@ -9,7 +9,7 @@ angular.module('Trendicity')
   $ionicViewService.clearHistory();
 
   // Mark intro as seen
-  localStorage.setItem('TrendiCity:seenIntro', true);
+  localStorageService.set('seenIntro', true);
 
   // Called to navigate to the main app
   $scope.startApp = function() {

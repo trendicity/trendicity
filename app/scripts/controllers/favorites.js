@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('FavoritesCtrl', function($scope, FavoritesService, $state, $ionicModal) {
+.controller('FavoritesCtrl', function($scope, FavoritesService, $state, $ionicModal, localStorageService) {
 
     $scope.favorite = {};
 
@@ -56,7 +56,7 @@ angular.module('Trendicity')
     ];
 
     $scope.setFavorites = function () {
-        localStorage.setItem('Trendicity:Favorites', JSON.stringify($scope.testLocations));
+        localStorageService.set('Trendicity:Favorites', $scope.testLocations);
     };
 
     $scope.setFavorites();

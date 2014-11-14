@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Trendicity')
 
-.service('InstagramService', function($rootScope, $http) {
+.service('InstagramService', function($rootScope, $http, localStorageService) {
   var CLIENT_ID = '75d27c9457cd4d1abbacf80a228f4a10';
   var API_ROOT = 'https://api.instagram.com/v1/';
   var AUTH_REDIRECT_URL = 'http://localhost:8100/instagram.html';
@@ -22,7 +22,7 @@ angular.module('Trendicity')
       ref.addEventListener('loadstart', function(event) {
         if((event.url).indexOf('http://localhost') === 0) {
           var accessToken = (event.url).split('access_token=')[1];
-          localStorage.setItem('TrendiCity:accessToken', accessToken);
+          localStorageService.set('accessToken', accessToken);
           ref.close();
           if (self.isLoggedIn()) {
             $rootScope.$broadcast('event:loginSuccessful');
@@ -37,7 +37,7 @@ angular.module('Trendicity')
 
     options.client_id = CLIENT_ID; // jshint ignore:line
     options.callback = 'JSON_CALLBACK';
-    options.access_token = localStorage.getItem('TrendiCity:accessToken'); // jshint ignore:line
+    options.access_token = localStorageService.get('accessToken'); // jshint ignore:line
 
     var promise =
       $http.jsonp(API_ROOT + 'media/popular', {
@@ -57,7 +57,7 @@ angular.module('Trendicity')
     options.lat = lat;
     options.lng = lng;
     options.callback = 'JSON_CALLBACK';
-    options.access_token = localStorage.getItem('TrendiCity:accessToken'); // jshint ignore:line
+    options.access_token = localStorageService.get('accessToken'); // jshint ignore:line
 
     var promise = $http.jsonp(API_ROOT + 'media/search', {
       params: options
@@ -72,7 +72,7 @@ angular.module('Trendicity')
     options = options || {};
 
     options.callback = 'JSON_CALLBACK';
-    options.access_token = localStorage.getItem('TrendiCity:accessToken'); // jshint ignore:line
+    options.access_token = localStorageService.get('accessToken'); // jshint ignore:line
 
     var promise = $http.jsonp(API_ROOT + 'users/self/feed', {
       params: options
@@ -87,7 +87,7 @@ angular.module('Trendicity')
     options = options || {};
 
     options.callback = 'JSON_CALLBACK';
-    options.access_token = localStorage.getItem('TrendiCity:accessToken'); // jshint ignore:line
+    options.access_token = localStorageService.get('accessToken'); // jshint ignore:line
 
     var promise = $http.jsonp(API_ROOT + 'users/self/media/liked', {
       params: options
@@ -99,7 +99,7 @@ angular.module('Trendicity')
   };
 
   this.likePost = function(mediaId) {
-    var access_token = localStorage.getItem('TrendiCity:accessToken'); // jshint ignore:line
+    var access_token = localStorageService.get('accessToken'); // jshint ignore:line
 
     var promise = $http.post(API_ROOT + 'media/' + mediaId + '/likes?access_token=' + access_token) // jshint ignore:line
     .error(function (data, status) {
@@ -109,7 +109,7 @@ angular.module('Trendicity')
   };
 
   this.dislikePost = function(mediaId) {
-    var access_token = localStorage.getItem('TrendiCity:accessToken'); // jshint ignore:line
+    var access_token = localStorageService.get('accessToken'); // jshint ignore:line
 
     var promise = $http.delete(API_ROOT + 'media/' + mediaId + '/likes?access_token=' + access_token) // jshint ignore:line
       .error(function (data, status) {
@@ -119,7 +119,7 @@ angular.module('Trendicity')
   };
 
   this.logout = function() {
-    var access_token = localStorage.getItem('TrendiCity:accessToken'); // jshint ignore:line
+    var access_token = localStorageService.get('accessToken'); // jshint ignore:line
     var promise = $http.post('https://instagram.com/oauth/revoke_access', 'token=' + access_token, // jshint ignore:line
       {
         headers: {
@@ -130,12 +130,12 @@ angular.module('Trendicity')
         console.log('logout returned status:' + status);
       })
       .finally(function() {
-        localStorage.removeItem('TrendiCity:accessToken');
+         localStorageService.remove('accessToken');
       });
     return promise;
   };
 
   this.isLoggedIn = function() {
-    return localStorage.getItem('TrendiCity:accessToken') ? true : false;
+    return !!localStorageService.get('accessToken');
   };
 });

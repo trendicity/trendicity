@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Trendicity')
 
-.service('FavoritesService', function($cordovaGeolocation, $http) {
+.service('FavoritesService', function(localStorageService) {
 
     var that = this;
 
@@ -9,7 +9,7 @@ angular.module('Trendicity')
         var currentFavorites = this.getFavorites();
 
         currentFavorites.push(location);
-        localStorage.setItem('Trendicity:Favorites', JSON.stringify(currentFavorites));
+        localStorageService.set('Favorites', currentFavorites);
 
         return this.getFavorites();
     };
@@ -24,13 +24,13 @@ angular.module('Trendicity')
             }
         });
 
-        localStorage.setItem('Trendicity:Favorites', JSON.stringify(currentFavorites));
+        localStorageService.set('Favorites', currentFavorites);
 
         return this.getFavorites();
     };
 
     this.getFavorites = function () {
-        return JSON.parse(localStorage.getItem('Trendicity:Favorites'));
+        return localStorageService.get('Favorites');
     };
 
     this.getFavorite = function (id) {
