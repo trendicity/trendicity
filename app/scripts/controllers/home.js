@@ -1,16 +1,18 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('HomeCtrl', function ($rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService) {
+.controller('HomeCtrl', function ($rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService, $ionicPlatform) {
     console.log('Inside HomeCtrl...');
 
     $scope.posts = [];
     $scope.search = { value: 'TR'};
 
-    var watcher = navigator.geolocation.getCurrentPosition(
-      function (location) {
-        $scope.location = location;
-      });
+    $ionicPlatform.ready(function () {
+        var watcher = navigator.geolocation.getCurrentPosition(
+          function (location) {
+            $scope.location = location;
+          });
+    });
 
     $scope.getPosts = function(value) {
       if (value === 'TR') {
