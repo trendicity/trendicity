@@ -5,8 +5,8 @@ angular.module('Trendicity')
     var that = this,
         currentPositionWatcher,
         fallbackPositionObject = {
-            latitude: '',
-            longitude: '',
+            latitude: '12.1401024',
+            longitude: '-68.837932',
             accuracy: 0
         };
 
