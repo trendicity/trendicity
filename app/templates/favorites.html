@@ -7,7 +7,7 @@
   </ion-nav-buttons>
   <ion-content class="has-header">
     <ion-list>
-      <ion-item class="item-icon-right" ng-repeat="favorite in favorites" ui-sref="app.favorites.id({id: {{favorite.id}}})">
+      <ion-item class="item-icon-right" ng-repeat="favorite in favorites" ui-sref="app.home.map.id({id: {{favorite.id}}})">
         {{favorite.city}}
         <i class="icon ion-chevron-right icon-accessory"></i>
         <ion-option-button class="button-assertive" ng-click="removeFavorite(favorite)">

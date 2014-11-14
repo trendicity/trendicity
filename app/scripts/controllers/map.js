@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('MapViewCtrl', function ($scope, $ionicPlatform, $log, leafletData, FavoritesService) {
+.controller('MapViewCtrl', function ($scope, $state, $location, $ionicPlatform, $log, leafletData, FavoritesService) {
     var self = this;
 
     $scope.map = {
@@ -102,5 +102,35 @@ angular.module('Trendicity')
         this.registerGeoLocationWatcher();
     };
 
-    this.init();
+    // Load favorite
+    if ($state.params['id']) {
+        $scope.favorite = FavoritesService.getFavorite( parseInt($state.params.id, 10) );
+
+        $scope.map = {
+            center: {
+                lat: $scope.favorite.lat,
+                lng: $scope.favorite.lng,
+                zoom: 14
+            },
+            markers: {
+                m1: {
+                    lat: $scope.favorite.lat,
+                    lng: $scope.favorite.lng
+                }
+            },
+            layers: {
+                baselayers: {
+                    googleRoadmap: {
+                        name: 'Google Streets',
+                        layerType: 'ROADMAP',
+                        type: 'google'
+                    }
+                }
+            }
+        };
+
+
+    } else {
+        this.init();
+    }
 });
