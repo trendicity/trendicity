@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Trendicity')
 
-.service('MapService', function($cordovaGeolocation) {
+.service('MapService', function(GeolocationService) {
     var serviceDefintion = {
         getMapOptions: function (options) {
             options = options || {};
@@ -21,8 +21,7 @@ angular.module('Trendicity')
         },
 
         getPosition: function () {
-            var args = Array.prototype.slice.call(arguments);
-            return $cordovaGeolocation.getCurrentPosition.apply(this, args);
+            return GeolocationService.getCurrentPosition();
         }
     }
 

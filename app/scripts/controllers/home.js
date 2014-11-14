@@ -1,18 +1,23 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('HomeCtrl', function ($rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService, $ionicPlatform) {
+.controller('HomeCtrl', function ($rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService, GeolocationService) {
     console.log('Inside HomeCtrl...');
 
     $scope.posts = [];
     $scope.search = { value: 'TR'};
 
-    $ionicPlatform.ready(function () {
-        var watcher = navigator.geolocation.getCurrentPosition(
-          function (location) {
-            $scope.location = location;
-          });
-    });
+    GeolocationService.getCurrentPosition()
+        .then(
+            function (location) {
+                $scope.location = location;
+            },
+            function (fallbackLocation) {
+                $scope.location = fallbackLocation;
+            }
+        );
+
+    GeolocationService.addressToPosition('Willemstad, curacao');
 
     $scope.getPosts = function(value) {
       if (value === 'TR') {
