@@ -4,7 +4,7 @@
   "dependencies": {
     "ionic": "v1.0.0-beta.13",
     "angular-local-storage": "~0",
-    "ionic-contrib-tinder-cards": "https://github.com/keithdmoore/ionic-contrib-tinder-cards/releases/tag/0.1",
+    "ionic-contrib-tinder-cards": "https://github.com/keithdmoore/ionic-contrib-tinder-cards.git#stable",
     "ngCordova": "~0.1.6-alpha",
     "angular-leaflet-directive": "~0.7.9",
     "leaflet-plugins": "~1.2.0"
