@@ -8,43 +8,26 @@ angular.module('Trendicity')
     $scope.search = { value: 'TR'};
 
     GeolocationService.getCurrentPosition()
-        .then(
-            function (location) {
-                $scope.location = location;
-            },
-            function (fallbackLocation) {
-                $scope.location = fallbackLocation;
-            }
-        );
+      .then(
+        function (location) {
+          $scope.location = location;
+        },
+        function (fallbackLocation) {
+          $scope.location = fallbackLocation;
+        }
+      );
 
     GeolocationService.addressToPosition('Willemstad, curacao');
 
     $scope.getPosts = function(value) {
       if (value === 'TR') {
-        InstagramService.findPopularPosts().success(function (data) {
-          $scope.posts = data.data;
-        });
+        $scope.findPopularPosts();
       } else if (value === 'NB') {
-        InstagramService.findNearbyPosts($scope.location.coords.latitude,
-          $scope.location.coords.longitude).success(function (data) {
-            $scope.posts = data.data;
-          });
+        $scope.findNearbyPosts();
       } else if (value === 'UF') {
-        if (InstagramService.isLoggedIn()) {
-          $scope.findUserFeedPosts();
-        } else {
-          $rootScope.afterLoginSuccessful = $scope.findUserFeedPosts;
-          $scope.closePopover();
-          $scope.modal.show();
-        }
+        $scope.findUserFeedPosts();
       } else if (value === 'LP') {
-        if (InstagramService.isLoggedIn()) {
-          $scope.findLikedPosts();
-        } else {
-          $rootScope.afterLoginSuccessful = $scope.findLikedPosts;
-          $scope.closePopover();
-          $scope.modal.show();
-        }
+        $scope.findLikedPosts();
       }
     };
 
@@ -53,6 +36,19 @@ angular.module('Trendicity')
       $scope.closePopover();
       $ionicScrollDelegate.scrollTop();
     });
+
+    $scope.findPopularPosts = function() {
+      InstagramService.findPopularPosts().success(function (data) {
+        $scope.posts = data.data;
+      });
+    };
+
+    $scope.findNearbyPosts = function() {
+      InstagramService.findNearbyPosts($scope.location.coords.latitude,
+        $scope.location.coords.longitude).success(function (data) {
+          $scope.posts = data.data;
+        });
+    };
 
     $scope.findUserFeedPosts = function() {
       InstagramService.findUserFeedPosts().success(function (data) {
