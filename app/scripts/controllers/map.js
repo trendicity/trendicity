@@ -35,15 +35,17 @@ angular.module('Trendicity')
         }
 
         var location;
-        for (var i = 0; i < $scope.posts.length; i++) {
+        if ($scope.posts) {
+          for (var i = 0; i < $scope.posts.length; i++) {
             location = $scope.posts[i].location;
             if (location && location.latitude && location.longitude){
-                $scope.map.markers['instagram' + i] = {
-                    message: '<img src="' + $scope.posts[i].images.thumbnail.url + '" />',
-                    lat: location.latitude,
-                    lng: location.longitude
-                };
+              $scope.map.markers['instagram' + i] = {
+                message: '<img src="' + $scope.posts[i].images.thumbnail.url + '" />',
+                lat: location.latitude,
+                lng: location.longitude
+              };
             }
+          }
         }
     });
 
