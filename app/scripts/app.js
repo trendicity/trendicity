@@ -6,7 +6,8 @@ angular.module('Trendicity', [
   'config',
   'LocalStorageModule',
   'ngCordova',
-  'leaflet-directive'
+  'leaflet-directive',
+  'http-auth-interceptor'
 ])
 
 .run(function($rootScope, $ionicPlatform, $ionicSideMenuDelegate) {
