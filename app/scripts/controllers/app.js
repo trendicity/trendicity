@@ -42,12 +42,13 @@ angular.module('Trendicity')
     return InstagramService.isLoggedIn();
   };
 
-  $scope.$on('event:loginSuccessful', function() {
-    console.log('handling event:loginSuccessful...');
-    if ($rootScope.afterLoginSuccessful) {
-      $rootScope.afterLoginSuccessful();
-      $rootScope.afterLoginSuccessful = null;
-    }
+  $scope.$on('event:auth-loginRequired', function() {
+    console.log('handling event:auth-loginRequired  ...');
+    $scope.modal.show();
+  });
+
+  $scope.$on('event:auth-loginConfirmed', function() {
+    console.log('handling event:auth-loginConfirmed...');
   });
 });
 
