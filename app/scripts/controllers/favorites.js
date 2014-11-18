@@ -34,33 +34,6 @@ angular.module('Trendicity')
 
     }
 
-    $scope.testLocations = [
-        {
-            id: 1,
-            city: 'Dallas, TX',
-            lat: 32.7758,
-            lng: -96.7967
-        },
-        {
-            id: 2,
-            city: 'Chicago, IL',
-            lat: 41.885736,
-            lng: -87.630877
-        },
-        {
-            id: 3,
-            city: 'New York, NY',
-            lat: 40.584499,
-            lng: -74.158591
-        }
-    ];
-
-    $scope.setFavorites = function () {
-        localStorageService.set('Trendicity:Favorites', $scope.testLocations);
-    };
-
-    $scope.setFavorites();
-
     $scope.removeFavorite = function (favorite) {
         $scope.favorites = FavoritesService.delete(favorite);
     };
