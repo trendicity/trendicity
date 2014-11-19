@@ -4,7 +4,8 @@ angular.module('Trendicity')
 .service('FavoritesService', function(localStorageService, $http) {
 
     this.add = function (location) {
-        var currentFavorites = this.getFavorites();
+        var currentFavorites = this.getFavorites() ? this.getFavorites() : [];
+        var id = currentFavorites.length + 1;
 
         var address = location.address + ", " + location.city + " " + location.state + " " + location.postalCode;
 
@@ -12,7 +13,7 @@ angular.module('Trendicity')
         .success( function ( data ) {
             // TODO: Better ID handling
             var newLocation = {
-                id: currentFavorites.length + 1,
+                id: id,
                 city: location.city + ", " + location.state,
                 lat: data.results[0].geometry.location.lat,
                 lng: data.results[0].geometry.location.lng

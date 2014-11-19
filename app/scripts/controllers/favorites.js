@@ -39,7 +39,10 @@ angular.module('Trendicity')
     };
 
     $scope.addFavorite = function(location) {
-        $scope.favorites = FavoritesService.add(location);
+        FavoritesService.add(location).then(function (data) {
+            $scope.favorites = FavoritesService.getFavorites();
+            $scope.closeAddFavoriteForm();
+        });
     };
 
     $scope.favorites = FavoritesService.getFavorites();
