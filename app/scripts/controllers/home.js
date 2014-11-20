@@ -84,6 +84,13 @@ angular.module('Trendicity')
         $scope.popover.remove();
       }
     });
+
+    $scope.$on('event:auth-logoutComplete', function() {
+      console.log('handling event:auth-logoutComplete...');
+      if ($scope.search.value == 'UF' || $scope.search.value == 'LP') {
+        $scope.posts = [];
+      }
+    });
   }
 );
 

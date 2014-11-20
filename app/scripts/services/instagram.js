@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Trendicity')
 
-.service('InstagramService', function($rootScope, $http, localStorageService) {
+.service('InstagramService', function($rootScope, $http, $timeout, localStorageService, authService) {
   var CLIENT_ID = '75d27c9457cd4d1abbacf80a228f4a10';
   var API_ROOT = 'https://api.instagram.com/v1/';
   var AUTH_REDIRECT_URL = 'http://localhost:8100/instagram.html';
@@ -10,38 +10,52 @@ angular.module('Trendicity')
   this.obtainAccessToken = function() {
     var ref = window.open('https://instagram.com/oauth/authorize?client_id=' +
       CLIENT_ID + '&scope=likes+comments&response_type=token&redirect_uri=' +
-      AUTH_REDIRECT_URL, '_blank', 'location=no');
+      AUTH_REDIRECT_URL, '_blank', 'location=no'
+    );
 
-    // If the app is being run outside a cordova webview envrionment, just return since we will use the
-    // redirect to instagram.html to get the access token.  On the desktop, the event:loginSuccessful will not be raised.
-    if (!ionic.Platform.isWebView()) {
-      return;
+    var configUpdater = function(config) {
+      config.params = config.params || {};
+      config.params.access_token = self.getAccessToken();
+      return config;
     }
 
-    if (ref) { // maybe we are being launched by a desktop browser
-      ref.addEventListener('loadstart', function(event) {
-        if((event.url).indexOf('http://localhost') === 0) {
+    if (ionic.Platform.isWebView()) { // If running in a WebView (i.e. on a mobile device/simulator)
+      ref.addEventListener('loadstart', function (event) {
+        console.log('inside loadstart event');
+        if ((event.url).indexOf(AUTH_REDIRECT_URL) === 0) {
           var accessToken = (event.url).split('access_token=')[1];
           localStorageService.set('accessToken', accessToken);
           ref.close();
           if (self.isLoggedIn()) {
-            $rootScope.$broadcast('event:loginSuccessful');
+            authService.loginConfirmed(null, configUpdater);
           }
         }
+      });
+    } else { // if running on a desktop browser use this hack
+      ref.addEventListener('unload', function(event) {
+        // Need to wait a bit for localStorage to be updated
+        $timeout(function(){
+          if (self.isLoggedIn()) {
+            console.log('user is logged in now');
+            authService.loginConfirmed(null, configUpdater);
+          } else {
+            console.log('not logged in yet');
+          }
+        }, 1000);
       });
     }
   };
 
   this.findPopularPosts = function(options) {
     options = options || {};
-
     options.client_id = CLIENT_ID; // jshint ignore:line
-    options.callback = 'JSON_CALLBACK';
-    options.access_token = localStorageService.get('accessToken'); // jshint ignore:line
 
     var promise =
-      $http.jsonp(API_ROOT + 'media/popular', {
-        params: options
+      $http.get(API_ROOT + 'media/popular', {
+        params: options,
+        headers: {
+          "Content-Type": "application/json"
+        }
       })
       .error(function(data, status) {
         console.log('findPopularPosts returned status:'  + status);
@@ -52,14 +66,11 @@ angular.module('Trendicity')
   // options.distance by default is 1 Kilometer
   this.findNearbyPosts = function(lat, lng, options) {
     options = options || {};
-
     options.client_id = CLIENT_ID; // jshint ignore:line
     options.lat = lat;
     options.lng = lng;
-    options.callback = 'JSON_CALLBACK';
-    options.access_token = localStorageService.get('accessToken'); // jshint ignore:line
 
-    var promise = $http.jsonp(API_ROOT + 'media/search', {
+    var promise = $http.get(API_ROOT + 'media/search', {
       params: options
     })
     .error(function(data, status) {
@@ -71,10 +82,7 @@ angular.module('Trendicity')
   this.findUserFeedPosts = function(options) {
     options = options || {};
 
-    options.callback = 'JSON_CALLBACK';
-    options.access_token = localStorageService.get('accessToken'); // jshint ignore:line
-
-    var promise = $http.jsonp(API_ROOT + 'users/self/feed', {
+    var promise = $http.get(API_ROOT + 'users/self/feed', {
       params: options
     })
     .error(function (data, status) {
@@ -86,10 +94,7 @@ angular.module('Trendicity')
   this.findLikedPosts = function(options) {
     options = options || {};
 
-    options.callback = 'JSON_CALLBACK';
-    options.access_token = localStorageService.get('accessToken'); // jshint ignore:line
-
-    var promise = $http.jsonp(API_ROOT + 'users/self/media/liked', {
+    var promise = $http.get(API_ROOT + 'users/self/media/liked', {
       params: options
     })
     .error(function (data, status) {
@@ -99,9 +104,7 @@ angular.module('Trendicity')
   };
 
   this.likePost = function(mediaId) {
-    var access_token = localStorageService.get('accessToken'); // jshint ignore:line
-
-    var promise = $http.post(API_ROOT + 'media/' + mediaId + '/likes?access_token=' + access_token) // jshint ignore:line
+    var promise = $http.post(API_ROOT + 'media/' + mediaId + '/likes')
     .error(function (data, status) {
       console.log('likePost returned status:' + status);
     });
@@ -109,9 +112,7 @@ angular.module('Trendicity')
   };
 
   this.dislikePost = function(mediaId) {
-    var access_token = localStorageService.get('accessToken'); // jshint ignore:line
-
-    var promise = $http.delete(API_ROOT + 'media/' + mediaId + '/likes?access_token=' + access_token) // jshint ignore:line
+    var promise = $http.delete(API_ROOT + 'media/' + mediaId + '/likes')
       .error(function (data, status) {
         console.log('dislikePost returned status:' + status);
       });
@@ -119,23 +120,22 @@ angular.module('Trendicity')
   };
 
   this.logout = function() {
-    var access_token = localStorageService.get('accessToken'); // jshint ignore:line
-    var promise = $http.post('https://instagram.com/oauth/revoke_access', 'token=' + access_token, // jshint ignore:line
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded' // Use the normal form based logout; no REST API for this
-        }
-      })
+    var promise = $http.post('https://instagram.com/accounts/logout')
       .error(function (data, status) {
         console.log('logout returned status:' + status);
       })
       .finally(function() {
          localStorageService.remove('accessToken');
+         $rootScope.$broadcast('event:auth-logoutComplete');
       });
     return promise;
   };
 
+  this.getAccessToken = function() {
+    return localStorageService.get('accessToken');
+  };
+
   this.isLoggedIn = function() {
-    return !!localStorageService.get('accessToken');
+    return !!this.getAccessToken();
   };
 });
