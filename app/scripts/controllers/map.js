@@ -1,8 +1,17 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('MapViewCtrl', function ($scope, $state, $location, $ionicPlatform, $log, leafletData, FavoritesService, InstagramService) {
+.controller('MapViewCtrl', function ($scope, $rootScope, $state, $location, $ionicPlatform, $log, leafletData, FavoritesService, InstagramService) {
     var self = this;
+
+    // TODO: Figure out whats going on with manual $state.go('app.home.map', {}, {reload:true});
+    // Have an issue with controller not reinitializing on state change, which we need
+    // to reset the map
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        if ( toState.name === "app.home.map" ) {
+            $scope.init();
+        }
+    });
 
     $scope.map = {
         center: {
@@ -49,7 +58,7 @@ angular.module('Trendicity')
         }
     });
 
-    this.registerGeoLocationWatcher = function () {
+    $scope.registerGeoLocationWatcher = function () {
         var watcher;
 
         $ionicPlatform.ready(function () {
@@ -58,7 +67,7 @@ angular.module('Trendicity')
                     console.log(location);
                     $log.info('Got your location.', location);
                     $scope.map.markers.currentPosition = {
-                        message: '<div class="fm-current-location">Current Location</div><i class="ion-ios7-star-outline add-favorite" ng-click="addToFavorites(location.coords.latitude, location.coords.longitude)"></i>',
+                        message: '<div class="fm-current-location">Current Location</div>',
                         lat: location.coords.latitude,
                         lng: location.coords.longitude
                     };
@@ -80,10 +89,6 @@ angular.module('Trendicity')
         });
     };
 
-    this.addToFavorites = function (lat, lng) {
-
-    };
-
     this.centerMap = function (lat, lng, zoom) {
         $log.info('Center map: ', lat, lng, zoom);
 
@@ -100,12 +105,12 @@ angular.module('Trendicity')
             });
     };
 
-    this.init = function () {
-        this.registerGeoLocationWatcher();
+    $scope.init = function () {
+        $scope.registerGeoLocationWatcher();
     };
 
     // Load favorite
-    if ($state.params['id']) {
+    if ($state.params.id) {
         $scope.favorite = FavoritesService.getFavorite( parseInt($state.params.id, 10) );
         InstagramService.findNearbyPosts( $scope.favorite.lat, $scope.favorite.lng )
         .success( function ( data ) {
@@ -137,6 +142,6 @@ angular.module('Trendicity')
 
 
     } else {
-        this.init();
+        $scope.init();
     }
 });
