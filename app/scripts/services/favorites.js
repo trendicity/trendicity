@@ -1,31 +1,26 @@
 'use strict';
 angular.module('Trendicity')
 
-.service('FavoritesService', function(localStorageService, $http) {
+.service('FavoritesService', function(localStorageService, $http, GeolocationService) {
 
     this.add = function (location) {
         var currentFavorites = this.getFavorites() ? this.getFavorites() : [];
         var id = currentFavorites.length + 1;
 
-        var address = location.address + ", " + location.city + " " + location.state + " " + location.postalCode;
+        var address = location.city + " " + location.state;
 
-        return $http.get( "http://maps.google.com/maps/api/geocode/json?address=" + address + "&sensor=true_or_false")
-        .success( function ( data ) {
-            // TODO: Better ID handling
-            var newLocation = {
-                id: id,
-                city: location.city + ", " + location.state,
-                lat: data.results[0].geometry.location.lat,
-                lng: data.results[0].geometry.location.lng
-            };
+        return GeolocationService.addressToPosition(address)
+            .then( function ( data ) {
+                var newLocation = {
+                    id: id,
+                    city: address,
+                    lat: data.latitude,
+                    lng: data.longitude
+                };
 
-            currentFavorites.push(newLocation);
-            localStorageService.set('Favorites', currentFavorites);
-        })
-        .error( function () {
-            // TODO: How are we handling errors
-            console.warn("There was an error adding location");
-        });
+                currentFavorites.push(newLocation);
+                localStorageService.set('Favorites', currentFavorites);
+            });
     };
 
     this.delete = function (favorite) {
