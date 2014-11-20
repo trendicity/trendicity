@@ -134,5 +134,5 @@ angular.module('Trendicity', [
 })
 
 .config(function($httpProvider) {
-  $httpProvider.interceptors.push('LoadingInterceptor');
+  $httpProvider.interceptors.push('TrendicityInterceptor');
 });
