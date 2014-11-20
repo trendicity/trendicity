@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('MapViewCtrl', function ($scope, $state, $location, $ionicPlatform, $log, leafletData, FavoritesService) {
+.controller('MapViewCtrl', function ($scope, $state, $location, $ionicPlatform, $log, leafletData, FavoritesService, InstagramService) {
     var self = this;
 
     $scope.map = {
@@ -107,6 +107,10 @@ angular.module('Trendicity')
     // Load favorite
     if ($state.params['id']) {
         $scope.favorite = FavoritesService.getFavorite( parseInt($state.params.id, 10) );
+        InstagramService.findNearbyPosts( $scope.favorite.lat, $scope.favorite.lng )
+        .success( function ( data ) {
+            $scope.posts = data.data;
+        });
 
         $scope.map = {
             center: {
