@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Trendicity')
 
-.service('FavoritesService', function(localStorageService, $http, GeolocationService) {
+.service('FavoritesService', function(localStorageService, GeolocationService) {
 
     this.add = function (location) {
         var currentFavorites = this.getFavorites() ? this.getFavorites() : [];
