@@ -14,26 +14,26 @@
     <ion-content class="has-header">
       <ion-list>
         <ion-item nav-clear menu-close class="item-icon-left" href="#/app/home/map">
-          <i class="icon ion-home"></i>
+          <icon ios="ion-ios7-home" default="ion-home"></icon>
           Home
         </ion-item>
         <ion-item nav-clear menu-close class="item-icon-left" href="#/app/favorites">
-          <i class="icon ion-star"></i>
+          <icon ios="ion-ios7-star" default="ion-star"></icon>
           Favorites
         </ion-item>
         <ion-item nav-clear menu-close class="item-icon-left" href="#/app/intro">
-          <i class="icon ion-ios7-information"></i>
+          <icon ios="ion-ios7-information" default="ion-information-circled"></icon>
           About
         </ion-item>
         <div ng-hide="isLoggedIn()">
             <ion-item nav-clear menu-close class="item-icon-left" ng-click="login()">
-                <i class="icon ion-log-in"></i>
+                <icon default="ion-log-in"></icon>
                 Login
             </ion-item>
         </div>
         <div ng-show="isLoggedIn()">
             <ion-item nav-clear menu-close class="item-icon-left" ng-click="logout()">
-                <i class="icon ion-log-out"></i>
+                <icon default="ion-log-out"></icon>
                 Logout
             </ion-item>
         </div>
