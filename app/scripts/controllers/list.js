@@ -60,7 +60,7 @@ angular.module('Trendicity')
   $scope.like = function(index) {
     if (!InstagramService.isLoggedIn()) {
       // Show login modal
-      $scope.modal.show();
+      $scope.loginModal.show();
       return;
     }
 

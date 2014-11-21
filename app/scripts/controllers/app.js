@@ -14,22 +14,22 @@ angular.module('Trendicity')
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
   }).then(function(modal) {
-    $scope.modal = modal;
+    $scope.loginModal = modal;
   });
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
-    $scope.modal.hide();
+    $scope.loginModal.hide();
   };
 
   // Open the login modal
   $scope.login = function() {
-    $scope.modal.show();
+    $scope.loginModal.show();
   };
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
-    $scope.modal.hide();
+    $scope.loginModal.hide();
     InstagramService.obtainAccessToken();
   };
 
@@ -44,7 +44,7 @@ angular.module('Trendicity')
 
   $scope.$on('event:auth-loginRequired', function() {
     console.log('handling event:auth-loginRequired  ...');
-    $scope.modal.show();
+    $scope.loginModal.show();
   });
 
   $scope.$on('event:auth-loginConfirmed', function() {
