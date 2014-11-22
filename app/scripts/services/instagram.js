@@ -119,6 +119,11 @@ angular.module('Trendicity')
     return promise;
   };
 
+  this.loginCancelled = function() {
+    // Let the authService know that login was cancelled so that the http buffer will be cleared.
+    authService.loginCancelled();
+  };
+
   this.logout = function() {
     var promise = $http.post('https://instagram.com/accounts/logout')
       .error(function (data, status) {

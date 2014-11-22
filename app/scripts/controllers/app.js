@@ -19,6 +19,7 @@ angular.module('Trendicity')
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
+    InstagramService.loginCancelled();
     $scope.loginModal.hide();
   };
 
