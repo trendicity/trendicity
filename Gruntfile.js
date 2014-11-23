@@ -70,7 +70,7 @@ module.exports = function (grunt) {
         tasks: ['newer:copy:app', 'newer:jshint:all']
       },
       styles: {
-        files: ['<%= yeoman.app %>/<%= yeoman.styles %>/**/*.css'],
+        files: ['<%= yeoman.app %>/<%= yeoman.styles %>/**/*.scss'],
         tasks: ['newer:copy:styles', 'autoprefixer', 'newer:copy:tmp']
       },
       gruntfile: {
@@ -153,6 +153,22 @@ module.exports = function (grunt) {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
         ignorePath:  /\.\.\//
+      }
+    },
+
+    // Compile Sass styles
+    sass: {
+      options: {
+        sourcemap: 'none'
+      },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>/<%= yeoman.styles %>',
+          src: ['*.scss'],
+          dest: '.tmp/<%= yeoman.styles %>/',
+          ext: '.css'
+        }],
       }
     },
 
@@ -255,7 +271,9 @@ module.exports = function (grunt) {
         dest: 'www/',
         src: [
           '**/*',
-          '!**/*.(scss,sass,css)',
+          '!**/*.scss',
+          '!**/*.sass',
+          '!**/*.css',
         ]
       },
       tmp: {
@@ -274,6 +292,7 @@ module.exports = function (grunt) {
         }
       },
       server: [
+        'sass',
         'copy:styles',
         'copy:vendor',
         'copy:fonts'
@@ -284,6 +303,7 @@ module.exports = function (grunt) {
         'copy:fonts'
       ],
       dist: [
+        'sass',
         'copy:styles',
         'copy:vendor',
         'copy:fonts'
