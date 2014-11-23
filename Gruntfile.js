@@ -158,9 +158,6 @@ module.exports = function (grunt) {
 
     // Compile Sass styles
     sass: {
-      options: {
-        sourcemap: 'none'
-      },
       dist: {
         files: [{
           expand: true,
