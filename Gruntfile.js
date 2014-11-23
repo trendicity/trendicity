@@ -272,8 +272,7 @@ module.exports = function (grunt) {
         src: [
           '**/*',
           '!**/*.scss',
-          '!**/*.sass',
-          '!**/*.css',
+          '!**/*.sass'
         ]
       },
       tmp: {
