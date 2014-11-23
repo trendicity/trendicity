@@ -34,20 +34,23 @@ angular.module('Trendicity')
     InstagramService.obtainAccessToken();
   };
 
-  // Perform the login action when the user submits the login form
+  // Perform the logout action when the user invokes the logout link
   $scope.logout = function() {
     InstagramService.logout();
   };
 
+  // Determine if the user is logged into Instagram
   $scope.isLoggedIn = function() {
     return InstagramService.isLoggedIn();
   };
 
+  // Handle the login required event raised by the authService
   $scope.$on('event:auth-loginRequired', function() {
     console.log('handling event:auth-loginRequired  ...');
     $scope.loginModal.show();
   });
 
+  // Handle the login confirmed event raised by the authService
   $scope.$on('event:auth-loginConfirmed', function() {
     console.log('handling event:auth-loginConfirmed...');
   });
