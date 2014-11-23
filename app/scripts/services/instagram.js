@@ -8,9 +8,9 @@ angular.module('Trendicity')
   var self = this;
 
   this.obtainAccessToken = function() {
-    var ref = window.open('https://instagram.com/oauth/authorize?client_id=' +
+    var loginWindow = window.open('https://instagram.com/oauth/authorize?client_id=' +
       CLIENT_ID + '&scope=likes+comments&response_type=token&redirect_uri=' +
-      AUTH_REDIRECT_URL, '_blank', 'location=no'
+      AUTH_REDIRECT_URL, '_blank', 'location=no,width=400,height=250'
     );
 
     var configUpdater = function(config) {
@@ -20,29 +20,31 @@ angular.module('Trendicity')
     }
 
     if (ionic.Platform.isWebView()) { // If running in a WebView (i.e. on a mobile device/simulator)
-      ref.addEventListener('loadstart', function (event) {
-        console.log('inside loadstart event');
+      loginWindow.addEventListener('loadstart', function (event) {
         if ((event.url).indexOf(AUTH_REDIRECT_URL) === 0) {
           var accessToken = (event.url).split('access_token=')[1];
           localStorageService.set('accessToken', accessToken);
-          ref.close();
+          loginWindow.close();
           if (self.isLoggedIn()) {
             authService.loginConfirmed(null, configUpdater);
           }
         }
       });
     } else { // if running on a desktop browser use this hack
-      ref.addEventListener('unload', function(event) {
+      var unloadEventListener = function() {
         // Need to wait a bit for localStorage to be updated
         $timeout(function(){
           if (self.isLoggedIn()) {
             console.log('user is logged in now');
             authService.loginConfirmed(null, configUpdater);
           } else {
-            console.log('not logged in yet');
+            console.log('user not logged in yet');
+            // Rebind event listener in case user entered a bad username and/or password
+            loginWindow.addEventListener('unload', unloadEventListener);
           }
         }, 1000);
-      });
+      };
+      loginWindow.addEventListener('unload', unloadEventListener);
     }
   };
 
