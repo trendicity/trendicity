@@ -7,7 +7,7 @@ angular.module('Trendicity')
         var currentFavorites = this.getFavorites() ? this.getFavorites() : [];
         var id = currentFavorites.length + 1;
 
-        var address = location.city + ", " + location.state;
+        var address = location.city + ", " + location.region;
 
         return GeolocationService.addressToPosition(address)
             .then( function ( data ) {
