@@ -1,10 +1,11 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('HomeCtrl', function ($rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService, GeolocationService) {
+.controller('HomeCtrl', function ($rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService, GeolocationService, $state, FavoritesService) {
     console.log('Inside HomeCtrl...');
 
     $scope.posts = [];
+    $scope.favorite = {};
     $scope.search = { value: 'TR'};
 
     GeolocationService.getCurrentPosition()
@@ -20,7 +21,10 @@ angular.module('Trendicity')
     GeolocationService.addressToPosition('Willemstad, curacao');
 
     $scope.getPosts = function(value) {
-      if (value === 'TR') {
+
+      if ($state.params.id) {
+        $scope.getFavoritePosts();
+      } else if (value === 'TR') {
         $scope.findPopularPosts();
       } else if (value === 'NB') {
         $scope.findNearbyPosts();
@@ -60,6 +64,15 @@ angular.module('Trendicity')
       InstagramService.findLikedPosts().success(function (data) {
         $scope.posts = data.data;
       });
+    };
+
+    $scope.getFavoritePosts = function () {
+        $scope.favorite = FavoritesService.getFavorite( parseInt($state.params.id, 10) );
+
+        InstagramService.findNearbyPosts( $scope.favorite.lat, $scope.favorite.lng )
+        .success( function ( data ) {
+            $scope.posts = data.data;
+        });
     };
 
     $ionicPopover.fromTemplateUrl('templates/search.html', {
