@@ -3,24 +3,24 @@
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-nav-buttons side="right">
-    <button class="button button-icon icon ion-ios7-search" ng-click="openPopover($event)"></button>
+    <button class="button button-icon icon ion-ios7-search" ng-click="openPopover($event)" ng-hide="favorite"></button>
   </ion-nav-buttons>
 
   <ion-tabs class="tabs-icon-top">
     <!-- Map Tab View -->
-    <ion-tab title="Map" icon="icon ion-map" href="#/app/home/map">
+    <ion-tab title="Map" icon="icon ion-map" href="#/app/home/map/{{ favorite.id }}">
       <ion-nav-view name="tab-map"></ion-nav-view>
     </ion-tab>
 
 
     <!-- Card Tab View -->
-    <ion-tab title="Cards" icon="icon ion-ios7-browsers" href="#/app/home/card">
+    <ion-tab title="Cards" icon="icon ion-ios7-browsers" href="#/app/home/card/{{ favorite.id }}">
       <ion-nav-view name="tab-card"></ion-nav-view>
     </ion-tab>
 
 
     <!-- List Tab View -->
-    <ion-tab title="List" icon="icon ion-ios7-paper" href="#/app/home/list">
+    <ion-tab title="List" icon="icon ion-ios7-paper" href="#/app/home/list/{{ favorite.id }}">
       <ion-nav-view name="tab-list"></ion-nav-view>
     </ion-tab>
   </ion-tabs>
