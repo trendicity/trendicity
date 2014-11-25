@@ -1,5 +1,4 @@
-// Override location of Ionicons font files
-$ionicons-font-path: "../fonts";
+@import "variables";
 
 // Include all of Ionic
 @import "../lib/ionic/scss/ionic";
