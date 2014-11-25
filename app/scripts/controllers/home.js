@@ -5,7 +5,7 @@ angular.module('Trendicity')
     console.log('Inside HomeCtrl...');
 
     $scope.posts = [];
-    $scope.favorite = {};
+    $scope.favorite;
     $scope.search = { value: 'TR'};
 
     GeolocationService.getCurrentPosition()
@@ -21,7 +21,6 @@ angular.module('Trendicity')
     GeolocationService.addressToPosition('Willemstad, curacao');
 
     $scope.getPosts = function(value) {
-
       if ($state.params.id) {
         $scope.getFavoritePosts();
       } else if (value === 'TR') {
