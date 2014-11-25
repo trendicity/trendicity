@@ -26,7 +26,7 @@ angular.module('Trendicity')
         };
     }
 
-    $scope.$watch('posts', function () {
+    $scope.$watch('data.posts', function () {
         if ($scope.map.markers.currentPosition) {
             $scope.map.markers = {
                 currentPosition: $scope.map.markers.currentPosition
@@ -34,12 +34,12 @@ angular.module('Trendicity')
         }
 
         var location;
-        if ($scope.posts) {
-          for (var i = 0; i < $scope.posts.length; i++) {
-            location = $scope.posts[i].location;
+        if ($scope.data.posts) {
+          for (var i = 0; i < $scope.data.posts.length; i++) {
+            location = $scope.data.posts[i].location;
             if (location && location.latitude && location.longitude){
               $scope.map.markers['instagram' + i] = {
-                message: '<img src="' + $scope.posts[i].images.thumbnail.url + '" />',
+                message: '<img src="' + $scope.data.posts[i].images.thumbnail.url + '" />',
                 lat: location.latitude,
                 lng: location.longitude
               };
@@ -102,7 +102,7 @@ angular.module('Trendicity')
         $scope.favorite = FavoritesService.getFavorite( parseInt($state.params.id, 10) );
         InstagramService.findNearbyPosts( $scope.favorite.lat, $scope.favorite.lng )
         .success( function ( data ) {
-            $scope.posts = data.data;
+            $scope.data.posts = data.data;
         });
 
         $scope.map = {

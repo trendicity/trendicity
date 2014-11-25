@@ -14,7 +14,7 @@ angular.module('Trendicity')
       return;
     }
 
-    var post = $scope.posts[index];
+    var post = $scope.data.posts[index];
     if (post.user_has_liked) { // jshint ignore:line
       InstagramService.dislikePost(post.id)
         .success(function() {
@@ -32,7 +32,7 @@ angular.module('Trendicity')
       return;
     }
 
-    var post = $scope.posts[index];
+    var post = $scope.data.posts[index];
     if (!post.user_has_liked) { // jshint ignore:line
       InstagramService.likePost(post.id)
         .success(function () {
@@ -51,7 +51,7 @@ angular.module('Trendicity')
       card.snapBack();
       $scope.loginModal.show();
     } else {
-      $scope.posts.splice(index, 1);
+      $scope.data.posts.splice(index, 1);
     }
   };
 });

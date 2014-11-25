@@ -4,8 +4,8 @@ angular.module('Trendicity')
 .controller('HomeCtrl', function ($rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService, GeolocationService, $state, FavoritesService) {
     console.log('Inside HomeCtrl...');
 
-    $scope.posts = [];
     $scope.favorite;
+    $scope.data = { posts: [] };
     $scope.search = { value: 'TR'};
 
     GeolocationService.getCurrentPosition()
@@ -42,26 +42,26 @@ angular.module('Trendicity')
 
     $scope.findPopularPosts = function() {
       InstagramService.findPopularPosts().success(function (data) {
-        $scope.posts = data.data;
+        $scope.data.posts = data.data;
       });
     };
 
     $scope.findNearbyPosts = function() {
       InstagramService.findNearbyPosts($scope.location.coords.latitude,
         $scope.location.coords.longitude).success(function (data) {
-          $scope.posts = data.data;
+          $scope.data.posts = data.data;
         });
     };
 
     $scope.findUserFeedPosts = function() {
       InstagramService.findUserFeedPosts().success(function (data) {
-        $scope.posts = data.data;
+        $scope.data.posts = data.data;
       });
     };
 
     $scope.findLikedPosts = function() {
       InstagramService.findLikedPosts().success(function (data) {
-        $scope.posts = data.data;
+        $scope.data.posts = data.data;
       });
     };
 
@@ -100,7 +100,7 @@ angular.module('Trendicity')
     $scope.$on('event:auth-logoutComplete', function() {
       console.log('handling event:auth-logoutComplete...');
       if ($scope.search.value == 'UF' || $scope.search.value == 'LP') {
-        $scope.posts = [];
+        $scope.data.posts = [];
       }
     });
   }
