@@ -16,15 +16,6 @@ angular.module('Trendicity')
     ) {
     var self = this;
 
-    // TODO: Figure out whats going on with manual $state.go('app.home.map', {}, {reload:true});
-    // Have an issue with controller not reinitializing on state change, which we need
-    // to reset the map
-    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-        if ( toState.name === "app.home.map" ) {
-            $scope.init();
-        }
-    });
-
     $scope.map = defaultMapSettings;
     var location = localStorageService.get('defaultPosition');
     if (location) {
