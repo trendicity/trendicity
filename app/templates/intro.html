@@ -23,28 +23,48 @@
 
   <ion-slide-box on-slide-changed="slideChanged(index)">
     <ion-slide>
-      <h3>Welcome to Trendicity</h3>
-      <div id="logo">
-        <img src="images/placeholder-city.jpg">
-      </div>
-      <p>
-        Explore Instagram posts by popular locations,
-      </p>
-      <p>
-        or Log In to visualize your feed on a map.
-      </p>
+        <ion-content>
+          <h3 style="margin-top: 35px;">Welcome to Trendicity</h3>
+          <div id="logo">
+            <img src="images/placeholder-city.jpg">
+          </div>
+            <p>
+                Explore Instagram posts by popular locations,
+            </p>
+            <p>
+                or Log In to visualize your feed on a map.
+            </p>
+            <!-- Ugly hack -->
+            <br />
+            <br />
+            <br />
+            <br />
+
+        </ion-content>
     </ion-slide>
 
-    <ion-slide>
-      <h3>Using TrendiCity</h3>
-      <div id="list">
-        <ol>
-          <li>Explore</li>
-          <li>Swipe</li>
-          <li>Favorite</li>
-        </ol>
-      </div>
-    </ion-slide>
+      <ion-slide>
+          <h3>Using TrendiCity</h3>
+          <div id="list">
+              <ol>
+                  <li>Explore</li>
+                  <li>Swipe</li>
+                  <li>Favorite</li>
+              </ol>
+          </div>
+          <p>For best use of Trendicity, we'd like to use your current location.</p>
+
+          <button class="button button-positive" ng-click="getCurrentPosition()" ng-disabled="fetchingPosition">
+              <span ng-hide="fetchingPosition">Allow location access</span>
+              <span class="ng-hide" ng-show="fetchingPosition">Determining your position... </span>
+          </button>
+
+          <div class="card ng-hide" ng-show="noPosition">
+              <div class="item item-text-wrap">
+                 We are unable to determine your location.
+              </div>
+          </div>
+      </ion-slide>
 
     <ion-slide>
       <h3>Any questions?</h3>

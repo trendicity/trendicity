@@ -49,7 +49,7 @@ angular.module('Trendicity')
       console.log('snapping card back since you are not logged in...');
       var card = TDCardDelegate.getSwipeableCard($scope);
       card.snapBack();
-      $scope.modal.show();
+      $scope.loginModal.show();
     } else {
       $scope.posts.splice(index, 1);
     }

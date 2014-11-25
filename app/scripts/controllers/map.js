@@ -1,7 +1,19 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('MapViewCtrl', function ($scope, $rootScope, $state, $location, $ionicPlatform, $log, leafletData, FavoritesService, InstagramService) {
+.controller('MapViewCtrl', function (
+        $scope,
+        $rootScope,
+        $state,
+        $location,
+        $ionicPlatform,
+        $log,
+        leafletData,
+        FavoritesService,
+        InstagramService,
+        defaultMapSettings,
+        localStorageService
+    ) {
     var self = this;
 
     // TODO: Figure out whats going on with manual $state.go('app.home.map', {}, {reload:true});
@@ -13,28 +25,15 @@ angular.module('Trendicity')
         }
     });
 
-    $scope.map = {
-        center: {
-            lat: 52.52,
-            lng: 13.40,
-            zoom: 14
-        },
-        markers: {
-            m1: {
-                lat: 52.52,
-                lng: 13.40
-            }
-        },
-        layers: {
-            baselayers: {
-                googleRoadmap: {
-                    name: 'Google Streets',
-                    layerType: 'ROADMAP',
-                    type: 'google'
-                }
-            }
-        }
-    };
+    $scope.map = defaultMapSettings;
+    var location = localStorageService.get('defaultPosition');
+    if (location) {
+        $scope.map.center = {
+            lat: location.coords.latitude,
+            lng: location.coords.longitude,
+            zoom: 12
+        };
+    }
 
     $scope.$watch('posts', function () {
         if ($scope.map.markers.currentPosition) {
@@ -64,8 +63,6 @@ angular.module('Trendicity')
         $ionicPlatform.ready(function () {
             watcher = navigator.geolocation.getCurrentPosition(
                 function (location) {
-                    console.log(location);
-                    $log.info('Got your location.', location);
                     $scope.map.markers.currentPosition = {
                         message: '<div class="fm-current-location">Current Location</div>',
                         lat: location.coords.latitude,

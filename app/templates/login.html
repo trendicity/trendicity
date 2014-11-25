@@ -1,25 +1,29 @@
-<div class="modal">
+<ion-modal-view>
   <ion-header-bar>
-    <h1 class="title">Login to Instagram</h1>
+    <h1 class="title">Instagram Login</h1>
     <div class="buttons">
       <button class="button button-clear" ng-click="closeLogin()">Close</button>
     </div>
   </ion-header-bar>
   <ion-content>
-    <form ng-submit="doLogin()">
       <div class="list">
-        <!--<label class="item item-input">-->
-          <!--<span class="input-label">Username</span>-->
-          <!--<input type="text" ng-model="loginData.username">-->
-        <!--</label>-->
-        <!--<label class="item item-input">-->
-          <!--<span class="input-label">Password</span>-->
-          <!--<input type="password" ng-model="loginData.password">-->
-        <!--</label>-->
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">Log in</button>
-        </label>
+        <div class="item">
+            <h2>By logging into Instagram, you will be able to:</h2>
+            <ul class="padding-left">
+                <li>Like Posts</li>
+                <li>Unlike Posts</li>
+                <li>View your:
+                    <ul class="padding-left">
+                        <li>User Feed</li>
+                        <li>Liked Posts</li>
+                    </ul>
+                </li>
+            </ul>
+            <h4 class="padding-top padding-bottom">Note: We do not store your username or password.</h4>
+        </div>
       </div>
-    </form>
   </ion-content>
-</div>
+  <div class="bar bar-subfooter">
+    <button class="button button-block button-positive" ng-click="doLogin()">Login</button>
+  </div>
+</ion-modal-view>

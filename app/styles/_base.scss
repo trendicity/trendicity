@@ -1,6 +1,7 @@
 .slider {
   height: 100%;
 }
+
 .slider-slide {
   padding-top: 80px;
   color: #000;
@@ -19,14 +20,16 @@
   width: 170px;
   margin: 30px auto;
   font-size: 20px;
-}
-#list ol {
-  margin-top: 30px;
-}
-#list ol li {
-  text-align: left;
-  list-style: decimal;
-  margin: 10px 0px;
+
+  ol {
+    margin-top: 30px;
+
+    li {
+      text-align: left;
+      list-style: decimal;
+      margin: 10px 0px;
+    }
+  }
 }
 
 .feed-image {
@@ -41,14 +44,12 @@
     width: 100%;
     height: 100%;
 }
+
 #footer-overlay {
     position: absolute;
     bottom: 0;
     background: #fff;
     background: rgba(255,255,255,0.8);
-}
-#footer-overlay a {
-
 }
 
 .scroll {
