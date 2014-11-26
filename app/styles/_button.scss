@@ -1,0 +1,12 @@
+.button {
+    &.button-light {
+        &.button-clear {
+            color: $light;
+        }
+    }
+
+    &.button-right {
+        position: absolute;
+        right: $bar-padding-portrait;
+    }
+}
