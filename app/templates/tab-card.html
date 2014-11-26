@@ -1,6 +1,5 @@
 <ion-view title="Card View">
-    <ion-content class="has-header padding" no-touch-move>
-        <h3 style="text-align: center">Swipe left for dislike, Swipe right for like</h3>
+    <ion-content class="has-header padding" scroll="false" no-touch-move>
         <td-cards>
             <td-card ng-repeat="post in data.posts" on-destroy="cardDestroyed($index)"
                      on-transition-left="cardTransitionedLeft($index)" on-transition-right="cardTransitionedRight($index)"
@@ -12,6 +11,5 @@
                 </div>
             </td-card>
         </td-cards>
-
     </ion-content>
 </ion-view>

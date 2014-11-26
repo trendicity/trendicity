@@ -1,9 +1,15 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('CardViewCtrl', function ($scope, $ionicSideMenuDelegate) {
+.controller('CardViewCtrl', function ($scope, $ionicSideMenuDelegate, $ionicPopup) {
   // Disable side-menu drag so that it doesnt interfere with our swipe cards functionality
   $ionicSideMenuDelegate.canDragContent(false);
+
+  // Show explanation message
+  $ionicPopup.alert({
+    title: 'Swipe Cards',
+    template: '<img class="full-image" src="../images/swipe-right.png" />'
+  });
 })
 
 .controller('CardCtrl', function ($scope, InstagramService, TDCardDelegate) {
