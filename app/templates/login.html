@@ -1,29 +1,22 @@
-<ion-modal-view>
-  <ion-header-bar>
-    <h1 class="title">Instagram Login</h1>
+<ion-modal-view id="login">
+  <ion-header-bar class="bar-transparent">
     <div class="buttons">
-      <button class="button button-clear" ng-click="closeLogin()">Close</button>
+      <button class="button button-light button-clear button-icon icon ion-close" ng-click="closeLogin()"></button>
     </div>
   </ion-header-bar>
-  <ion-content>
-      <div class="list">
-        <div class="item">
-            <h2>By logging into Instagram, you will be able to:</h2>
-            <ul class="padding-left">
-                <li>Like Posts</li>
-                <li>Unlike Posts</li>
-                <li>View your:
-                    <ul class="padding-left">
-                        <li>User Feed</li>
-                        <li>Liked Posts</li>
-                    </ul>
-                </li>
+  <ion-content class="vertical-center" scroll="false">
+      <div class="scroll">
+        <div class="row light-bg">
+          <div class="col">
+            <h3 class="text-center">Login with Instagram to</h3>
+            <ul class="text-center">
+              <li><i class="icon ion-heart assertive"></i> Like Posts</li>
+              <li><i class="icon ion-images"></i> View Your Feed</li>
+              <li><i class="icon ion-star energized"></i> View Your Liked Posts</li>
             </ul>
-            <h4 class="padding-top padding-bottom">Note: We do not store your username or password.</h4>
+            <button class="button button-block button-positive button-outline icon-left ion-social-instagram-outline" ng-click="doLogin()">Login with Instagram</button>
+          </div>
         </div>
       </div>
   </ion-content>
-  <div class="bar bar-subfooter">
-    <button class="button button-block button-positive" ng-click="doLogin()">Login</button>
-  </div>
 </ion-modal-view>

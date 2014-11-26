@@ -1,0 +1,10 @@
+.bar {
+    &.bar-transparent {
+        background: transparent;
+        border-color: transparent;
+    }
+
+    &.bar-thin {
+        border-width: 0;
+    }
+}
