@@ -71,7 +71,7 @@ module.exports = function (grunt) {
       },
       styles: {
         files: ['<%= yeoman.app %>/<%= yeoman.styles %>/**/*.scss'],
-        tasks: ['newer:copy:styles', 'autoprefixer', 'newer:copy:tmp']
+        tasks: ['sass', 'newer:copy:styles', 'autoprefixer', 'newer:copy:tmp']
       },
       gruntfile: {
         files: ['Gruntfile.js'],
