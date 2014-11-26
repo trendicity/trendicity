@@ -8,7 +8,7 @@ angular.module('Trendicity')
   // Show explanation message
   $ionicPopup.alert({
     title: 'Swipe Cards',
-    template: '<img class="full-image" src="../images/swipe-right.png" />'
+    template: '<img class="full-image" src="../images/swipe-right.png" /><img class="full-image" src="../images/swipe-left.png" />'
   });
 })
 
