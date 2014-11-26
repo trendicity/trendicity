@@ -1,9 +1,48 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('CardViewCtrl', function ($scope, $ionicSideMenuDelegate) {
+.controller('CardViewCtrl', function ($scope, $ionicSideMenuDelegate, $ionicPopup, $ionicSlideBoxDelegate, localStorageService) {
   // Disable side-menu drag so that it doesnt interfere with our swipe cards functionality
   $ionicSideMenuDelegate.canDragContent(false);
+
+  // Disable intro slidebox sliding
+  $scope.disableSlideBox = function() {
+    $ionicSlideBoxDelegate.enableSlide(false);
+  };
+
+  if (!localStorageService.get('seenCardIntro')) {
+    // Mark intro as seen
+    localStorageService.set('seenCardIntro', true);
+
+    var slidebox = $ionicSlideBoxDelegate.$getByHandle('card-intro-slidebox');
+
+    // Show explanation message
+    $ionicPopup.show({
+      title: 'Swipe Cards',
+      templateUrl: 'templates/card-intro.html',
+      scope: $scope,
+      buttons: [
+        {
+          text: 'Next',
+          type: 'button-positive',
+          onTap: function(e) {
+            if (slidebox.currentIndex() == 0) {
+              // Go to next slide
+              slidebox.next();
+
+              // Change button text
+              e.target.innerHTML = 'OK';
+
+              e.preventDefault();
+            } else {
+              // Close popup
+              return;
+            }
+          }
+        }
+      ]
+    });
+  }
 })
 
 .controller('CardCtrl', function ($scope, InstagramService, TDCardDelegate) {
