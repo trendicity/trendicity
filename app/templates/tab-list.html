@@ -2,7 +2,7 @@
   <ion-content class="has-header">
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
     <div class="list-post" ng-repeat="post in data.posts">
-        <img ng-src="{{ post.images.standard_resolution.url }}" ng-dblclick="like($index)" on-hold="displayOptions($index)"/>
+        <img ng-src="{{ post.images.standard_resolution.url }}" on-dbl-tap="like($index)" on-hold="displayOptions($index)"/>
         <div class="item item-avatar">
             <img ng-src="{{ post.user.profile_picture }}">
             <h2 class="list-post-user" ng-class="{ 'list-post-user-expanded': !post.caption }">{{ post.user.username }} <span class="list-post-timestamp"><i class="icon ion-clock"></i> {{ post.created_time * 1000 | date: 'MMM d, yyyy'}}</span></h2>
