@@ -1,7 +1,6 @@
 .bar {
     &.bar-transparent {
-        background: transparent;
-        border-color: transparent;
+        @include bar-style(transparent, transparent, $dark);
     }
 
     &.bar-thin {
