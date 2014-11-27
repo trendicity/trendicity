@@ -1,10 +1,10 @@
 #list {
   width: 170px;
-  margin: 30px auto;
+  margin: $list-margin auto;
   font-size: 20px;
 
   ol {
-    margin-top: 30px;
+    margin-top: $list-margin;
 
     li {
       text-align: left;
