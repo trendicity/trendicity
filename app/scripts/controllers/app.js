@@ -31,7 +31,7 @@ angular.module('Trendicity')
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
     $scope.loginModal.hide();
-    InstagramService.obtainAccessToken();
+    InstagramService.login();
   };
 
   // Perform the logout action when the user invokes the logout link
