@@ -1,8 +1,6 @@
 .button {
     &.button-light {
-        &.button-clear {
-            color: $light;
-        }
+        @include button-clear($light);
     }
 
     &.button-right {
