@@ -7,10 +7,10 @@ angular.module('Trendicity')
   var AUTH_REDIRECT_URL = 'http://localhost:8100/instagram.html';
   var self = this;
 
-  this.obtainAccessToken = function() {
+  this.login = function() {
     var loginWindow = window.open('https://instagram.com/oauth/authorize?client_id=' +
       CLIENT_ID + '&scope=likes+comments&response_type=token&redirect_uri=' +
-      AUTH_REDIRECT_URL, '_blank', 'location=no,width=400,height=250'
+      AUTH_REDIRECT_URL, '_blank', 'width=400,height=250,location=no,clearsessioncache=yes,clearcache=yes'
     );
 
     var configUpdater = function(config) {
