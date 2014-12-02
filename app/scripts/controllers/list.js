@@ -13,6 +13,7 @@ angular.module('Trendicity')
     var min = (screenWidth < imageWidth) ? screenWidth : imageWidth;
     return min + itemAvatarHeight + buttonBarHeight;
   }
+  
   $scope.itemHeight = getItemHeight();
 
   // Display action sheet
