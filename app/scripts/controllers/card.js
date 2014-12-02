@@ -5,16 +5,16 @@ angular.module('Trendicity')
   // Disable side-menu drag so that it doesnt interfere with our swipe cards functionality
   $ionicSideMenuDelegate.canDragContent(false);
 
-  // Disable intro slidebox sliding
-  $scope.disableSlideBox = function() {
-    $ionicSlideBoxDelegate.enableSlide(false);
-  };
-
   if (!localStorageService.get('seenCardIntro')) {
     // Mark intro as seen
     localStorageService.set('seenCardIntro', true);
 
     var slidebox = $ionicSlideBoxDelegate.$getByHandle('card-intro-slidebox');
+
+    // Disable intro slidebox sliding
+    $scope.disableSlideBox = function() {
+      $ionicSlideBoxDelegate.enableSlide(false);
+    };
 
     // Show explanation message
     $ionicPopup.show({
