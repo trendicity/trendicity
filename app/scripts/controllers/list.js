@@ -4,6 +4,17 @@ angular.module('Trendicity')
 .controller('ListViewCtrl', function ($scope, $ionicActionSheet, $ionicLoading, InstagramService, FavoritesService) {
   console.log('Inside ListViewCtrl...');
 
+  // Determine list item height
+  function getItemHeight() {
+    var screenWidth = window.innerWidth
+        , imageWidth = 640
+        , itemAvatarHeight = 76
+        , buttonBarHeight = 46;
+    var min = (screenWidth < imageWidth) ? screenWidth : imageWidth;
+    return min + itemAvatarHeight + buttonBarHeight;
+  }
+  $scope.itemHeight = getItemHeight();
+
   // Display action sheet
   $scope.displayOptions = function(index) {
     // Get post

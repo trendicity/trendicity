@@ -14,9 +14,14 @@
   }
 }
 
-.list-post > img {
-    display: block;
-    width: 100%;
+.list-post {
+  left: 0;
+  right: 0;
+
+  > img {
+      display: block;
+      width: 100%;
+  }
 }
 
 .list-post-user {
