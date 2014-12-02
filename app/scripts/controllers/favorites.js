@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('FavoritesCtrl', function($scope, FavoritesService, $state, $ionicModal, localStorageService, InstagramService) {
+.controller('FavoritesCtrl', function($scope, FavoritesService, $ionicModal) {
 
     $scope.favorite = {};
 
@@ -9,14 +9,12 @@ angular.module('Trendicity')
         $scope.favorites = FavoritesService.delete(favorite);
     };
 
-    $scope.addFavorite = function(location) {
-        FavoritesService.add(location).then(function (data) {
+    $scope.addFavorite = function(favorite) {
+        FavoritesService.add(favorite).then(function (data) {
             $scope.favorites = FavoritesService.getFavorites();
             $scope.closeAddFavoriteForm();
         });
     };
-
-    $scope.favorites = FavoritesService.getFavorites();
 
     $ionicModal.fromTemplateUrl('add-favorite-modal.html', {
      scope: $scope,
@@ -37,4 +35,5 @@ angular.module('Trendicity')
         $scope.modal.remove();
     });
 
+    $scope.favorites = FavoritesService.getFavorites();
 });

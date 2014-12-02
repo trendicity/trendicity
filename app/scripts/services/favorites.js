@@ -3,11 +3,11 @@ angular.module('Trendicity')
 
 .service('FavoritesService', function(localStorageService, GeolocationService) {
 
-    this.add = function (location) {
+    this.add = function (favorite) {
         var currentFavorites = this.getFavorites() ? this.getFavorites() : [];
         var id = currentFavorites.length + 1;
 
-        var address = location.city + ", " + location.region;
+        var address = favorite.city + ", " + favorite.region;
 
         return GeolocationService.addressToPosition(address)
             .then( function ( data ) {
