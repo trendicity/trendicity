@@ -70,7 +70,7 @@ angular.module('Trendicity')
 
         InstagramService.findNearbyPosts( $scope.favorite.lat, $scope.favorite.lng )
         .success( function ( data ) {
-            $scope.posts = data.data;
+            $scope.data.posts = data.data;
         });
     };
 
