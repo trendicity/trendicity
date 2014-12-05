@@ -1,14 +1,16 @@
 'use strict';
 angular.module('Trendicity')
 
-.service('InstagramService', function($rootScope, $http, $timeout, localStorageService, authService) {
-  var CLIENT_ID = '75d27c9457cd4d1abbacf80a228f4a10';
-  var API_ROOT = 'https://api.instagram.com/v1/';
-  var AUTH_REDIRECT_URL = 'http://localhost:8100/instagram.html';
+.service('InstagramService', function($rootScope, $http, $interval, localStorageService, authService, ENV) {
   var self = this;
+  var CLIENT_ID = ENV.instagram.clientId;
+  var API_ENDPOINT = ENV.instagram.apiEndpoint;
+  var AUTH_URL = ENV.instagram.authUrl;
+  var AUTH_REDIRECT_URL = ENV.instagram.authRedirectUrl;
+  var LOGOUT_URL = ENV.instagram.logoutUrl;
 
   this.login = function() {
-    var loginWindow = window.open('https://instagram.com/oauth/authorize?client_id=' +
+    var loginWindow = window.open(AUTH_URL + '?client_id=' +
       CLIENT_ID + '&scope=likes+comments&response_type=token&redirect_uri=' +
       AUTH_REDIRECT_URL, '_blank', 'width=400,height=250,location=no,clearsessioncache=yes,clearcache=yes'
     );
@@ -30,21 +32,24 @@ angular.module('Trendicity')
           }
         }
       });
-    } else { // if running on a desktop browser use this hack
-      var unloadEventListener = function() {
-        // Need to wait a bit for localStorage to be updated
-        $timeout(function(){
-          if (self.isLoggedIn()) {
-            console.log('user is logged in now');
-            authService.loginConfirmed(null, configUpdater);
-          } else {
-            console.log('user not logged in yet');
-            // Rebind event listener in case user entered a bad username and/or password
-            loginWindow.addEventListener('unload', unloadEventListener);
+    } else { // if running on a desktop browser, use this hack
+      var intervalCount = 0, timesToRepeat = 100, intervalDelay = 3000;
+      var loginListener = function(event) {
+        intervalCount++;
+        if (self.isLoggedIn()) {
+          console.log('user is logged in now');
+          $interval.cancel(promise);
+          authService.loginConfirmed(null, configUpdater);
+        } else {
+          console.log('user not logged in yet, we wont wait forever.  Intervals left:', timesToRepeat - intervalCount);
+          if (intervalCount >= timesToRepeat) {
+            $interval.cancel(promise);
+            console.log('Since this is a hack for running the app in the browser, we are now giving up on you logging in.');
+            loginWindow.close();
           }
-        }, 1000);
+        }
       };
-      loginWindow.addEventListener('unload', unloadEventListener);
+      var promise = $interval(loginListener, intervalDelay, timesToRepeat, false);
     }
   };
 
@@ -53,7 +58,7 @@ angular.module('Trendicity')
     options.client_id = CLIENT_ID; // jshint ignore:line
 
     var promise =
-      $http.get(API_ROOT + 'media/popular', {
+      $http.get(API_ENDPOINT + '/media/popular', {
         params: options,
         headers: {
           "Content-Type": "application/json"
@@ -72,7 +77,7 @@ angular.module('Trendicity')
     options.lat = lat;
     options.lng = lng;
 
-    var promise = $http.get(API_ROOT + 'media/search', {
+    var promise = $http.get(API_ENDPOINT + '/media/search', {
       params: options
     })
     .error(function(data, status) {
@@ -84,7 +89,7 @@ angular.module('Trendicity')
   this.findUserFeedPosts = function(options) {
     options = options || {};
 
-    var promise = $http.get(API_ROOT + 'users/self/feed', {
+    var promise = $http.get(API_ENDPOINT + '/users/self/feed', {
       params: options
     })
     .error(function (data, status) {
@@ -96,7 +101,7 @@ angular.module('Trendicity')
   this.findLikedPosts = function(options) {
     options = options || {};
 
-    var promise = $http.get(API_ROOT + 'users/self/media/liked', {
+    var promise = $http.get(API_ENDPOINT + '/users/self/media/liked', {
       params: options
     })
     .error(function (data, status) {
@@ -106,7 +111,7 @@ angular.module('Trendicity')
   };
 
   this.likePost = function(mediaId) {
-    var promise = $http.post(API_ROOT + 'media/' + mediaId + '/likes')
+    var promise = $http.post(API_ENDPOINT + '/media/' + mediaId + '/likes')
     .error(function (data, status) {
       console.log('likePost returned status:' + status);
     });
@@ -114,7 +119,7 @@ angular.module('Trendicity')
   };
 
   this.dislikePost = function(mediaId) {
-    var promise = $http.delete(API_ROOT + 'media/' + mediaId + '/likes')
+    var promise = $http.delete(API_ENDPOINT + '/media/' + mediaId + '/likes')
       .error(function (data, status) {
         console.log('dislikePost returned status:' + status);
       });
@@ -127,14 +132,16 @@ angular.module('Trendicity')
   };
 
   this.logout = function() {
-    var promise = $http.post('https://instagram.com/accounts/logout')
-      .error(function (data, status) {
-        console.log('logout returned status:' + status);
-      })
-      .finally(function() {
-         localStorageService.remove('accessToken');
-         $rootScope.$broadcast('event:auth-logoutComplete');
-      });
+    var promise = ionic.Platform.isWebView() ? $http.post(LOGOUT_URL) : $http.jsonp(LOGOUT_URL);
+    promise.error(function (data, status) {
+      // expect to get a 404 error on the desktop browser due to the nature of the response from Instagram
+      // The Instagram API doesn't officially have a logout function
+      console.log('logout returned status:' + status);
+    })
+    .finally(function() {
+      localStorageService.remove('accessToken');
+      $rootScope.$broadcast('event:auth-logoutComplete');
+    });
     return promise;
   };
 

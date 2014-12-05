@@ -2,7 +2,7 @@
 angular.module('Trendicity')
 
 .factory('TrendicityInterceptor',
-  function ($injector, $q) {
+  function ($injector, $q, ENV) {
 
     var hideLoadingModalIfNecessary = function() {
       var $http = $http || $injector.get('$http');
@@ -14,8 +14,10 @@ angular.module('Trendicity')
     return {
       request: function(config) {
         $injector.get('$ionicLoading').show();
+
+        // Handle adding the access_token for instagram api requests
         var InstagramService = $injector.get('InstagramService');
-        if (InstagramService.isLoggedIn() && config.url.indexOf('api.instagram.com') != -1) {
+        if (InstagramService.isLoggedIn() && config.url.indexOf(ENV.instagram.apiEndpoint) === 0) {
           config.params = config.params || {};
           config.params.access_token = InstagramService.getAccessToken();
         }

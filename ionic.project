@@ -1,4 +1,10 @@
 {
   "name": "trendicity",
-  "app_id": ""
+  "app_id": "",
+  "proxies": [
+      {
+        "path": "/instagram/api",
+        "options": "https://api.instagram.com/v1"
+      }
+   ]
 }

@@ -3,11 +3,13 @@
   <head>
   </head>
   <script>
-      var accessToken = location.href.split('access_token=')[1];
-      localStorage.setItem('ls.accessToken', accessToken);
-      window.close();
+      function obtainAccessToken() {
+          var accessToken = location.href.split('access_token=')[1];
+          localStorage.setItem('ls.accessToken', accessToken);
+          window.close();
+      }
   </script>
-  <body>
+  <body onload="obtainAccessToken()">
     This is just a hack for getting the access token when using a desktop browser.
   </body>
 </html>

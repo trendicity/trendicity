@@ -10,7 +10,8 @@ angular.module('Trendicity', [
   'http-auth-interceptor'
 ])
 
-.run(function($rootScope, $ionicPlatform, $ionicSideMenuDelegate) {
+.run(function($rootScope, $ionicPlatform, $ionicSideMenuDelegate, ENV) {
+  console.log('Environment:', ENV.name);
 
   $rootScope.$on('$stateChangeSuccess', function () {
     // By default, we want to allow the side-menu to be dragged. Some views may need to disable it

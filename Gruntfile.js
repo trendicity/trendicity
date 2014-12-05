@@ -41,7 +41,13 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'development',
-            apiEndpoint: 'http://dev.yoursite.com:10000/'
+            instagram: {
+              clientId: '75d27c9457cd4d1abbacf80a228f4a10', // Setup your own: http://instagram.com/developer/clients/manage
+              apiEndpoint: '/instagram/api', // this will be proxied to: https://api.instagram.com/v1 in ionic.project
+              authUrl: 'https://instagram.com/oauth/authorize',
+              authRedirectUrl: 'http://localhost:8100/instagram.html',
+              logoutUrl: 'https://instagram.com/accounts/logout'
+            }
           }
         }
       },
@@ -49,7 +55,13 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'production',
-            apiEndpoint: 'http://api.yoursite.com/'
+            instagram: {
+              clientId: '75d27c9457cd4d1abbacf80a228f4a10', // Setup your own: http://instagram.com/developer/clients/manage
+              apiEndpoint: 'https://api.instagram.com/v1',
+              authUrl: 'https://instagram.com/oauth/authorize',
+              authRedirectUrl: 'http://localhost:8100/instagram.html',
+              logoutUrl: 'https://instagram.com/accounts/logout'
+            }
           }
         }
       }
