@@ -23,7 +23,7 @@ angular.module('Trendicity')
         }
         return config;
       },
-      'requestError': function(rejection) {
+      requestError: function(rejection) {
         hideLoadingModalIfNecessary();
         return $q.reject(rejection);
       },
