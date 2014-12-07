@@ -9,7 +9,8 @@ angular.module('Trendicity')
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
+    scope: $scope,
+    animation: 'slide-in-up'
   }).then(function(modal) {
     $scope.loginModal = modal;
   });
@@ -20,15 +21,19 @@ angular.module('Trendicity')
     $scope.loginModal.hide();
   };
 
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.loginModal.remove();
+  });
+
+  // Determine if the user is logged into Instagram
+  $scope.isLoggedIn = function() {
+    return InstagramService.isLoggedIn();
+  };
+
   // Open the login modal
   $scope.login = function() {
     $scope.loginModal.show();
-  };
-
-  // Perform the OAuth login to Instagram
-  $scope.loginToInstagram = function() {
-    $scope.loginModal.hide();
-    InstagramService.login();
   };
 
   // Perform the logout action when the user invokes the logout link
@@ -36,9 +41,10 @@ angular.module('Trendicity')
     InstagramService.logout();
   };
 
-  // Determine if the user is logged into Instagram
-  $scope.isLoggedIn = function() {
-    return InstagramService.isLoggedIn();
+  // Perform the OAuth login to Instagram
+  $scope.loginToInstagram = function() {
+    $scope.loginModal.hide();
+    InstagramService.login();
   };
 
   // Handle the login required event raised by the authService
