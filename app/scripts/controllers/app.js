@@ -7,9 +7,6 @@ angular.module('Trendicity')
     $state.go('app.intro');
   }
 
-  // Form data for the login modal
-  $scope.loginData = {};
-
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
@@ -28,8 +25,8 @@ angular.module('Trendicity')
     $scope.loginModal.show();
   };
 
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
+  // Perform the OAuth login to Instagram
+  $scope.loginToInstagram = function() {
     $scope.loginModal.hide();
     InstagramService.login();
   };
