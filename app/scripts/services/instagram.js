@@ -1,13 +1,22 @@
 'use strict';
 angular.module('Trendicity')
 
-.service('InstagramService', function($rootScope, $http, $interval, localStorageService, authService, ENV) {
+.service('InstagramService', function($rootScope, $http, $interval, localStorageService, authService) {
   var self = this;
-  var CLIENT_ID = ENV.instagram.clientId;
-  var API_ENDPOINT = ENV.instagram.apiEndpoint;
-  var AUTH_URL = ENV.instagram.authUrl;
-  var AUTH_REDIRECT_URL = ENV.instagram.authRedirectUrl;
-  var LOGOUT_URL = ENV.instagram.logoutUrl;
+
+  // if running in a desktop browswer we will proxy to: https://api.instagram.com/v1 in ionic.project to avoid CORS issues
+  var API_ENDPOINT = ionic.Platform.isWebView() ? 'https://api.instagram.com/v1' : '/instagram/api';
+
+  // You are encouraged to setup your own client_id at: http://instagram.com/developer/clients/manage
+  var CLIENT_ID = '75d27c9457cd4d1abbacf80a228f4a10';
+
+  var AUTH_URL = 'https://instagram.com/oauth/authorize';
+  var AUTH_REDIRECT_URL = 'http://localhost:8100/instagram.html';
+  var LOGOUT_URL = 'https://instagram.com/accounts/logout';
+
+  this.getEndpoint = function() {
+      return API_ENDPOINT;
+  };
 
   this.login = function() {
     var loginWindow = window.open(AUTH_URL + '?client_id=' +

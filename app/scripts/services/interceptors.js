@@ -17,7 +17,7 @@ angular.module('Trendicity')
 
         // Handle adding the access_token for instagram api requests
         var InstagramService = $injector.get('InstagramService');
-        if (InstagramService.isLoggedIn() && config.url.indexOf(ENV.instagram.apiEndpoint) === 0) {
+        if (InstagramService.isLoggedIn() && config.url.indexOf(InstagramService.getEndpoint()) === 0) {
           config.params = config.params || {};
           config.params.access_token = InstagramService.getAccessToken();
         }
