@@ -25,18 +25,14 @@
           <icon ios="ion-ios7-information" default="ion-information-circled"></icon>
           About
         </ion-item>
-        <div ng-hide="isLoggedIn()">
-            <ion-item nav-clear menu-close class="item-icon-left" ng-click="login()">
-                <i class="icon ion-log-in"></i>
-                Login
-            </ion-item>
-        </div>
-        <div ng-show="isLoggedIn()">
-            <ion-item nav-clear menu-close class="item-icon-left" ng-click="logout()">
-                <i class="icon ion-log-out"></i>
-                Logout
-            </ion-item>
-        </div>
+        <ion-item nav-clear menu-close class="item-icon-left" ng-click="login()" ng-hide="isLoggedIn()">
+            <i class="icon ion-log-in"></i>
+            Login
+        </ion-item>
+        <ion-item nav-clear menu-close class="item-icon-left" ng-click="logout()" ng-show="isLoggedIn()">
+            <i class="icon ion-log-out"></i>
+            Logout
+        </ion-item>
       </ion-list>
     </ion-content>
   </ion-side-menu>
