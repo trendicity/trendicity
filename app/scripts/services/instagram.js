@@ -43,7 +43,7 @@ angular.module('Trendicity')
       });
     } else { // if running on a desktop browser, use this hack
       var intervalCount = 0, timesToRepeat = 100, intervalDelay = 3000;
-      var loginListener = function(event) {
+      var loginPoller = function(event) {
         intervalCount++;
         if (self.isLoggedIn()) {
           console.log('user is logged in now');
@@ -58,7 +58,7 @@ angular.module('Trendicity')
           }
         }
       };
-      var promise = $interval(loginListener, intervalDelay, timesToRepeat, false);
+      var promise = $interval(loginPoller, intervalDelay, timesToRepeat, false);
     }
   };
 
