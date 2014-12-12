@@ -4,7 +4,7 @@
   "proxies": [
       {
         "path": "/instagram/api",
-        "options": "https://api.instagram.com/v1"
+        "proxyUrl": "https://api.instagram.com/v1"
       }
    ]
 }
