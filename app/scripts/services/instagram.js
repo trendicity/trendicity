@@ -68,10 +68,7 @@ angular.module('Trendicity')
 
     var promise =
       $http.get(API_ENDPOINT + '/media/popular', {
-        params: options,
-        headers: {
-          "Content-Type": "application/json"
-        }
+        params: options
       })
       .error(function(data, status) {
         console.log('findPopularPosts returned status:'  + status);
