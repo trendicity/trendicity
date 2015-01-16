@@ -1,6 +1,6 @@
 <ion-view title="Map View">
   <ion-content class="has-header">
-      <div data-tap-disabled="true">
+      <div data-tap-disabled="true" class="ng-hide" ng-show="locationSet">
           <leaflet center="map.center" markers="map.markers" layers="map.layers"></leaflet>
       </div>
   </ion-content>

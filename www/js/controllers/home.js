@@ -7,18 +7,19 @@ angular.module('Trendicity')
     $scope.favorite;
     $scope.data = { posts: [] };
     $scope.search = { value: 'TR'};
+    $scope.locationSet = false;
 
     GeolocationService.getCurrentPosition()
       .then(
         function (location) {
           $scope.location = location;
+          $scope.locationSet = true;
         },
         function (fallbackLocation) {
           $scope.location = fallbackLocation;
+          $scope.locationSet = true;
         }
       );
-
-    GeolocationService.addressToPosition('Willemstad, curacao');
 
     $scope.getPosts = function(value) {
       if ($state.params.id) {

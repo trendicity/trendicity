@@ -15,23 +15,23 @@ angular.module('Trendicity')
 
         $ionicPlatform.ready(function () {
 
-        var posOptions = {timeout: 10000, enableHighAccuracy: false};
-        $cordovaGeolocation
-            .getCurrentPosition(posOptions)
-            .then(defer.resolve, defer.reject);
+//        var posOptions = {timeout: 10000, enableHighAccuracy: false};
+//        $cordovaGeolocation
+//            .getCurrentPosition(posOptions)
+//            .then(defer.resolve, defer.reject);
 
-//            currentPositionWatcher = navigator.geolocation.getCurrentPosition(
-//                function (position) {
-//                    defer.resolve(position);
-//                },
-//                function (locationError) {
-//                    defer.reject({
-//                        code: locationError.code,
-//                        message: locationError.message,
-//                        coords: fallbackPositionObject
-//                    });
-//                }
-//            );
+            currentPositionWatcher = navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    defer.resolve(position);
+                },
+                function (locationError) {
+                    defer.reject({
+                        code: locationError.code,
+                        message: locationError.message,
+                        coords: fallbackPositionObject
+                    });
+                }
+            );
         });
 
         return defer.promise;

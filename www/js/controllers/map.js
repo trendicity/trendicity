@@ -12,7 +12,8 @@ angular.module('Trendicity')
         FavoritesService,
         InstagramService,
         defaultMapSettings,
-        localStorageService
+        localStorageService,
+        GeolocationService
     ) {
     var self = this;
 
@@ -49,31 +50,20 @@ angular.module('Trendicity')
     });
 
     $scope.registerGeoLocationWatcher = function () {
-        var watcher;
+        var updateLocation = function (location) {
+            $scope.map.markers.currentPosition = {
+                message: '<div class="fm-current-location">Current Location</div>',
+                lat: location.coords.latitude,
+                lng: location.coords.longitude
+            };
+
+            self.centerMap(location.coords.latitude, location.coords.longitude);
+        };
 
         $ionicPlatform.ready(function () {
-            watcher = navigator.geolocation.getCurrentPosition(
-                function (location) {
-                    $scope.map.markers.currentPosition = {
-                        message: '<div class="fm-current-location">Current Location</div>',
-                        lat: location.coords.latitude,
-                        lng: location.coords.longitude
-                    };
-
-                    self.centerMap(location.coords.latitude, location.coords.longitude);
-                },
-                function (error) {
-                    $log.debug('Failed to detect location');
-                },
-                {
-                    enableHighAccuracy: true,
-                    maximumAge: 0
-                }
-            );
-        });
-
-        $scope.$on('$destroy', function () {
-            navigator.geolocation.clearWatch(watcher);
+            // We get either a location object or a fallback location object.
+            // Either way, call updateLocation with one of these objects as an argument.
+            GeolocationService.getCurrentPosition().then(updateLocation, updateLocation);
         });
     };
 
@@ -101,9 +91,9 @@ angular.module('Trendicity')
     if ($state.params.id) {
         $scope.favorite = FavoritesService.getFavorite( parseInt($state.params.id, 10) );
         InstagramService.findNearbyPosts( $scope.favorite.lat, $scope.favorite.lng )
-        .success( function ( data ) {
-            $scope.data.posts = data.data;
-        });
+            .success( function ( data ) {
+                $scope.data.posts = data.data;
+            });
 
         $scope.map = {
             center: {
