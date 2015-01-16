@@ -1,0 +1,32 @@
+.scroll {
+  height: 100%;
+}
+
+.vertical-center > * {
+  @include display-flex;
+  @include flex-direction(row);
+  @include flex-wrap(nowrap);
+  @include justify-content(center);
+  @include align-content(stretch);
+  @include align-items(center);
+}
+
+#logo {
+  margin: 15px 0px;
+}
+
+#login {
+  background-image: url('../img/instagram.jpg');
+  background-size: cover;
+  background-position: center;
+
+  .row {
+    margin-top: -$bar-height;
+    padding: $login-margin 20px;
+  }
+
+  .button-block {
+    margin-top: $login-margin / 2;
+    margin-bottom: 0;
+  }
+}

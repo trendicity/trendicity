@@ -1,0 +1,17 @@
+.slider {
+  height: 100%;
+}
+
+.slider-slide {
+  padding-top: 80px;
+  color: #000;
+  background-color: #fff;
+  text-align: center;
+
+  font-family: $font-family-light-sans-serif;
+  font-weight: 300;
+}
+
+.popup .slider-slide {
+    padding-top: 0;
+}

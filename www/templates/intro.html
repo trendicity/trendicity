@@ -1,0 +1,73 @@
+<ion-view title="">
+  <ion-nav-bar>
+    <ion-nav-buttons side="left">
+      <button class="button button-positive button-clear no-animation"
+        nav-clear ng-click="startApp()" ng-if="!slideIndex">
+        Skip
+      </button>
+      <button class="button button-positive button-clear no-animation"
+        ng-click="previous()" ng-if="slideIndex > 0">
+        Back
+      </button>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="right"> 
+      <button class="button button-positive button-clear no-animation"
+        ng-click="next()" ng-if="slideIndex != 2">
+        Next
+      </button>
+      <button class="button button-positive button-clear no-animation"
+        nav-clear ng-click="startApp()" ng-if="slideIndex == 2">
+        Explore
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-slide-box on-slide-changed="slideChanged(index)">
+    <ion-slide>
+        <ion-content>
+          <h3 style="margin-top: 15px;">Welcome to Trendicity</h3>
+          <div id="logo">
+            <img src="img/placeholder-city.jpg">
+          </div>
+            <p>
+                Explore Instagram posts by popular locations,
+            </p>
+            <p>
+                or Log In to visualize your feed on a map.
+            </p>
+        </ion-content>
+    </ion-slide>
+
+      <ion-slide>
+          <h3>Using TrendiCity</h3>
+          <div id="list">
+              <ol>
+                  <li>Explore</li>
+                  <li>Swipe</li>
+                  <li>Favorite</li>
+              </ol>
+          </div>
+          <p>For best use of Trendicity, we'd like to use your current location.</p>
+
+          <button class="button button-positive" ng-click="getCurrentPosition()" ng-disabled="fetchingPosition">
+              <span ng-hide="fetchingPosition">Allow location access</span>
+              <span class="ng-hide" ng-show="fetchingPosition">Determining your position... </span>
+          </button>
+
+          <div class="card ng-hide" ng-show="noPosition">
+              <div class="item item-text-wrap">
+                 We are unable to determine your location.
+              </div>
+          </div>
+      </ion-slide>
+
+    <ion-slide>
+      <h3>Any questions?</h3>
+      <p>
+        Mention something about the book and list all our names here.
+      </p>
+    </ion-slide>
+  </ion-slide-box>
+</ion-view>
+

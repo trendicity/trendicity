@@ -1,0 +1,41 @@
+#list {
+  width: 170px;
+  margin: $list-margin auto;
+  font-size: 20px;
+
+  ol {
+    margin-top: $list-margin;
+
+    li {
+      text-align: left;
+      list-style: decimal;
+      margin: 10px 0px;
+    }
+  }
+}
+
+.list-post {
+  left: 0;
+  right: 0;
+
+  > img {
+      display: block;
+      width: 100%;
+  }
+}
+
+.list-post-user {
+  position: relative;
+}
+
+h2.list-post-user-expanded {
+    margin-top: 10px;
+}
+
+.list-post-timestamp {
+  position: absolute;
+  right: 0;
+  bottom: 2px;
+  font-weight: normal;
+  font-size: 12px;
+}

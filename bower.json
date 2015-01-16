@@ -1,0 +1,15 @@
+{
+  "name": "Trendicity",
+  "version": "0.0.0",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.0.0-beta.14"
+  },
+  "dependencies": {
+    "angular-local-storage": "~0",
+    "ionic-contrib-tinder-cards": "*",
+    "ngCordova": "~0.1.6-alpha",
+    "angular-leaflet-directive": "~0.7.9",
+    "leaflet-plugins": "~1.2.0",
+    "angular-http-auth": "https://github.com/witoldsz/angular-http-auth.git#1.2.2"
+  }
+}
