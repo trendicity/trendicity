@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Trendicity')
 
-.service('GeolocationService', function($q, $ionicPlatform, $http) {
+.service('GeolocationService', function($q, $ionicPlatform, $http, $cordovaGeolocation) {
     var that = this,
         currentPositionWatcher,
         fallbackPositionObject = {
@@ -14,18 +14,24 @@ angular.module('Trendicity')
         var defer = $q.defer();
 
         $ionicPlatform.ready(function () {
-            currentPositionWatcher = navigator.geolocation.getCurrentPosition(
-                function (position) {
-                    defer.resolve(position);
-                },
-                function (locationError) {
-                    defer.reject({
-                        code: locationError.code,
-                        message: locationError.message,
-                        coords: fallbackPositionObject
-                    });
-                }
-            );
+
+        var posOptions = {timeout: 10000, enableHighAccuracy: false};
+        $cordovaGeolocation
+            .getCurrentPosition(posOptions)
+            .then(defer.resolve, defer.reject);
+
+//            currentPositionWatcher = navigator.geolocation.getCurrentPosition(
+//                function (position) {
+//                    defer.resolve(position);
+//                },
+//                function (locationError) {
+//                    defer.reject({
+//                        code: locationError.code,
+//                        message: locationError.message,
+//                        coords: fallbackPositionObject
+//                    });
+//                }
+//            );
         });
 
         return defer.promise;
