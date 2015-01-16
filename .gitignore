@@ -6,3 +6,4 @@ www/lib/
 .sass-cache
 *.log
 *.DS_Store
+.idea
