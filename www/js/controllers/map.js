@@ -15,6 +15,7 @@ angular.module('Trendicity')
         localStorageService,
         GeolocationService
     ) {
+
     var self = this;
 
     $scope.map = defaultMapSettings;
@@ -60,11 +61,9 @@ angular.module('Trendicity')
             self.centerMap(location.coords.latitude, location.coords.longitude);
         };
 
-        $ionicPlatform.ready(function () {
-            // We get either a location object or a fallback location object.
-            // Either way, call updateLocation with one of these objects as an argument.
-            GeolocationService.getCurrentPosition().then(updateLocation, updateLocation);
-        });
+        // We get either a location object or a fallback location object.
+        // Either way, call updateLocation with one of these objects as an argument.
+        GeolocationService.getCurrentPosition().then(updateLocation, updateLocation);
     };
 
     this.centerMap = function (lat, lng, zoom) {
