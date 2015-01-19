@@ -122,51 +122,36 @@ angular.module('Trendicity')
 
         $log.debug('Clearing markers...');
 
-        for (i = 0; i <= markerLength; i++) {
-            marker = map.markers[i];
+        var currentMarker = map.markers.currentPosition;
 
-            if (marker.uid !== 'currentPosition') {
-                this.removeMarker()
+        for (var i in map.markers) {
+            if (map.markers.hasOwnProperty(i)) {
+                map.markers[i].setMap(null);
+                delete map.markers[i];
             }
+        }
 
-            marker.setMap(null); // Remove from map
-            delete map.markers[i];
+        // Re-add current position marker to collection
+        if (currentMarker) {
+            map.markers['currentPosition'] = currentMarker;
         }
     };
 
-    this.removeMarker = function (marker, markerIndex) {
-        var map = this.getMapInstance(),
-            markerLength = map.markers.length,
-            marker,
-            blnReturn = false;
+    this.removeMarker = function (marker) {
+        var map = this.getMap(),
+            marker;
 
-        $log.debug('Removing marker', marker, markerIndex);
-
-        if (typeof lastInstance === 'undefined') {
-            return; // No map instance to clear markers from.
-        }
-        if (typeof marker === 'object' &&
-            typeof marker.setMap === 'function' &&
-            typeof markerIndex !== 'undefined' &&
-            markerIndex >= 0
-        ) {
-            marker.setMap(null);
-            delete map.markers[markerIndex];
-            blnReturn = true;
-
-        } else {
-
-            // 'marker' === marker ID, look it up and delete.
-            for (var i = 0; i <= markerLength; i++) {
-                marker = map.markers[i];
-
-                if (marker.uid === markerId) {
-                    blnReturn = this.removeMarker(markerId);
-                }
-            }
+        if (!map.markers[marker.uid]) {
+            return false;
         }
 
-        return blnReturn;
+        $log.debug('Removing marker', marker);
+
+        // Remove from map and collection
+        map.markers[marker.uid].setMap(null);
+        delete map.markers[marker.uid];
+
+        return true;
     };
 
     return this;
