@@ -24,21 +24,30 @@ angular.module('Trendicity')
     $scope.getPosts = function(value) {
       if ($state.params.id) {
         $scope.getFavoritePosts();
-      } else if (value === 'TR') {
-        $scope.findPopularPosts();
-      } else if (value === 'NB') {
-        $scope.findNearbyPosts();
-      } else if (value === 'UF') {
-        $scope.findUserFeedPosts();
-      } else if (value === 'LP') {
-        $scope.findLikedPosts();
+      } else {
+        // Remove stored favorite
+        $scope.favorite = null;
+
+        if (value === 'TR') {
+          $scope.findPopularPosts();
+        } else if (value === 'NB') {
+          $scope.findNearbyPosts();
+        } else if (value === 'UF') {
+          $scope.findUserFeedPosts();
+        } else if (value === 'LP') {
+          $scope.findLikedPosts();
+        }
       }
     };
 
-    $scope.$watch('search.value', function(newValue) {
-      $scope.getPosts(newValue);
+    function updatePosts(searchValue) {
+      $scope.getPosts(searchValue);
       $scope.closePopover();
       $ionicScrollDelegate.scrollTop();
+    }
+
+    $scope.$watch('search.value', function(newValue) {
+      updatePosts(newValue);
     });
 
     $scope.findPopularPosts = function() {
@@ -104,11 +113,9 @@ angular.module('Trendicity')
         $scope.data.posts = [];
       }
     });
+
+    $scope.$on('$ionicView.enter', function() {
+      updatePosts($scope.search.value);
+    });
   }
 );
-
-
-
-
-
-
