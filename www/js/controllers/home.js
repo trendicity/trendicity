@@ -29,14 +29,17 @@ angular.module('Trendicity')
     $scope.getPosts = function(value) {
       if ($state.params.id) {
         $scope.getFavoritePosts();
-      } else if (value === POST_TYPE.TRENDING) {
-        $scope.findPopularPosts();
-      } else if (value === POST_TYPE.NEARBY) {
-        $scope.findNearbyPosts();
-      } else if (value === POST_TYPE.USER_FEED) {
-        $scope.findUserFeedPosts();
-      } else if (value === POST_TYPE.LIKED) {
-        $scope.findLikedPosts();
+      } else {
+        $scope.favorite = null;
+        if (value === POST_TYPE.TRENDING) {
+          $scope.findPopularPosts();
+        } else if (value === POST_TYPE.NEARBY) {
+          $scope.findNearbyPosts();
+        } else if (value === POST_TYPE.USER_FEED) {
+          $scope.findUserFeedPosts();
+        } else if (value === POST_TYPE.LIKED) {
+          $scope.findLikedPosts();
+        }
       }
     };
 
