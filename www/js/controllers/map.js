@@ -22,7 +22,8 @@ angular.module('Trendicity')
         $ionicPlatform,
         $cordovaNetwork,
         MapService,
-        localStorageService
+        localStorageService,
+        GeolocationService
     ) {
 
 //    var self = this;
@@ -47,11 +48,17 @@ angular.module('Trendicity')
           for (var i = 0; i < $scope.data.posts.length; i++) {
             location = $scope.data.posts[i].location;
             if (location && location.latitude && location.longitude) {
-              $scope.map.markers['instagram' + i] = {
-                message: '<img src="' + $scope.data.posts[i].images.thumbnail.url + '" />',
-                lat: location.latitude,
-                lng: location.longitude
-              };
+              MapService.addMarker({
+                  image: $scope.data.posts[i].images.thumbnail.url,
+                  coords: location,
+                  uid: 'instagram' + i
+              });
+
+//              $scope.map.markers['instagram' + i] = {
+//                message: '<img src="' +  + '" />',
+//                lat: location.latitude,
+//                lng: location.longitude
+//              };
             }
           }
         }
@@ -138,6 +145,15 @@ angular.module('Trendicity')
                 $log.debug('Platform ready.. loading Google Maps');
 
                 MapService.initialize('googleMap');
+
+                var setLocationMarker = function (location) {
+                    $log.debug('Setting currentposition marker');
+                    MapService.addMarker({
+                        uid: 'currentLocation',
+                        coords: location
+                    });
+                };
+                GeolocationService.getCurrentPosition(setLocationMarker, setLocationMarker);
             });
         };
 

@@ -79,9 +79,11 @@ angular.module('Trendicity')
         // Keep track of last instance
         lastInstance = instanceName;
 
-        this.addMarker({coords: latLng}, instanceName, 'Current Position');
-
         return this.getMapInstance(instanceName);
+    };
+
+    this.getMap = function () {
+        return mapInstance[lastInstance];
     };
 
     this.getMapInstance = function (instanceName) {
@@ -101,13 +103,29 @@ angular.module('Trendicity')
         };
     };
 
-    this.addMarker = function (markerObject, instanceName, title) {
-        var marker = new google.maps.Marker({
-            position: that.getLatLngFromCoords(markerObject.coords),
-            title: title
-        });
+    this.addMarker = function (markerObject) {
+        var latLng = this.getLatLngFromCoords(markerObject.coords),
+            map = this.getMapInstance(),
+            marker = new google.maps.Marker({
+                position: latLng
+            });
 
-        marker.setMap(this.getMapInstance(instanceName));
+        if (markerObject.title) {
+            marker.setTitle(markerObject.title);
+        }
+
+        if (markerObject.image) {
+            marker.setIcon(markerObject.image);
+        }
+
+        if (markerObject.uid === 'currentPosition') {
+
+            map.setCenter(latLng);
+        }
+
+        marker.setMap(map);
+
+        $log.debug('Added marker' + markerObject.uid);
     };
 
     this.clearMarkers = function () {
@@ -115,14 +133,11 @@ angular.module('Trendicity')
             return; // No map instance to clear markers from.
         }
 
-        var i,
-            map = this.getMapInstance(),
-            markerLength = map.markers.length,
-            marker;
+        var map = that.getMap(),
+            currentMarker = map.markers.currentPosition;
 
         $log.debug('Clearing markers...');
 
-        var currentMarker = map.markers.currentPosition;
 
         for (var i in map.markers) {
             if (map.markers.hasOwnProperty(i)) {
