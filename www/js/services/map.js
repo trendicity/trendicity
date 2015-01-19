@@ -39,7 +39,7 @@ angular.module('Trendicity')
     this.getLatLngFromCoords = function (coords) {
         // Throw descriptive error if invalid argument
         if ((!coords.latitude || !coords.longitude) && (!coords instanceof google.maps.LatLng)) {
-            throw new Error('Invalid coords argument passed to GeolocationService.getLatLngFromCoords.');
+            throw new Error('Invalid coords argument passed to MapService.getLatLngFromCoords.');
         }
 
         // If this is already a Google Maps LatLng object, return it.
@@ -85,6 +85,8 @@ angular.module('Trendicity')
     };
 
     this.getMapInstance = function (instanceName) {
+        instanceName = (instanceName) ? instanceName : lastInstance;
+
         if (!mapInstance[instanceName]) {
             throw new Error('No map instance found with name \'' + instanceName + '\'.');
         }
@@ -100,8 +102,6 @@ angular.module('Trendicity')
     };
 
     this.addMarker = function (markerObject, instanceName, title) {
-        instanceName = (instanceName) ? instanceName : lastInstance;
-
         var marker = new google.maps.Marker({
             position: that.getLatLngFromCoords(markerObject.coords),
             title: title
@@ -111,13 +111,12 @@ angular.module('Trendicity')
     };
 
     this.clearMarkers = function () {
-
         if (typeof lastInstance === 'undefined') {
             return; // No map instance to clear markers from.
         }
 
         var i,
-            map = this.getMapInstance(lastInstance),
+            map = this.getMapInstance(),
             markerLength = map.markers.length,
             marker;
 
@@ -126,9 +125,48 @@ angular.module('Trendicity')
         for (i = 0; i <= markerLength; i++) {
             marker = map.markers[i];
 
+            if (marker.uid !== 'currentPosition') {
+                this.removeMarker()
+            }
+
             marker.setMap(null); // Remove from map
             delete map.markers[i];
         }
+    };
+
+    this.removeMarker = function (marker, markerIndex) {
+        var map = this.getMapInstance(),
+            markerLength = map.markers.length,
+            marker,
+            blnReturn = false;
+
+        $log.debug('Removing marker', marker, markerIndex);
+
+        if (typeof lastInstance === 'undefined') {
+            return; // No map instance to clear markers from.
+        }
+        if (typeof marker === 'object' &&
+            typeof marker.setMap === 'function' &&
+            typeof markerIndex !== 'undefined' &&
+            markerIndex >= 0
+        ) {
+            marker.setMap(null);
+            delete map.markers[markerIndex];
+            blnReturn = true;
+
+        } else {
+
+            // 'marker' === marker ID, look it up and delete.
+            for (var i = 0; i <= markerLength; i++) {
+                marker = map.markers[i];
+
+                if (marker.uid === markerId) {
+                    blnReturn = this.removeMarker(markerId);
+                }
+            }
+        }
+
+        return blnReturn;
     };
 
     return this;
