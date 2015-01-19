@@ -57,5 +57,9 @@ angular.module('Trendicity')
             );
     };
 
+    this.getDefaultPosition = function () {
+        return fallbackPositionObject;
+    };
+
     return this;
 });

@@ -1,36 +1,41 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('HomeCtrl', function ($rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService, GeolocationService, $state, FavoritesService) {
-    console.log('Inside HomeCtrl...');
-
+// Creating a constant for post type values.
+// This adds readability to our code later.
+.constant('POST_TYPE', {
+    'TRENDING': 'TR',
+    'NEARBY': 'NB',
+    'USER_FEED': 'UF',
+    'LIKED': 'LP'
+})
+.controller('HomeCtrl', function (POST_TYPE, $rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService, GeolocationService, $state, FavoritesService) {
     $scope.favorite;
     $scope.data = { posts: [] };
     $scope.search = { value: 'TR'};
     $scope.locationSet = false;
 
+    this.setLocation = function (location) {
+      if (location) {
+        $scope.location = location;
+      }
+
+      $scope.locationSet = !!location; // Convert truthy / falsey value to boolean using !!
+    };
+
     GeolocationService.getCurrentPosition()
-      .then(
-        function (location) {
-          $scope.location = location;
-          $scope.locationSet = true;
-        },
-        function (fallbackLocation) {
-          $scope.location = fallbackLocation;
-          $scope.locationSet = true;
-        }
-      );
+      .then(this.setLocation, this.setLocation);
 
     $scope.getPosts = function(value) {
       if ($state.params.id) {
         $scope.getFavoritePosts();
-      } else if (value === 'TR') {
+      } else if (value === POST_TYPE.TRENDING) {
         $scope.findPopularPosts();
-      } else if (value === 'NB') {
+      } else if (value === POST_TYPE.NEARBY) {
         $scope.findNearbyPosts();
-      } else if (value === 'UF') {
+      } else if (value === POST_TYPE.USER_FEED) {
         $scope.findUserFeedPosts();
-      } else if (value === 'LP') {
+      } else if (value === POST_TYPE.LIKED) {
         $scope.findLikedPosts();
       }
     };
