@@ -8,7 +8,7 @@ angular.module('Trendicity')
     $scope.noPosition = false;
 
   // disable side-menu drag
-  $scope.$on('$ionicView.enter', function() {
+  $scope.$on('$ionicView.beforeEnter', function() {
     $timeout(function() {
       $ionicSideMenuDelegate.canDragContent(false);
     });

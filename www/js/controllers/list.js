@@ -5,7 +5,7 @@ angular.module('Trendicity')
   console.log('Inside ListViewCtrl...');
 
   // Enable side menu drag
-  $scope.$on('$ionicView.enter', function() {
+  $scope.$on('$ionicView.beforeEnter', function() {
       $timeout(function() {
         $ionicSideMenuDelegate.canDragContent(true);
       });

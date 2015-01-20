@@ -4,6 +4,13 @@ angular.module('Trendicity')
 .controller('HomeCtrl', function ($rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService, GeolocationService, $state, FavoritesService) {
     console.log('Inside HomeCtrl...');
 
+    // Disable side-menu drag so that it doesnt interfere with our tinder cards functionality
+    $scope.$on('$ionicView.beforeEnter', function() {
+      $timeout(function() {
+        $ionicSideMenuDelegate.canDragContent(false);
+      });
+    });
+
     $scope.favorite;
     $scope.data = { posts: [] };
     $scope.search = { value: 'TR'};
