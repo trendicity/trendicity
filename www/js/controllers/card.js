@@ -1,14 +1,12 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('CardViewCtrl', function ($scope, $timeout, $ionicSideMenuDelegate, $ionicPopup, $ionicSlideBoxDelegate,
+.controller('CardViewCtrl', function ($scope, $ionicSideMenuDelegate, $ionicPopup, $ionicSlideBoxDelegate,
                                       localStorageService, InstagramService, TDCardDelegate) {
 
   // Disable side-menu drag so that it doesnt interfere with our tinder cards functionality
-  $scope.$on('$ionicView.beforeEnter', function() {
-    $timeout(function() {
-      $ionicSideMenuDelegate.canDragContent(false);
-    });
+  $scope.$on('$ionicView.enter', function() {
+    $ionicSideMenuDelegate.canDragContent(false);
   });
 
   if (!localStorageService.get('seenCardIntro')) {
@@ -91,4 +89,3 @@ angular.module('Trendicity')
   };
 
 })
-
