@@ -53,12 +53,6 @@ angular.module('Trendicity')
                   coords: location,
                   uid: 'instagram' + i
               });
-
-//              $scope.map.markers['instagram' + i] = {
-//                message: '<img src="' +  + '" />',
-//                lat: location.latitude,
-//                lng: location.longitude
-//              };
             }
           }
         }
@@ -135,31 +129,35 @@ angular.module('Trendicity')
 //    } else {
 //        $scope.init();
 //    }
-        localStorageService.set('seenIntro', false);
         var that = this;
 
         $log.debug('Initializing map controller', ionic.Platform.isWebView());
 
         this.initializeMap = function () {
             $ionicPlatform.ready(function () {
-                $log.debug('Platform ready.. loading Google Maps');
-
                 MapService.initialize('googleMap');
 
                 var setLocationMarker = function (location) {
-                    $log.debug('Setting currentposition marker');
+                    $log.debug('Setting currentLocation marker' + JSON.stringify(location));
+
                     MapService.addMarker({
                         uid: 'currentLocation',
                         coords: location
                     });
+
+                    // This forces a 'repaint' of the map. Whithout this
+                    // setCenter call, the tiles will stay grey.
+                    MapService.setCenter(location.coords);
                 };
-                GeolocationService.getCurrentPosition(setLocationMarker, setLocationMarker);
+
+                GeolocationService
+                    .getCurrentPosition()
+                    .then(setLocationMarker, setLocationMarker);
             });
         };
 
-        $scope.$on('$ionicView.enter', function () {
-            $log.debug('MAP VIEW OPENED. INIT MAP');
-
+        $scope.$on('$ionicView.enter', function (event, b,c) {
+            $log.debug('$ionicView.enter ' + b.stateId);
             that.initializeMap();
         });
 });

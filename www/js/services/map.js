@@ -19,8 +19,14 @@ angular.module('Trendicity')
 
         return {
             center: centerPoint,
-            zoom: 16,
-            mapTypeId: mapType
+            zoom: 14,
+            mapTypeId: mapType,
+            panControl: true,
+            zoomControl: true,
+            mapTypeControl: false,
+            scaleControl: true,
+            streetViewControl: false,
+            overviewMapControl: false
         };
     };
 
@@ -63,10 +69,10 @@ angular.module('Trendicity')
 
         // Get position object
         var latLng = this.getLatLngFromCoords(defaultLatLng);
-        $log.debug('Got default latlng: ', latLng);
+        $log.debug('Got default latlng: ' + JSON.stringify(latLng));
 
         var mapOptions = this.getMapOptions();
-        $log.debug('Got default map options: ', mapOptions);
+        $log.debug('Got default map options: ' + JSON.stringify(mapOptions));
 
         this.setMapInstance(
             instanceName,
@@ -118,14 +124,20 @@ angular.module('Trendicity')
             marker.setIcon(markerObject.image);
         }
 
-        if (markerObject.uid === 'currentPosition') {
-
-            map.setCenter(latLng);
-        }
-
         marker.setMap(map);
 
+        console.log(marker);
+
         $log.debug('Added marker' + markerObject.uid);
+    };
+
+    this.setCenter = function (coords) {
+        var map = this.getMapInstance(),
+            latLng = this.getLatLngFromCoords(coords);
+
+        $log.debug('Set map center to ' + JSON.stringify(latLng));
+
+        map.setCenter(latLng);
     };
 
     this.clearMarkers = function () {
