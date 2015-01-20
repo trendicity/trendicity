@@ -1,14 +1,18 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate, $ionicSideMenuDelegate, $ionicHistory, localStorageService, GeolocationService) {
+.controller('IntroCtrl', function($scope, $state, $timeout, $ionicSlideBoxDelegate, $ionicSideMenuDelegate, $ionicHistory, localStorageService, GeolocationService) {
 
     //** Settings some default scope variables.
     $scope.fetchingPosition = false;
     $scope.noPosition = false;
 
-  // Temporarily disable side-menu drag
-  $ionicSideMenuDelegate.canDragContent(false);
+  // disable side-menu drag
+  $scope.$on('$ionicView.enter', function() {
+    $timeout(function() {
+      $ionicSideMenuDelegate.canDragContent(false);
+    });
+  });
 
   // Clear history since this might have been a forced redirect
   $ionicHistory.clearHistory();

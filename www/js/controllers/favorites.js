@@ -1,7 +1,13 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('FavoritesCtrl', function($scope, FavoritesService, $ionicModal) {
+.controller('FavoritesCtrl', function($scope, FavoritesService, $ionicModal, $timeout, $ionicSideMenuDelegate) {
+    // enable side menu drag
+    $scope.$on('$ionicView.enter', function() {
+      $timeout(function() {
+        $ionicSideMenuDelegate.canDragContent(true);
+      });
+    });
 
     $scope.favorite = {};
 

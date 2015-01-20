@@ -1,8 +1,15 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('ListViewCtrl', function ($scope, $ionicActionSheet, $ionicLoading, InstagramService, FavoritesService) {
+.controller('ListViewCtrl', function ($scope, $ionicActionSheet, $ionicLoading, $ionicSideMenuDelegate, $timeout, InstagramService, FavoritesService) {
   console.log('Inside ListViewCtrl...');
+
+  // Enable side menu drag
+  $scope.$on('$ionicView.enter', function() {
+      $timeout(function() {
+        $ionicSideMenuDelegate.canDragContent(true);
+      });
+  });
 
   // Determine list item height
   function getItemHeight() {
