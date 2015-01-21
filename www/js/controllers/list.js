@@ -1,15 +1,8 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('ListViewCtrl', function ($scope, $ionicActionSheet, $ionicLoading, $ionicSideMenuDelegate, $timeout, InstagramService, FavoritesService) {
+.controller('ListViewCtrl', function ($scope, $ionicActionSheet, $ionicLoading, InstagramService, FavoritesService) {
   console.log('Inside ListViewCtrl...');
-
-  // Enable side menu drag
-  $scope.$on('$ionicView.beforeEnter', function() {
-      $timeout(function() {
-        $ionicSideMenuDelegate.canDragContent(true);
-      });
-  });
 
   // Determine list item height
   function getItemHeight() {
@@ -20,7 +13,7 @@ angular.module('Trendicity')
     var min = (screenWidth < imageWidth) ? screenWidth : imageWidth;
     return min + itemAvatarHeight + buttonBarHeight;
   }
-  
+
   $scope.itemHeight = getItemHeight();
 
   // Display action sheet
