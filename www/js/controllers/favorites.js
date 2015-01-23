@@ -1,8 +1,12 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('FavoritesCtrl', function($scope, FavoritesService, $ionicModal) {
+.controller('FavoritesCtrl', function($scope, FavoritesService, $ionicModal, $ionicSideMenuDelegate) {
     $scope.favorite = {};
+
+    $scope.$on('$ionicView.enter', function() {
+        $ionicSideMenuDelegate.$getByHandle('sideMenu').canDragContent(true);
+    });
 
     $scope.removeFavorite = function (favorite) {
         $scope.favorites = FavoritesService.delete(favorite);
