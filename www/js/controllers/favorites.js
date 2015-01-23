@@ -5,7 +5,7 @@ angular.module('Trendicity')
     $scope.favorite = {};
 
     $scope.$on('$ionicView.enter', function() {
-        $ionicSideMenuDelegate.$getByHandle('sideMenu').canDragContent(true);
+        $ionicSideMenuDelegate.canDragContent(true);
     });
 
     $scope.removeFavorite = function (favorite) {
