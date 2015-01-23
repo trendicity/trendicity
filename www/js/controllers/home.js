@@ -113,9 +113,5 @@ angular.module('Trendicity')
         $scope.data.posts = [];
       }
     });
-
-    $scope.$on('$ionicView.enter', function() {
-      updatePosts($scope.search.value);
-    });
   }
 );
