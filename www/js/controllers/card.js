@@ -2,11 +2,11 @@
 angular.module('Trendicity')
 
 .controller('CardViewCtrl', function ($scope, $ionicSideMenuDelegate, $ionicPopup, $ionicSlideBoxDelegate,
-                                      $timeout, localStorageService, InstagramService, TDCardDelegate) {
+                                      $timeout, $ionicHistory, localStorageService, InstagramService, TDCardDelegate) {
 
   // Disable side-menu drag so that it doesnt interfere with our tinder cards functionality
   $scope.$on('$ionicView.enter', function() {
-    $ionicSideMenuDelegate.toggleRight();
+    $ionicHistory.clearHistory();
     $ionicSideMenuDelegate.canDragContent(false);
   });
 
