@@ -10,6 +10,10 @@ angular.module('Trendicity')
     $ionicSideMenuDelegate.canDragContent(false);
   });
 
+  $scope.$on('$ionicView.leave', function() {
+    $ionicSideMenuDelegate.canDragContent(true);
+  });
+
 
   if (!localStorageService.get('seenCardIntro')) {
     // Mark intro as seen
