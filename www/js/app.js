@@ -6,7 +6,6 @@ angular.module('Trendicity', [
   'config',
   'LocalStorageModule',
   'ngCordova',
-  'leaflet-directive',
   'http-auth-interceptor'
 ])
 
@@ -114,29 +113,6 @@ angular.module('Trendicity', [
 
 .constant('$ionicLoadingConfig', {
   template: '<h3><icon ios="ion-ios7-reloading" android="ion-loading-c" default="ion-refreshing"></icon></h3>Loading...'
-})
-
-.constant('defaultMapSettings', {
-    center: {
-        lat: 52.52,
-        lng: 13.40,
-        zoom: 14
-    },
-    markers: {
-        m1: {
-            lat: 52.52,
-            lng: 13.40
-        }
-    },
-    layers: {
-        baselayers: {
-            googleRoadmap: {
-                name: 'Google Streets',
-                layerType: 'ROADMAP',
-                type: 'google'
-            }
-        }
-    }
 })
 
 .config(function($httpProvider) {

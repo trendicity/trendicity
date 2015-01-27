@@ -7,8 +7,6 @@
   "dependencies": {
     "angular-local-storage": "~0",
     "ionic-contrib-tinder-cards": "*",
-    "angular-leaflet-directive": "~0.7.9",
-    "leaflet-plugins": "~1.2.0",
     "angular-http-auth": "https://github.com/witoldsz/angular-http-auth.git#1.2.2",
     "ngCordova": "~0.1.11-alpha"
   }

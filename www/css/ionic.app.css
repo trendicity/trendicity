@@ -7089,16 +7089,15 @@ h2.list-post-user-expanded {
 .bar.bar-thin {
   border-width: 0; }
 
-#map {
+#googleMap {
   width: 100%;
   height: 100%; }
 
-.leaflet-google-layer, .angular-leaflet-map {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0; }
+.tc-hide {
+  visibility: none; }
+
+.tc-show {
+  visibility: visible !important; }
 
 .button.button-light.button-clear {
   border-color: transparent;

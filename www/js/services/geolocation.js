@@ -1,10 +1,10 @@
 'use strict';
 angular.module('Trendicity')
 
-.service('GeolocationService', function($q, $ionicPlatform, $http, $cordovaGeolocation) {
+.service('GeolocationService', function($q, $log, $ionicPlatform, $http, $cordovaGeolocation) {
     var fallbackPositionObject = {
-            latitude: '12.1401024',
-            longitude: '-68.837932',
+            latitude: '32.5765383',
+            longitude: '-95.7244466',
             accuracy: 0
         };
 
@@ -18,9 +18,13 @@ angular.module('Trendicity')
                 .getCurrentPosition(posOptions)
                 .then(
                     function (position) {
+                        $log.debug('Got geolocation');
                         defer.resolve(position);
                     },
                     function (locationError) {
+
+                        $log.debug('Did not get geolocation');
+
                         defer.reject({
                             code: locationError.code,
                             message: locationError.message,
@@ -55,6 +59,10 @@ angular.module('Trendicity')
                     $q.reject(reason);
                 }
             );
+    };
+
+    this.getDefaultPosition = function () {
+        return fallbackPositionObject;
     };
 
     return this;
