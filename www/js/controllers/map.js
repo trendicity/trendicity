@@ -38,25 +38,28 @@ angular.module('Trendicity')
 //        };
 //    }
 //
-    $scope.$watch('data.posts', function () {
-        $log.debug('posts updated');
 
-        MapService.clearMarkers();
+    function registerPostsWatch () {
+        $scope.$watch('data.posts', function () {
+            $log.debug('posts updated');
 
-        var location;
-        if ($scope.data.posts) {
-          for (var i = 0; i < $scope.data.posts.length; i++) {
-            location = $scope.data.posts[i].location;
-            if (location && location.latitude && location.longitude) {
-              MapService.addMarker({
-                  image: $scope.data.posts[i].images.thumbnail.url,
-                  coords: location,
-                  uid: 'instagram' + i
-              });
+            var location;
+            if ($scope.data.posts) {
+              for (var i = 0; i < $scope.data.posts.length; i++) {
+                location = $scope.data.posts[i].location;
+                if (location && location.latitude && location.longitude) {
+                  MapService.addMarker({
+                      image: $scope.data.posts[i].images.thumbnail.url,
+                      coords: location,
+                      uid: 'instagram' + i
+                  });
+                }
+              }
+
+              MapService.fitBounds();
             }
-          }
-        }
-    });
+        });
+    }
 //
 //    $scope.registerGeoLocationWatcher = function () {
 //        var updateLocation = function (location) {
@@ -129,11 +132,15 @@ angular.module('Trendicity')
 //    } else {
 //        $scope.init();
 //    }
-        var that = this;
 
         $log.debug('Initializing map controller', ionic.Platform.isWebView());
 
-        this.initializeMap = function () {
+        google.maps.event.addDomListener(window, 'load', function() {
+            $scope.initializeMap();
+        });
+
+        $scope.initializeMap = function () {
+
             $ionicPlatform.ready(function () {
                 MapService.initialize('googleMap');
 
@@ -154,10 +161,8 @@ angular.module('Trendicity')
                     .getCurrentPosition()
                     .then(setLocationMarker, setLocationMarker);
             });
-        };
 
-        $scope.$on('$ionicView.enter', function (event, b,c) {
-            $log.debug('$ionicView.enter ' + b.stateId);
-            that.initializeMap();
-        });
+            // Only start listening for changes when the Map is initialized.
+            registerPostsWatch();
+        };
 });
