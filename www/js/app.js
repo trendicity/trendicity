@@ -9,14 +9,8 @@ angular.module('Trendicity', [
   'http-auth-interceptor'
 ])
 
-.run(function($rootScope, $ionicPlatform, $ionicSideMenuDelegate, ENV, $log) {
-  $log.debug('Environment:', ENV.name);
-
-  $rootScope.$on('$stateChangeSuccess', function () {
-    // By default, we want to allow the side-menu to be dragged. Some views may need to disable it
-    // so we want to enable it after a successful state change
-    $ionicSideMenuDelegate.canDragContent(true);
-  });
+.run(function($rootScope, $ionicPlatform, ENV) {
+  console.log('Environment:', ENV.name);
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

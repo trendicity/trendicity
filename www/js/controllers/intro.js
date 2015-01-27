@@ -7,9 +7,6 @@ angular.module('Trendicity')
     $scope.fetchingPosition = false;
     $scope.noPosition = false;
 
-  // Temporarily disable side-menu drag
-  $ionicSideMenuDelegate.canDragContent(false);
-
   // Clear history since this might have been a forced redirect
   $ionicHistory.clearHistory();
 

@@ -31,6 +31,7 @@ angular.module('Trendicity')
         $scope.getFavoritePosts();
       } else {
         $scope.favorite = null;
+
         if (value === POST_TYPE.TRENDING) {
           $scope.findPopularPosts();
         } else if (value === POST_TYPE.NEARBY) {
@@ -43,10 +44,14 @@ angular.module('Trendicity')
       }
     };
 
-    $scope.$watch('search.value', function(newValue) {
-      $scope.getPosts(newValue);
+    function updatePosts(searchValue) {
+      $scope.getPosts(searchValue);
       $scope.closePopover();
       $ionicScrollDelegate.scrollTop();
+    }
+
+    $scope.$watch('search.value', function(newValue) {
+      updatePosts(newValue);
     });
 
     $scope.findPopularPosts = function() {
@@ -114,9 +119,3 @@ angular.module('Trendicity')
     });
   }
 );
-
-
-
-
-
-
