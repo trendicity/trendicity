@@ -113,22 +113,14 @@ angular.module('Trendicity')
         var latLng = this.getLatLngFromCoords(markerObject.coords),
             map = this.getMapInstance(),
             marker = new google.maps.Marker({
-                position: latLng
+                position: latLng,
+                map: map,
+                title: markerObject.title || 'Marker'
             });
-
-        if (markerObject.title) {
-            marker.setTitle(markerObject.title);
-        }
 
         if (markerObject.image) {
             marker.setIcon(markerObject.image);
         }
-
-        marker.setMap(map);
-
-        console.log(marker);
-
-        $log.debug('Added marker' + markerObject.uid);
     };
 
     this.setCenter = function (coords) {
@@ -137,7 +129,7 @@ angular.module('Trendicity')
 
         $log.debug('Set map center to ' + JSON.stringify(latLng));
 
-        map.setCenter(latLng);
+        map.panTo(latLng);
     };
 
     this.clearMarkers = function () {
@@ -147,9 +139,6 @@ angular.module('Trendicity')
 
         var map = that.getMap(),
             currentMarker = map.markers.currentPosition;
-
-        $log.debug('Clearing markers...');
-
 
         for (var i in map.markers) {
             if (map.markers.hasOwnProperty(i)) {
@@ -180,6 +169,8 @@ angular.module('Trendicity')
 
         return true;
     };
+
+        window.mapCtrl = this;
 
     return this;
 });

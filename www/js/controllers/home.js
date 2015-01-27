@@ -12,7 +12,7 @@ angular.module('Trendicity')
 .controller('HomeCtrl', function (POST_TYPE, $rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService, GeolocationService, $state, FavoritesService) {
     $scope.favorite;
     $scope.data = { posts: [] };
-    $scope.search = { value: 'TR'};
+    $scope.search = { value: POST_TYPE.NEARBY};
     $scope.locationSet = false;
 
     this.setLocation = function (location) {
@@ -20,11 +20,13 @@ angular.module('Trendicity')
         $scope.location = location;
       }
 
-      $scope.locationSet = !!location; // Convert truthy / falsey value to boolean using !!
+      // Convert truthy / falsey value to boolean using !!
+      $scope.locationSet = !!location;
     };
 
+    // On success, set location received. On failure, set fallback location received.
     GeolocationService.getCurrentPosition()
-      .then(this.setLocation, this.setLocation);
+        .then(this.setLocation, this.setLocation);
 
     $scope.getPosts = function(value) {
       if ($state.params.id) {
@@ -33,13 +35,13 @@ angular.module('Trendicity')
         // Remove stored favorite
         $scope.favorite = null;
 
-        if (value === 'TR') {
+        if (value === POST_TYPE.TRENDING) {
           $scope.findPopularPosts();
-        } else if (value === 'NB') {
+        } else if (value === POST_TYPE.NEARBY) {
           $scope.findNearbyPosts();
-        } else if (value === 'UF') {
+        } else if (value === POST_TYPE.USER_FEED) {
           $scope.findUserFeedPosts();
-        } else if (value === 'LP') {
+        } else if (value === POST_TYPE.LIKED) {
           $scope.findLikedPosts();
         }
       }
@@ -62,9 +64,11 @@ angular.module('Trendicity')
     };
 
     $scope.findNearbyPosts = function() {
-      InstagramService.findNearbyPosts($scope.location.coords.latitude,
-        $scope.location.coords.longitude).success(function (data) {
-          $scope.data.posts = data.data;
+      InstagramService.findNearbyPosts(
+          GeolocationService.getCurrentPosition()
+      )
+        .then(function (response) {
+          $scope.data.posts = response.data.data;
         });
     };
 
