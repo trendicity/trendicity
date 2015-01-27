@@ -142,7 +142,7 @@ angular.module('Trendicity')
 
                     MapService.addMarker({
                         uid: 'currentLocation',
-                        coords: location
+                        coords: location.coords
                     });
 
                     // This forces a 'repaint' of the map. Whithout this
