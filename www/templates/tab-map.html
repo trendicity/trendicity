@@ -1,6 +1,5 @@
 <ion-view title="Map View">
   <ion-content class="has-header">
-      <div class="spinner" ng-if="!retrievedPosition"></div>
       <div data-tap-disabled="true" id="googleMap" ng-if="retrievedPosition">
           <ui-gmap-google-map
                   center="mapCtrl.mapOptions.center"
@@ -15,13 +14,14 @@
                   >
                   <ui-gmap-window isIconVisibleOnClick="true">
                       <img
-                          ng-src="{{ marker.postData.images.standard_resolution.url }}"
-                          width="{{marker.postData.images.standard_resolution.width}}"
-                          height="{{marker.postData.images.standard_resolution.height}}">
+                          ng-src="{{ marker.postData.images.low_resolution.url }}"
+                          width="{{marker.postData.images.low_resolution.width}}"
+                          height="{{marker.postData.images.low_resolution.height}}">
                   </ui-gmap-window>
               </ui-gmap-marker>
 
           </ui-gmap-google-map>
       </div>
+      <!--<div class="spinner ng-hide" ng-show="!retrievedPosition"></div>-->
   </ion-content>
 </ion-view>
