@@ -9,24 +9,10 @@ angular.module('Trendicity')
     'USER_FEED': 'UF',
     'LIKED': 'LP'
 })
-.controller('HomeCtrl', function (POST_TYPE, $rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService, GeolocationService, $state, FavoritesService) {
+.controller('HomeCtrl', function (POST_TYPE, $rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService, GeolocationService, MapService, $state, FavoritesService) {
     $scope.favorite;
     $scope.data = { posts: [] };
     $scope.search = { value: POST_TYPE.NEARBY};
-    $scope.locationSet = false;
-
-    this.setLocation = function (location) {
-      if (location) {
-        $scope.location = location;
-      }
-
-      // Convert truthy / falsey value to boolean using !!
-      $scope.locationSet = !!location;
-    };
-
-    // On success, set location received. On failure, set fallback location received.
-    GeolocationService.getCurrentPosition()
-        .then(this.setLocation, this.setLocation);
 
     $scope.getPosts = function(value) {
       if ($state.params.id) {
@@ -58,8 +44,8 @@ angular.module('Trendicity')
     });
 
     $scope.findPopularPosts = function() {
-      InstagramService.findPopularPosts().success(function (data) {
-        $scope.data.posts = data.data;
+      InstagramService.findPopularPosts().success(function (response) {
+          MapService.addMarkersFromPosts(response.data);
       });
     };
 
@@ -68,19 +54,19 @@ angular.module('Trendicity')
           GeolocationService.getCurrentPosition()
       )
         .then(function (response) {
-          $scope.data.posts = response.data.data;
+          MapService.addMarkersFromPosts(response.data.data);
         });
     };
 
     $scope.findUserFeedPosts = function() {
-      InstagramService.findUserFeedPosts().success(function (data) {
-        $scope.data.posts = data.data;
+      InstagramService.findUserFeedPosts().success(function (response) {
+          MapService.addMarkersFromPosts(response.data);
       });
     };
 
     $scope.findLikedPosts = function() {
-      InstagramService.findLikedPosts().success(function (data) {
-        $scope.data.posts = data.data;
+      InstagramService.findLikedPosts().success(function (response) {
+          MapService.addMarkersFromPosts(response.data);
       });
     };
 
@@ -88,8 +74,8 @@ angular.module('Trendicity')
         $scope.favorite = FavoritesService.getFavorite( parseInt($state.params.id, 10) );
 
         InstagramService.findNearbyPosts( $scope.favorite.lat, $scope.favorite.lng )
-        .success( function ( data ) {
-            $scope.data.posts = data.data;
+        .success( function ( response ) {
+            MapService.addMarkersFromPosts(response.data);
         });
     };
 
