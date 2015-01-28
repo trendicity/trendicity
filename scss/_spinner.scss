@@ -1,0 +1,36 @@
+.spinner {
+  width: 140px;
+  height: 140px;
+  top: 50%;
+  margin-top: -70px;
+  left: 50%;
+  margin-left: -70px;
+
+  position: absolute;
+  z-index: 999;
+
+  background-color: #4f8ef7;
+
+  border-radius: 100%;
+  -webkit-animation: scaleout 1.0s infinite ease-in-out;
+  animation: scaleout 1.0s infinite ease-in-out;
+}
+
+@-webkit-keyframes scaleout {
+  0% { -webkit-transform: scale(0.0) }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes scaleout {
+  0% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 100% {
+      transform: scale(1.0);
+      -webkit-transform: scale(1.0);
+      opacity: 0;
+    }
+}
