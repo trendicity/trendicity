@@ -10,6 +10,8 @@ angular.module('Trendicity')
     'LIKED': 'LP'
 })
 .controller('HomeCtrl', function (POST_TYPE, $rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService, GeolocationService, MapService, $state, FavoritesService) {
+    var homeCtrl = this;
+
     $scope.favorite;
     $scope.data = { posts: [] };
     $scope.search = { value: POST_TYPE.NEARBY};
@@ -33,19 +35,29 @@ angular.module('Trendicity')
       }
     };
 
-    function updatePosts(searchValue) {
+    this.updatePosts = function (searchValue) {
       $scope.getPosts(searchValue);
       $scope.closePopover();
       $ionicScrollDelegate.scrollTop();
-    }
+    };
+
+    this.setPosts = function (posts) {
+        MapService.addMarkersFromPosts(posts);
+        $scope.data.posts = posts;
+    };
+
+    this.clearPosts = function () {
+        MapService.clearMarkers();
+        $scope.data.posts = [];
+    };
 
     $scope.$watch('search.value', function(newValue) {
-      updatePosts(newValue);
+        homeCtrl.updatePosts(newValue);
     });
 
     $scope.findPopularPosts = function() {
       InstagramService.findPopularPosts().success(function (response) {
-          MapService.addMarkersFromPosts(response.data);
+          homeCtrl.setPosts(response.data);
       });
     };
 
@@ -54,19 +66,19 @@ angular.module('Trendicity')
           GeolocationService.getCurrentPosition()
       )
         .then(function (response) {
-          MapService.addMarkersFromPosts(response.data.data);
+          homeCtrl.setPosts(response.data.data);
         });
     };
 
     $scope.findUserFeedPosts = function() {
       InstagramService.findUserFeedPosts().success(function (response) {
-          MapService.addMarkersFromPosts(response.data);
+          homeCtrl.setPosts(response.data.data);
       });
     };
 
     $scope.findLikedPosts = function() {
       InstagramService.findLikedPosts().success(function (response) {
-          MapService.addMarkersFromPosts(response.data);
+          homeCtrl.setPosts(response.data.data);
       });
     };
 
@@ -75,7 +87,7 @@ angular.module('Trendicity')
 
         InstagramService.findNearbyPosts( $scope.favorite.lat, $scope.favorite.lng )
         .success( function ( response ) {
-            MapService.addMarkersFromPosts(response.data);
+            homeCtrl.setPosts(response.data.data);
         });
     };
 
@@ -104,8 +116,8 @@ angular.module('Trendicity')
 
     $scope.$on('event:auth-logoutComplete', function() {
       console.log('handling event:auth-logoutComplete...');
-      if ($scope.search.value == 'UF' || $scope.search.value == 'LP') {
-        $scope.data.posts = [];
+      if ($scope.search.value == POST_TYPE.USER_FEED || $scope.search.value == POST_TYPE.LIKED_POST) {
+          homeCtrl.clearPosts();
       }
     });
   }
