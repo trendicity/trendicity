@@ -3,8 +3,8 @@ angular.module('Trendicity')
 
 .service('GeolocationService', function($q, $log, $ionicPlatform, $http, $cordovaGeolocation) {
     var fallbackPositionObject = {
-            latitude: '32.5765383',
-            longitude: '-95.7244466',
+            latitude: '51.6673181',
+            longitude: '5.6349002',
             accuracy: 0
         };
 
