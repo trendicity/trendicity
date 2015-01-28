@@ -52,7 +52,7 @@ angular.module('Trendicity')
             objReturn = null;
 
         for (i = 0; i < markerLength; i++) {
-            if (this.markers[i].id === 'currentPosition') {
+            if (this.markers[i] && this.markers[i].id === 'currentPosition') {
                 objReturn = this.markers[i];
             }
         }
