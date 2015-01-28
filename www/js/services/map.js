@@ -7,184 +7,99 @@ angular.module('Trendicity')
  * for Google Maps interchangable for any other map
  * solution.
  */
-.service('MapService', function($log, $q, GeolocationService) {
+.service('MapService', function($log, GeolocationService) {
     var that = this,
-        mapInstance = {},
-        lastInstance,
-        defaultLatLng = GeolocationService.getDefaultPosition();
+        defaultPosition = GeolocationService.getDefaultPosition();
 
-    this.getMapOptions = function () {
-        var centerPoint = this.getLatLngFromCoords(defaultLatLng),
-            mapType = this.getDefaultMapType();
+    /**
+     * Markers container
+     * @type {Array}
+     */
+    this.markers = [];
 
+    this.getDefaultOptions = function () {
         return {
-            center: centerPoint,
-            zoom: 14,
-            mapTypeId: mapType,
-            panControl: true,
-            zoomControl: true,
-            mapTypeControl: false,
-            scaleControl: true,
-            streetViewControl: false,
-            overviewMapControl: false
+            zoom: 4,
+            center: defaultPosition
         };
     };
 
-    this.getMapContainerElement = function (elementId) {
-        if (!elementId) {
-            throw new TypeError('No elementId defined in MapService.getMapContainerElement().');
+    this.addMarker = function (marker) {
+        // Add show / hide logic for each marker individually
+        if (!marker.showPopup) {
+            marker.show = false;
+            marker.showPopup = function () {
+                marker.show = !marker.show;
+            };
         }
-
-        return document.getElementById(elementId);
-    };
-
-    this.getDefaultMapType = function () {
-        return google.maps.MapTypeId.ROADMAP;
-    };
-
-    this.getLatLngFromCoords = function (coords) {
-        // Throw descriptive error if invalid argument
-        if ((!coords.latitude || !coords.longitude) && (!coords instanceof google.maps.LatLng)) {
-            throw new Error('Invalid coords argument passed to MapService.getLatLngFromCoords.');
-        }
-
-        // If this is already a Google Maps LatLng object, return it.
-        if (coords instanceof google.maps.LatLng) {
-            return coords;
-        }
-
-        // Return, in this case, a Google Maps LatLng object
-        return new google.maps.LatLng(coords.latitude, coords.longitude);
-    };
-
-    this.initialize = function (instanceName) {
-        if (!instanceName) {
-            throw new Error('Please define a new map instance name.');
-        }
-
-        // Stop initializing if instance already exists.
-        if (mapInstance[instanceName]) {
-            return mapInstance[instanceName];
-        }
-
-        // Get position object
-        var latLng = this.getLatLngFromCoords(defaultLatLng);
-        $log.debug('Got default latlng: ' + JSON.stringify(latLng));
-
-        var mapOptions = this.getMapOptions();
-        $log.debug('Got default map options: ' + JSON.stringify(mapOptions));
-
-        this.setMapInstance(
-            instanceName,
-            new google.maps.Map(
-                this.getMapContainerElement(instanceName),
-                mapOptions
-            )
-        );
-
-        // Keep track of last instance
-        lastInstance = instanceName;
-
-        return this.getMapInstance(instanceName);
-    };
-
-    this.getMap = function () {
-        return mapInstance[lastInstance];
-    };
-
-    this.getMapInstance = function (instanceName) {
-        instanceName = (instanceName) ? instanceName : lastInstance;
-
-        if (!mapInstance[instanceName]) {
-            throw new Error('No map instance found with name \'' + instanceName + '\'.');
-        }
-
-        return mapInstance[instanceName].instance;
-    };
-
-    this.setMapInstance = function (instanceName, instance) {
-        mapInstance[instanceName] = {
-            instance: instance,
-            markers: []
-        };
-    };
-
-    this.addMarker = function (markerObject) {
-        var latLng = this.getLatLngFromCoords(markerObject.coords),
-            map = this.getMap(),
-            marker = new google.maps.Marker({
-                position: latLng,
-                map: map.instance,
-                title: markerObject.title || 'Marker'
-            });
-
-        if (markerObject.image) {
-            marker.setIcon(markerObject.image);
-        }
-
-        map.markers.push(latLng);
-    };
-
-    this.setCenter = function (coords) {
-        var map = this.getMapInstance(),
-            latLng = this.getLatLngFromCoords(coords);
-
-        $log.debug('Set map center to ' + JSON.stringify(latLng));
-
-        map.panTo(latLng);
-    };
-
-    this.fitBounds = function () {
-        var latlngbounds = new google.maps.LatLngBounds(),
-            map = this.getMap(),
-            markers = map.markers;
-
-        for (var i = 0; i < markers.length; i++) {
-            latlngbounds.extend(markers[i]);
-        }
-
-        map.instance.fitBounds(latlngbounds);
-    };
-
-    this.clearMarkers = function () {
-        if (typeof lastInstance === 'undefined') {
-            return; // No map instance to clear markers from.
-        }
-
-        var map = that.getMap(),
-            currentMarker = map.markers.currentPosition;
-
-        for (var i in map.markers) {
-            if (map.markers.hasOwnProperty(i)) {
-                map.markers[i].setMap(null);
-                delete map.markers[i];
-            }
-        }
-
-        // Re-add current position marker to collection
-        if (currentMarker) {
-            map.markers['currentPosition'] = currentMarker;
-        }
+        this.markers.push(marker);
     };
 
     this.removeMarker = function (marker) {
-        var map = this.getMap(),
-            marker;
+        var i,
+            markerLength = this.markers.length;
 
-        if (!map.markers[marker.uid]) {
-            return false;
+        for (i = 0; i < markerLength; i++) {
+            if (this.markers[i].id === marker.id) {
+                delete this.markers[i];
+            }
         }
-
-        $log.debug('Removing marker', marker);
-
-        // Remove from map and collection
-        map.markers[marker.uid].setMap(null);
-        delete map.markers[marker.uid];
-
-        return true;
     };
 
-        window.mapCtrl = this;
+    this.getCurrentPositionMarker = function () {
+        var i,
+            markerLength = this.markers.length,
+            objReturn = null;
+
+        for (i = 0; i < markerLength; i++) {
+            if (this.markers[i].id === 'currentPosition') {
+                objReturn = this.markers[i];
+            }
+        }
+
+        return objReturn;
+    };
+
+    this.clearMarkers = function (blnRemoveCurrentPosition) {
+        if (!!blnRemoveCurrentPosition) {
+            // Clear all markers, including current position
+            this.markers = [];
+            return;
+        }
+
+        // Store the current position marker
+        var currentPositionMarker = this.getCurrentPositionMarker();
+        // Clear marker storage
+        this.markers = [];
+        // Re-add current position marker
+        this.markers.push(currentPositionMarker);
+
+    };
+
+    this.getMarkers = function () {
+        return this.markers;
+    };
+
+    this.addMarkersFromPosts = function (posts) {
+        var i, postsLength = posts.length, post, marker;
+
+        // Clear before adding new ones
+        this.clearMarkers();
+
+        for (i = 0; i < postsLength; i++) {
+            post = posts[i];
+
+            marker = {
+                coords: post.location,
+                id: post.id,
+                postData: post
+            };
+
+            $log.debug('Adding marker', marker);
+
+            this.addMarker(marker);
+        }
+    };
 
     return this;
 });
