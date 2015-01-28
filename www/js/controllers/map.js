@@ -2,167 +2,58 @@
 angular.module('Trendicity')
 
 .controller('MapViewCtrl', function (
-//        $scope,
-//        $rootScope,
-//        $state,
-//        $location,
-//        $ionicPlatform,
-//        $log,
-//        leafletData,
-//        FavoritesService,
-//        InstagramService,
-//        defaultMapSettings,
-//        localStorageService,
-//        GeolocationService
-
         $scope,
-        $rootScope,
-        $log,
-        $ionicLoading,
-        $ionicPlatform,
-        $cordovaNetwork,
+        GeolocationService,
         MapService,
-        localStorageService,
-        GeolocationService
+        $log
     ) {
+        var that = this;
 
-//    var self = this;
-//
-//    $scope.map = defaultMapSettings;
-//    var location = localStorageService.get('defaultPosition');
-//    if (location) {
-//        $scope.map.center = {
-//            lat: location.coords.latitude,
-//            lng: location.coords.longitude,
-//            zoom: 12
-//        };
-//    }
-//
+        $scope.retrievedPosition = false;
 
-    function registerPostsWatch () {
-        $scope.$watch('data.posts', function () {
-            $log.debug('posts updated');
+        this.mapOptions = MapService.getDefaultOptions();
 
-            var location;
-            if ($scope.data.posts) {
-              for (var i = 0; i < $scope.data.posts.length; i++) {
-                location = $scope.data.posts[i].location;
-                if (location && location.latitude && location.longitude) {
-                  MapService.addMarker({
-                      image: $scope.data.posts[i].images.thumbnail.url,
-                      coords: location,
-                      uid: 'instagram' + i
-                  });
-                }
-              }
-
-              MapService.fitBounds();
-            }
-        });
-    }
-//
-//    $scope.registerGeoLocationWatcher = function () {
-//        var updateLocation = function (location) {
-//            $scope.map.markers.currentPosition = {
-//                message: '<div class="fm-current-location">Current Location</div>',
-//                lat: location.coords.latitude,
-//                lng: location.coords.longitude
-//            };
-//
-//            self.centerMap(location.coords.latitude, location.coords.longitude);
-//        };
-//
-//        // We get either a location object or a fallback location object.
-//        // Either way, call updateLocation with one of these objects as an argument.
-//        GeolocationService.getCurrentPosition().then(updateLocation, updateLocation);
-//    };
-//
-//    this.centerMap = function (lat, lng, zoom) {
-//        $log.info('Center map: ', lat, lng, zoom);
-//
-//        leafletData.getMap()
-//            .then(function (Leaflet) {
-//                Leaflet.panTo([
-//                    parseFloat(lat),
-//                    parseFloat(lng)
-//                ]);
-//
-//                if (zoom) {
-//                    Leaflet.setZoom(zoom); // Zoom in
-//                }
-//            });
-//    };
-//
-//    $scope.init = function () {
-//        $scope.registerGeoLocationWatcher();
-//    };
-//
-//    // Load favorite
-//    if ($state.params.id) {
-//        $scope.favorite = FavoritesService.getFavorite( parseInt($state.params.id, 10) );
-//        InstagramService.findNearbyPosts( $scope.favorite.lat, $scope.favorite.lng )
-//            .success( function ( data ) {
-//                $scope.data.posts = data.data;
-//            });
-//
-//        $scope.map = {
-//            center: {
-//                lat: $scope.favorite.lat,
-//                lng: $scope.favorite.lng,
-//                zoom: 14
-//            },
-//            markers: {
-//                m1: {
-//                    lat: $scope.favorite.lat,
-//                    lng: $scope.favorite.lng
-//                }
-//            },
-//            layers: {
-//                baselayers: {
-//                    googleRoadmap: {
-//                        name: 'Google Streets',
-//                        layerType: 'ROADMAP',
-//                        type: 'google'
-//                    }
-//                }
-//            }
-//        };
-//
-//
-//    } else {
-//        $scope.init();
-//    }
-
-        $log.debug('Initializing map controller', ionic.Platform.isWebView());
-
-        google.maps.event.addDomListener(window, 'load', function() {
-            $scope.initializeMap();
-        });
-
-        $scope.initializeMap = function () {
-
-            $ionicPlatform.ready(function () {
-                MapService.initialize('googleMap');
-
-                var setLocationMarker = function (location) {
-                    $log.debug('Setting currentLocation marker' + JSON.stringify(location));
-
+        GeolocationService.getCurrentPosition()
+            .then(
+                function (position) {
                     MapService.addMarker({
-                        uid: 'currentLocation',
-                        coords: location.coords
+                        coords: position.coords,
+                        id: 'currentPosition',
+                        title: 'Current position'
                     });
 
-                    // This forces a 'repaint' of the map. Whithout this
-                    // setCenter call, the tiles will stay grey.
-                    MapService.setCenter(location.coords);
-                };
-
-                GeolocationService
-                    .getCurrentPosition()
-                    .then(setLocationMarker, setLocationMarker);
+                    that.setCenter(position.coords);
+                    that.setZoom(14);
+                },
+                function (position) {
+                    that.setCenter(position.coords);
+                    that.setZoom(4);
+                }
+            )
+            .finally(function () {
+                // Positioning is done, show the map
+                $scope.retrievedPosition = true;
             });
 
-            // Only start listening for changes when the Map is initialized.
-            registerPostsWatch();
+        this.setCenter = function (coords) {
+            this.mapOptions = this.setOption({center: coords});
+            $log.debug('setCenter', this.mapOptions);
+        };
+
+        this.setZoom = function (zoomLevel) {
+            this.mapOptions = this.setOption({zoom: zoomLevel});
+            $log.debug('setZoom', this.mapOptions);
+        };
+
+        this.setOption = function (option) {
+            return angular.extend({}, this.mapOptions, option);
+        };
+
+        this.getMarkers = function () {
+            return MapService.getMarkers();
+        };
+
+        this.showThumbnail = function (marker) {
+            $log.debug('showThumb', marker);
         };
 });
