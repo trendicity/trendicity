@@ -6,7 +6,8 @@ angular.module('Trendicity', [
   'config',
   'LocalStorageModule',
   'ngCordova',
-  'http-auth-interceptor'
+  'http-auth-interceptor',
+  'uiGmapgoogle-maps'
 ])
 
 .run(function($rootScope, $ionicPlatform, ENV) {
@@ -60,7 +61,7 @@ angular.module('Trendicity', [
       views: {
         'tab-map' :{
           templateUrl: 'templates/tab-map.html',
-          controller: 'MapViewCtrl'
+          controller: 'MapViewCtrl as mapCtrl'
         }
       }
     })
