@@ -10,8 +10,12 @@ angular.module('Trendicity')
   // Clear history since this might have been a forced redirect
   $ionicHistory.clearHistory();
 
+  $scope.$on('$ionicView.beforeEnter', function() {
+    $ionicSlideBoxDelegate.refresh();
+  });
+
   // Mark intro as seen
-  //localStorageService.set('seenIntro', true);
+  localStorageService.set('seenIntro', true);
 
   // Called to navigate to the main app
   $scope.startApp = function() {
