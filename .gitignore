@@ -7,4 +7,3 @@ www/lib/
 *.log
 *.DS_Store
 .idea
-hooks/*
