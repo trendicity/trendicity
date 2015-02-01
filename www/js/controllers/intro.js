@@ -1,17 +1,18 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate, $ionicSideMenuDelegate, $ionicHistory, localStorageService, GeolocationService) {
+.controller('IntroCtrl', function($scope, $state, $timeout, $ionicSlideBoxDelegate, $ionicSideMenuDelegate,
+                                  $ionicHistory, localStorageService, GeolocationService) {
 
     //** Settings some default scope variables.
     $scope.fetchingPosition = false;
     $scope.noPosition = false;
 
-  // Clear history since this might have been a forced redirect
-  $ionicHistory.clearHistory();
-
   $scope.$on('$ionicView.beforeEnter', function() {
-    $ionicSlideBoxDelegate.refresh();
+    // Clear history since this might have been a forced redirect
+    $ionicHistory.clearHistory();
+    // Fix issue when coming from map
+    $ionicSlideBoxDelegate.update();
   });
 
   // Mark intro as seen
