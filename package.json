@@ -2,6 +2,10 @@
   "name": "trendicity",
   "version": "1.0.0",
   "description": "trendicity: An Ionic project",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:trendicity/trendicity.git"
+  },
   "dependencies": {
     "cordova": "^4.2.0",
     "gulp": "^3.5.6",
