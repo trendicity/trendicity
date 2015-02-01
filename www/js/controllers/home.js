@@ -9,8 +9,8 @@ angular.module('Trendicity')
     'USER_FEED': 'UF',
     'LIKED': 'LP'
 })
-.controller('HomeCtrl', function (POST_TYPE, $rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService, GeolocationService, MapService, $state, FavoritesService, $q) {
 .controller('HomeCtrl', function (POST_TYPE, $rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService,
+                                  GeolocationService, MapService, $state, FavoritesService, $q) {
     var homeCtrl = this;
 
     $scope.favorite;
@@ -43,8 +43,14 @@ angular.module('Trendicity')
     };
 
     this.setPosts = function (posts) {
-        MapService.addMarkersFromPosts(posts);
-        $scope.data.posts = posts;
+        if (posts) {
+          $scope.data.posts = posts;
+          if ($state.current.name == 'app.home.map') {
+            MapService.addMarkersFromPosts(posts);
+          }
+        } else {
+          console.log('posts were undefined...');
+        }
     };
 
     this.clearPosts = function () {
@@ -73,13 +79,13 @@ angular.module('Trendicity')
 
     $scope.findUserFeedPosts = function() {
       InstagramService.findUserFeedPosts().success(function (response) {
-          homeCtrl.setPosts(response.data.data);
+          homeCtrl.setPosts(response.data);
       });
     };
 
     $scope.findLikedPosts = function() {
       InstagramService.findLikedPosts().success(function (response) {
-          homeCtrl.setPosts(response.data.data);
+          homeCtrl.setPosts(response.data);
       });
     };
 
@@ -132,10 +138,6 @@ angular.module('Trendicity')
       if ($scope.search.value == POST_TYPE.USER_FEED || $scope.search.value == POST_TYPE.LIKED_POST) {
           homeCtrl.clearPosts();
       }
-    });
-
-    $scope.$on('$ionicView.enter', function() {
-        $scope.getPosts();
     });
   }
 );
