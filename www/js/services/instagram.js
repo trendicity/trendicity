@@ -132,9 +132,9 @@ angular.module('Trendicity')
 
   this.dislikePost = function(mediaId) {
     var promise = $http.delete(API_ENDPOINT + '/media/' + mediaId + '/likes')
-      .error(function (data, status) {
-        console.log('dislikePost returned status:' + status);
-      });
+    .error(function (data, status) {
+      console.log('dislikePost returned status:' + status);
+    });
     return promise;
   };
 
