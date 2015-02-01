@@ -1,0 +1,15 @@
+#googleMap,
+.angular-google-map,
+.angular-google-map-container {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.tc-hide {
+    visibility: none;
+}
+
+.tc-show {
+    visibility: visible !important;
+}

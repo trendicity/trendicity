@@ -1,0 +1,26 @@
+<ion-view title="Map View">
+  <ion-content class="has-header">
+      <div data-tap-disabled="true" id="googleMap" ng-if="retrievedPosition">
+          <ui-gmap-google-map
+                  center="mapCtrl.mapOptions.center"
+                  zoom="mapCtrl.mapOptions.zoom"
+                  bounds="markerBounds"
+              >
+              <ui-gmap-marker
+                  ng-repeat="marker in mapCtrl.getMarkers()"
+                  idKey="marker.id"
+                  coords='marker.coords'
+                  icon='marker.icon'
+                  >
+                  <ui-gmap-window isIconVisibleOnClick="true">
+                      <img
+                          ng-src="{{ marker.postData.images.low_resolution.url }}"
+                          width="{{ marker.postData.images.low_resolution.width }}"
+                          height="{{ marker.postData.images.low_resolution.height }}">
+                  </ui-gmap-window>
+              </ui-gmap-marker>
+
+          </ui-gmap-google-map>
+      </div>
+  </ion-content>
+</ion-view>

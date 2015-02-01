@@ -1,0 +1,10 @@
+.button {
+    &.button-light {
+        @include button-clear($light);
+    }
+
+    &.button-right {
+        position: absolute;
+        right: $bar-padding-portrait;
+    }
+}
