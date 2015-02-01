@@ -89,9 +89,10 @@ angular.module('Trendicity')
           return $http.get(API_ENDPOINT + '/media/search', {
               params: options
           })
-              .error(function(data, status) {
-                  console.log('findNearbyPosts returned status:'  + status);
-              });
+          .error(function(data, status) {
+              console.log('findNearbyPosts returned status:'  + status);
+              console.log('API_ENDPOINT:' + API_ENDPOINT);
+          });
       };
 
       return positionPromise.then(requestPosts, requestPosts);
