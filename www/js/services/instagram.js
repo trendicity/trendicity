@@ -5,7 +5,9 @@ angular.module('Trendicity')
   var self = this;
 
   // if running in a desktop browswer we will proxy to: https://api.instagram.com/v1 in ionic.project to avoid CORS issues
-  var API_ENDPOINT = ionic.Platform.isWebView() ? 'https://api.instagram.com/v1' : '/instagram/api';
+  var API_ENDPOINT = window.cordova ? 'https://api.instagram.com/v1' : '/instagram/api';
+
+  console.log('API_ENDPOINT:' + API_ENDPOINT);
 
   // You are encouraged to setup your own client_id at: http://instagram.com/developer/clients/manage
   var CLIENT_ID = '75d27c9457cd4d1abbacf80a228f4a10';
