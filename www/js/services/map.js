@@ -81,14 +81,14 @@ angular.module('Trendicity')
     };
 
     this.addMarkersFromPosts = function (posts) {
-        if (!posts) return;
-
-        var i, postsLength = posts.length, post, marker;
-
-        // Clear before adding new ones
+        // Clear markers before potentially adding new ones
         this.clearMarkers();
 
-        for (i = 0; i < postsLength; i++) {
+        if (!posts || posts.length == 0) return;
+
+        var i, post, marker;
+
+        for (i = 0; i < posts.length; i++) {
             post = posts[i];
 
             marker = {

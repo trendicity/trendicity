@@ -10,6 +10,7 @@ angular.module('Trendicity')
     'LIKED': 'LP'
 })
 .controller('HomeCtrl', function (POST_TYPE, $rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService, GeolocationService, MapService, $state, FavoritesService, $q) {
+.controller('HomeCtrl', function (POST_TYPE, $rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService,
     var homeCtrl = this;
 
     $scope.favorite;

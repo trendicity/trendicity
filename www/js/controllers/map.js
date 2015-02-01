@@ -20,6 +20,7 @@ angular.module('Trendicity')
             $ionicSideMenuDelegate.canDragContent(false);
 
             mapCtrl.checkForFavorite();
+            MapService.addMarkersFromPosts($scope.data.posts);
         });
 
         $scope.$on('$ionicView.leave', function() {
