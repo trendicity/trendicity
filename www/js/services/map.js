@@ -81,6 +81,8 @@ angular.module('Trendicity')
     };
 
     this.addMarkersFromPosts = function (posts) {
+        if (!posts) return;
+
         var i, postsLength = posts.length, post, marker;
 
         // Clear before adding new ones
@@ -119,7 +121,7 @@ angular.module('Trendicity')
             for (i = 0; i <= markersLength; i++) {
                 marker = that.markers[i];
 
-                if (marker) {
+                if (marker && marker.coords && marker.coords.latitude && marker.coords.longitude) {
                     bounds.extend(
                         new googleMaps.LatLng(
                             marker.coords.latitude,
