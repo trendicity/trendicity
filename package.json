@@ -20,7 +20,7 @@
     "shelljs": "^0.3.0"
   },
   "scripts": {
-    "preinstall": "npm install -g cordova ionic gulp",
+    "preinstall": "npm install -g cordova ionic gulp bower",
     "postinstall": "bower install"
   },
   "cordovaPlugins": [
