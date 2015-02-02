@@ -1,12 +1,20 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('FavoritesCtrl', function($scope, FavoritesService, $ionicModal, $ionicSideMenuDelegate) {
+.controller('FavoritesCtrl', function($scope, $state, FavoritesService, $ionicModal, $ionicSideMenuDelegate) {
     $scope.favorite = {};
 
     $scope.$on('$ionicView.enter', function() {
         $ionicSideMenuDelegate.canDragContent(true);
     });
+
+    $scope.viewFavorite = function (id) {
+        // Set current favorite
+        FavoritesService.setCurrentFavorite(id);
+
+        // Go to Map view
+        $state.go('app.home.map');
+    };
 
     $scope.removeFavorite = function (favorite) {
         $scope.favorites = FavoritesService.delete(favorite);

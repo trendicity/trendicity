@@ -36,19 +36,17 @@ angular.module('Trendicity')
         this.mapOptions = MapService.getDefaultOptions();
 
         this.checkForFavorite = function () {
-            if ($state.params.id) {
+            var currentFavorite = FavoritesService.getCurrentFavorite();
+            if (currentFavorite) {
                 // Set a flag for later use.
                 favoriteIsDefined = true;
 
                 // Favorite location is set. Focus on that location instead of the geolocation center.
-                var currentFavorite = FavoritesService.getFavorite(parseInt($state.params.id));
-                if (currentFavorite) {
-                    mapCtrl.setCenter([currentFavorite.lat, currentFavorite.lng]);
+                mapCtrl.setCenter([currentFavorite.lat, currentFavorite.lng]);
 
-                    mapCtrl.setZoom(14);
+                mapCtrl.setZoom(14);
 
-                    $log.debug('Got fav', currentFavorite);
-                }
+                $log.debug('Got fav', currentFavorite);
             } else {
                 // Reset the previously set flag
                 favoriteIsDefined = false;

@@ -15,7 +15,7 @@
           </div>
       </div>
     <ion-list class="ng-hide" ng-show="favorites.length > 0">
-      <ion-item class="item-icon-right" ng-repeat="favorite in favorites" ui-sref="app.home.map.id({id: {{favorite.id}}})">
+      <ion-item class="item-icon-right" ng-repeat="favorite in favorites" ng-click="viewFavorite(favorite.id)">
         {{favorite.city}}
         <i class="icon ion-chevron-right icon-accessory"></i>
         <ion-option-button class="button-assertive" ng-click="removeFavorite(favorite)">

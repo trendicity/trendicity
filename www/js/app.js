@@ -67,10 +67,6 @@ angular.module('Trendicity', [
       }
     })
 
-    .state('app.home.map.id', {
-      url: '/:id'
-    })
-
     .state('app.home.card', {
       url: '/card',
       views: {
@@ -81,10 +77,6 @@ angular.module('Trendicity', [
       }
     })
 
-    .state('app.home.card.id', {
-      url: '/:id'
-    })
-
     .state('app.home.list', {
       url: '/list',
       views: {
@@ -93,10 +85,6 @@ angular.module('Trendicity', [
           controller: 'ListViewCtrl'
         }
       }
-    })
-
-    .state('app.home.list.id', {
-      url: '/:id'
     })
 
     .state('app.favorites', {
