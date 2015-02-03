@@ -17,13 +17,15 @@ angular.module('Trendicity')
     $scope.data = { posts: [] };
     $scope.search = { value: POST_TYPE.NEARBY};
 
-    $scope.getPosts = function(value) {
-      if ($state.params.id) {
+    $scope.getPosts = function(value, removeCurrentFavorite) {
+      // Remove stored favorite
+      if (removeCurrentFavorite) {
+        FavoritesService.setCurrentFavorite(-1);
+      }
+
+      if (FavoritesService.getCurrentFavorite()) {
         $scope.getFavoritePosts();
       } else {
-        // Remove stored favorite
-        $scope.favorite = null;
-
         if (value === POST_TYPE.TRENDING) {
           $scope.findPopularPosts();
         } else if (value === POST_TYPE.NEARBY) {
@@ -36,8 +38,8 @@ angular.module('Trendicity')
       }
     };
 
-    this.updatePosts = function (searchValue) {
-      $scope.getPosts(searchValue);
+    this.updatePosts = function (searchValue, isUserAction) {
+      $scope.getPosts(searchValue, isUserAction);
       $scope.closePopover();
       $ionicScrollDelegate.scrollTop();
     };
@@ -59,7 +61,8 @@ angular.module('Trendicity')
     };
 
     $scope.$watch('search.value', function(newValue) {
-        homeCtrl.updatePosts(newValue);
+        // Triggered when user changes search value
+        homeCtrl.updatePosts(newValue, true);
     });
 
     $scope.findPopularPosts = function() {
@@ -92,7 +95,7 @@ angular.module('Trendicity')
     $scope.getFavoritePosts = function () {
         var defer = $q.defer();
 
-        $scope.favorite = FavoritesService.getFavorite( parseInt($state.params.id, 10) );
+        $scope.favorite = FavoritesService.getCurrentFavorite();
 
         defer.resolve({
             coords: {

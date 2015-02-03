@@ -3,6 +3,8 @@ angular.module('Trendicity')
 
 .service('FavoritesService', function(localStorageService, GeolocationService) {
 
+    var currentFavorite = null;
+
     this.add = function (favorite) {
         var currentFavorites = this.getFavorites() ? this.getFavorites() : [];
         var id = currentFavorites.length + 1;
@@ -54,6 +56,18 @@ angular.module('Trendicity')
         });
 
         return favorite;
+    };
+
+    this.getCurrentFavorite = function() {
+        return currentFavorite;
+    };
+
+    this.setCurrentFavorite = function(id) {
+        if (id === -1) {
+            currentFavorite = null;
+        } else {
+            currentFavorite = this.getFavorite(id);
+        }
     };
 
     return this;
