@@ -135,10 +135,6 @@ angular.module('Trendicity')
       }
     });
 
-    $scope.$on('$ionicView.enter', function() {
-      $scope.getPosts($scope.search.value);
-    });
-
     //*** Register some event handlers
     $scope.$on('event:auth-logoutComplete', function() {
       console.log('handling event:auth-logoutComplete...');
