@@ -17,10 +17,10 @@ angular.module('Trendicity')
     $scope.data = { posts: [] };
     $scope.search = { value: POST_TYPE.NEARBY};
 
-    $scope.getPosts = function(value, removeCurrentFavorite) {
+    $scope.getPosts = function(value, clearCurrentFavorite) {
       // Remove stored favorite
-      if (removeCurrentFavorite) {
-        FavoritesService.setCurrentFavorite(-1);
+      if (clearCurrentFavorite) {
+        FavoritesService.clearCurrentFavorite();
       }
 
       if (FavoritesService.getCurrentFavorite()) {

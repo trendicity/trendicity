@@ -1,7 +1,8 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('AppCtrl', function($rootScope, $scope, $ionicModal, $timeout, $state, InstagramService, localStorageService) {
+.controller('AppCtrl', function($rootScope, $scope, $ionicModal, $timeout, $state, InstagramService,
+                                FavoritesService, localStorageService) {
   // Check if use has seen intro
   if (!localStorageService.get('seenIntro') || false) {
     $state.go('app.intro');
@@ -57,5 +58,10 @@ angular.module('Trendicity')
   $scope.$on('event:auth-loginConfirmed', function() {
     console.log('handling event:auth-loginConfirmed...');
   });
+
+  // Clear the current favorite
+  $scope.clearCurrentFavorite = function() {
+    FavoritesService.clearCurrentFavorite();
+  };
 });
 

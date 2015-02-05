@@ -59,15 +59,15 @@ angular.module('Trendicity')
     };
 
     this.getCurrentFavorite = function() {
-        return currentFavorite;
+      return currentFavorite;
     };
 
     this.setCurrentFavorite = function(id) {
-        if (id === -1) {
-            currentFavorite = null;
-        } else {
-            currentFavorite = this.getFavorite(id);
-        }
+      currentFavorite = this.getFavorite(id);
+    };
+
+    this.clearCurrentFavorite = function() {
+      currentFavorite = null;
     };
 
     return this;
