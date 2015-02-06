@@ -7,7 +7,7 @@ angular.module('Trendicity')
  * for Google Maps interchangable for any other map
  * solution.
  */
-.service('MapService', function($log, GeolocationService, uiGmapMapScriptLoader) {
+.service('MapService', function($log, GeolocationService, uiGmapGoogleMapApi) {
     var that = this,
         defaultPosition = GeolocationService.getDefaultPosition();
 
@@ -111,9 +111,7 @@ angular.module('Trendicity')
 
     this.updateMarkerBounds = function () {
         // Check if the global google object is available to do some native Google Maps API coding.
-        uiGmapMapScriptLoader.load().then(calculateMarkerBounds);
-
-        function calculateMarkerBounds(googleMaps) {
+        uiGmapGoogleMapApi.then(function (googleMaps) {
             var bounds = new googleMaps.LatLngBounds(),
                 markersLength = that.markers.length,
                 i, marker;
@@ -132,7 +130,7 @@ angular.module('Trendicity')
             }
 
             $log.debug('Figured out correct map bounds', bounds);
-        }
+        });
     };
 
     return this;
