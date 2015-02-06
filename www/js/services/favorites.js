@@ -45,12 +45,12 @@ angular.module('Trendicity')
     };
 
     this.getFavorite = function (id) {
-        var currentFavorites = this.getFavorites(),
-            favorite;
+        var currentFavorites = this.getFavorites();
+        var favorite = null;
 
-        angular.forEach(currentFavorites, function(i){
-            if(i.id === id) {
-                favorite = i;
+        angular.forEach(currentFavorites, function(f){
+            if(f.id === id) {
+                favorite = f;
                 return false;
             }
         });
