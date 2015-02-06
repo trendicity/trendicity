@@ -10,11 +10,11 @@ angular.module('Trendicity')
     'LIKED': 'LP'
 })
 .controller('HomeCtrl', function (POST_TYPE, $rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService,
-                                  GeolocationService, MapService, $state, FavoritesService, $q) {
+                                  PostsService, GeolocationService, MapService, $state, FavoritesService, $q) {
     var homeCtrl = this;
 
     $scope.favorite;
-    $scope.data = { posts: [] };
+    $scope.model =  PostsService.getModel();
     $scope.search = { value: POST_TYPE.NEARBY};
 
     $scope.getPosts = function(value, clearCurrentFavorite) {
@@ -27,13 +27,13 @@ angular.module('Trendicity')
         $scope.getFavoritePosts();
       } else {
         if (value === POST_TYPE.TRENDING) {
-          $scope.findPopularPosts();
+          PostsService.findPopularPosts();
         } else if (value === POST_TYPE.NEARBY) {
-          $scope.findNearbyPosts();
+          PostsService.findNearbyPosts();
         } else if (value === POST_TYPE.USER_FEED) {
-          $scope.findUserFeedPosts();
+          PostsService.findUserFeedPosts();
         } else if (value === POST_TYPE.LIKED) {
-          $scope.findLikedPosts();
+          PostsService.findLikedPosts();
         }
       }
     };
@@ -44,73 +44,10 @@ angular.module('Trendicity')
       $ionicScrollDelegate.scrollTop();
     };
 
-    this.setPosts = function (posts) {
-        if (posts) {
-          $scope.data.posts = posts;
-          if ($state.current.name == 'app.home.map') {
-            MapService.addMarkersFromPosts(posts);
-          }
-        } else {
-          console.log('posts were undefined...');
-        }
-    };
-
-    this.clearPosts = function () {
-        MapService.clearMarkers();
-        $scope.data.posts = [];
-    };
-
     $scope.$watch('search.value', function(newValue) {
         // Triggered when user changes search value
         homeCtrl.updatePosts(newValue, true);
     });
-
-    $scope.findPopularPosts = function() {
-      InstagramService.findPopularPosts().success(function (response) {
-          homeCtrl.setPosts(response.data);
-      });
-    };
-
-    $scope.findNearbyPosts = function() {
-      InstagramService.findNearbyPosts(
-          GeolocationService.getCurrentPosition()
-      )
-        .then(function (response) {
-          homeCtrl.setPosts(response.data.data);
-        });
-    };
-
-    $scope.findUserFeedPosts = function() {
-      InstagramService.findUserFeedPosts().success(function (response) {
-          homeCtrl.setPosts(response.data);
-      });
-    };
-
-    $scope.findLikedPosts = function() {
-      InstagramService.findLikedPosts().success(function (response) {
-          homeCtrl.setPosts(response.data);
-      });
-    };
-
-    $scope.getFavoritePosts = function () {
-        var defer = $q.defer();
-
-        $scope.favorite = FavoritesService.getCurrentFavorite();
-
-        defer.resolve({
-            coords: {
-                latitude: $scope.favorite.lat,
-                longitude: $scope.favorite.lng
-            }
-        });
-
-        InstagramService.findNearbyPosts(
-            defer.promise
-        )
-        .then(function (response) {
-            homeCtrl.setPosts(response.data.data);
-        });
-    };
 
     $ionicPopover.fromTemplateUrl('templates/search.html', {
       scope: $scope,

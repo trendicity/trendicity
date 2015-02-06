@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('ListViewCtrl', function ($scope, $ionicActionSheet, $ionicLoading, InstagramService, FavoritesService) {
+.controller('ListViewCtrl', function ($scope, $ionicActionSheet, $ionicLoading, InstagramService, PostsService, FavoritesService) {
   console.log('Inside ListViewCtrl...');
 
   // Determine list item height
@@ -19,7 +19,7 @@ angular.module('Trendicity')
   // Display action sheet
   $scope.displayOptions = function(index) {
     // Get post
-    var post = $scope.data.posts[index];
+    var post = $scope.model.currentPosts[index];
 
     var buttons = [{ text: 'Like' }];
 
@@ -76,15 +76,15 @@ angular.module('Trendicity')
       return;
     }
 
-    var post = $scope.data.posts[index];
+    var post = $scope.model.currentPosts[index];
     if (!post.user_has_liked) { // jshint ignore:line
       InstagramService.likePost(post.id)
         .success(function () {
           console.log('you liked it!');
 
           // Update post to reflect like
-          $scope.data.posts[index]['user_has_liked'] = true;
-          $scope.data.posts[index]['likes']['count'] = post.likes.count + 1;
+          $scope.model.currentPosts[index]['user_has_liked'] = true;
+          $scope.model.currentPosts[index]['likes']['count'] = post.likes.count + 1;
         });
     } else {
       console.log('you already liked it previously!');

@@ -9,6 +9,7 @@ angular.module('Trendicity')
         $ionicHistory,
         $ionicSideMenuDelegate,
         $state,
+        PostsService,
         FavoritesService
     ) {
         var mapCtrl = this,
@@ -23,7 +24,7 @@ angular.module('Trendicity')
             if (favoriteIsDefined) {
               $scope.getPosts();
             } else {
-              MapService.addMarkersFromPosts($scope.data.posts);
+              MapService.addMarkersFromPosts(PostsService.getModel().currentPosts);
             }
         });
 
