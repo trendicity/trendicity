@@ -50,10 +50,16 @@ angular.module('Trendicity')
     PostsService.findNearbyPosts(pinPos).then(function (posts) {
       var markers = [];
       _.each(posts, function (post) {
+        var image = {
+          url: post.images.thumbnail.url,
+          scaledSize: new google.maps.Size(20,20),
+          origin: new google.maps.Point(0,0)
+        };
         var marker = {
           coords: post.location,
           id: post.id,
           title: post.link,
+          icon: image,
           data: post
         };
         marker.showPost = function() {
@@ -75,6 +81,4 @@ angular.module('Trendicity')
       $ionicLoading.hide();
     });
   };
-
-
 });
