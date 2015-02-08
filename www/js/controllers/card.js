@@ -91,7 +91,7 @@ angular.module('Trendicity')
 
   $scope.cardDestroyed = function(index) {
     console.log('cardDestroyed called with index:' + index);
-    $scope.data.posts.splice(index, 1);
+    $scope.model.currentPosts.splice(index, 1);
   };
 
 })
