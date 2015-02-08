@@ -98,7 +98,7 @@ angular.module('Trendicity', [
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/home/map');
+  $urlRouterProvider.otherwise('/app/home/map/');
 })
 
 .constant('$ionicLoadingConfig', {
