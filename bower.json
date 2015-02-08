@@ -10,6 +10,10 @@
     "angular-http-auth": "https://github.com/witoldsz/angular-http-auth.git#1.2.2",
     "ngCordova": "~0.1.11-alpha",
     "angular-google-maps": "~2.0.12",
-    "ionic-contrib-icon": "~0.0.3"
+    "ionic-contrib-icon": "~0.0.3",
+    "lodash": "~3.1.0"
+  },
+  "resolutions": {
+    "lodash": "~3.1.0"
   }
 }
