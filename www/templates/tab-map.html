@@ -5,8 +5,8 @@
           <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
-          <button class="button button-icon icon ion-refresh" ng-click="refresh()"></button>
-          <button class="button button-icon icon ion-pinpoint" ng-click="locate()"></button>
+          <!-- Putting a return between the buttons causes them to be stacked on Android 4.4.2 -->
+          <button class="button button-icon icon ion-refresh" ng-click="refresh()"></button><button class="button button-icon icon ion-pinpoint" ng-click="locate()"></button>
       </ion-nav-buttons>
   </ion-nav-bar>
 
