@@ -107,4 +107,9 @@ angular.module('Trendicity', [
 
 .config(function($httpProvider) {
   $httpProvider.interceptors.push('TrendicityInterceptor');
+})
+
+.config(function($ionicConfigProvider) {
+  // Make tabs show up at the bottom for android
+  $ionicConfigProvider.tabs.position("bottom");
 });
