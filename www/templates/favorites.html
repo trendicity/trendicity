@@ -15,10 +15,12 @@
           </div>
       </div>
     <ion-list class="ng-hide" ng-show="favorites.length > 0">
-      <ion-item class="item-icon-right" ng-repeat="favorite in favorites" ng-click="viewFavorite(favorite.id)">
-        {{favorite.city}}
+      <ion-item class="item-icon-right"
+        ng-repeat="f in favorites"
+        ui-sref="app.home.map({latitude: f.lat, longitude: f.lng})">
+        {{f.city}}
         <i class="icon ion-chevron-right icon-accessory"></i>
-        <ion-option-button class="button-assertive" ng-click="removeFavorite(favorite)">
+        <ion-option-button class="button-assertive" ng-click="removeFavorite(f)">
           Remove
         </ion-option-button>
       </ion-item>

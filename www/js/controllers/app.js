@@ -58,10 +58,5 @@ angular.module('Trendicity')
   $scope.$on('event:auth-loginConfirmed', function() {
     console.log('handling event:auth-loginConfirmed...');
   });
-
-  // Clear the current favorite
-  $scope.clearCurrentFavorite = function() {
-    FavoritesService.clearCurrentFavorite();
-  };
 });
 
