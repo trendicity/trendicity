@@ -79,23 +79,18 @@ angular.module('Trendicity')
   };
 
   // options.distance by default is 1 Kilometer
-  this.findNearbyPosts = function(positionPromise, options) {
-      var requestPosts = function (location) {
-          options = options || {};
-          options.client_id = CLIENT_ID; // jshint ignore:line
-          options.lat = location.coords.latitude;
-          options.lng = location.coords.longitude;
+  this.findNearbyPosts = function(options) {
+    options = options || {};
+    options.client_id = CLIENT_ID; // jshint ignore:line
 
-          return $http.get(API_ENDPOINT + '/media/search', {
-              params: options
-          })
-          .error(function(data, status) {
-              console.log('findNearbyPosts returned status:'  + status);
-              console.log('API_ENDPOINT:' + API_ENDPOINT);
-          });
-      };
-
-      return positionPromise.then(requestPosts, requestPosts);
+    var promise =
+      $http.get(API_ENDPOINT + '/media/search', {
+        params: options
+      })
+      .error(function(data, status) {
+        console.log('findNearbyPosts returned status:'  + status);
+      });
+    return promise;
   };
 
   this.findUserFeedPosts = function(options) {
