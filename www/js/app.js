@@ -58,7 +58,7 @@ angular.module('Trendicity', [
     })
 
     .state('app.home.map', {
-      url: '/map',
+      url: '/map/?latitude&longitude',
       views: {
         'tab-map' :{
           templateUrl: 'templates/tab-map.html',
