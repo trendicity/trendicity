@@ -1,25 +1,36 @@
 <ion-view title="Map View">
-  <ion-content class="has-header">
-      <div data-tap-disabled="true" id="googleMap" ng-if="retrievedPosition">
-          <ui-gmap-google-map
-                  center="mapCtrl.mapOptions.center"
-                  zoom="mapCtrl.mapOptions.zoom"
-                  bounds="markerBounds"
-              >
-              <ui-gmap-marker
-                  ng-repeat="marker in mapCtrl.getMarkers()"
-                  idKey="marker.id"
-                  coords='marker.coords'
-                  icon='marker.icon'
-                  >
-                  <ui-gmap-window isIconVisibleOnClick="true">
-                      <img
-                          ng-src="{{ marker.postData.images.low_resolution.url }}"
-                          width="{{ marker.postData.images.low_resolution.width }}"
-                          height="{{ marker.postData.images.low_resolution.height }}">
-                  </ui-gmap-window>
-              </ui-gmap-marker>
 
+  <ion-nav-bar>
+      <ion-nav-buttons side="left">
+          <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+      </ion-nav-buttons>
+      <ion-nav-buttons side="right">
+          <button class="button button-icon icon ion-refresh" ng-click="refresh()"></button>
+          <button class="button button-icon icon ion-pinpoint" ng-click="locate()"></button>
+      </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content class="has-header">
+      <div data-tap-disabled="true" id="googleMap">
+          <img class="map-pin-center" src="img/map-pin.png">
+          <ui-gmap-google-map
+              control="map.control"
+              center="map.center"
+              zoom="map.zoom">
+
+              <ui-gmap-markers
+                  models="map.markers"
+                  coords="'coords'"
+                  click="'showPost'">
+                <ui-gmap-windows show="show">
+                  <div ng-non-bindable>
+                  <img
+                      src="{{ data.images.low_resolution.url }}"
+                      width="{{ data.images.low_resolution.width / 2 }}"
+                      height="{{ data.images.low_resolution.height / 2 }}">
+                  </div>
+                </ui-gmap-windows>
+              </ui-gmap-markers>
           </ui-gmap-google-map>
       </div>
   </ion-content>

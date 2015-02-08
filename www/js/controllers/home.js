@@ -9,32 +9,38 @@ angular.module('Trendicity')
     'USER_FEED': 'UF',
     'LIKED': 'LP'
 })
-.controller('HomeCtrl', function (POST_TYPE, $rootScope, $scope, $ionicPopover, $ionicScrollDelegate, InstagramService,
-                                  PostsService, GeolocationService, MapService, $state, FavoritesService, $q) {
-    var homeCtrl = this;
+.controller('HomeCtrl', function (
+  POST_TYPE,
+  $rootScope,
+  $scope,
+  $ionicPopover,
+  $ionicLoading,
+  $ionicScrollDelegate,
+  InstagramService,
+  PostsService,
+  GeolocationService,
+  $state,
+  FavoritesService,
+  $q
+) {
+  var homeCtrl = this;
 
-    $scope.favorite;
-    $scope.model =  PostsService.getModel();
+  // Since the current location is needed for all views, populate it now
+
+/*    $scope.model =  PostsService.getModel();
     $scope.search = { value: POST_TYPE.NEARBY};
 
     $scope.getPosts = function(value, clearCurrentFavorite) {
-      // Remove stored favorite
-      if (clearCurrentFavorite) {
-        FavoritesService.clearCurrentFavorite();
-      }
-
-      if (FavoritesService.getCurrentFavorite()) {
-        $scope.getFavoritePosts();
-      } else {
-        if (value === POST_TYPE.TRENDING) {
-          PostsService.findPopularPosts();
-        } else if (value === POST_TYPE.NEARBY) {
-          PostsService.findNearbyPosts();
-        } else if (value === POST_TYPE.USER_FEED) {
-          PostsService.findUserFeedPosts();
-        } else if (value === POST_TYPE.LIKED) {
-          PostsService.findLikedPosts();
-        }
+      if (value === POST_TYPE.TRENDING) {
+        PostsService.findPopularPosts();
+      } else if (value === POST_TYPE.NEARBY) {
+        GeolocationService.getCurrentPosition().then(function (position) {
+          PostsService.findNearbyPosts(position.coords);
+        });
+      } else if (value === POST_TYPE.USER_FEED) {
+        PostsService.findUserFeedPosts();
+      } else if (value === POST_TYPE.LIKED) {
+        PostsService.findLikedPosts();
       }
     };
 
@@ -78,6 +84,6 @@ angular.module('Trendicity')
       if ($scope.search.value == POST_TYPE.USER_FEED || $scope.search.value == POST_TYPE.LIKED_POST) {
           homeCtrl.clearPosts();
       }
-    });
+    });*/
   }
 );
