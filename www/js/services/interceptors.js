@@ -3,7 +3,6 @@ angular.module('Trendicity')
 
 .factory('TrendicityInterceptor',
   function ($injector, $q, ENV) {
-
     var hideLoadingModalIfNecessary = function() {
       var $http = $http || $injector.get('$http');
       if ($http.pendingRequests.length === 0) {
