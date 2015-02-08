@@ -18,24 +18,21 @@ angular.module('Trendicity')
   $ionicScrollDelegate,
   InstagramService,
   PostsService,
-  GeolocationService,
-  $state,
-  FavoritesService,
-  $q
+  GeolocationService
 ) {
-  var homeCtrl = this;
+    var homeCtrl = this;
 
-  // Since the current location is needed for all views, populate it now
-
-/*    $scope.model =  PostsService.getModel();
+    $scope.model =  PostsService.getModel();
     $scope.search = { value: POST_TYPE.NEARBY};
 
-    $scope.getPosts = function(value, clearCurrentFavorite) {
+    $scope.getPosts = function(value) {
       if (value === POST_TYPE.TRENDING) {
         PostsService.findPopularPosts();
       } else if (value === POST_TYPE.NEARBY) {
+        $ionicLoading.show();
         GeolocationService.getCurrentPosition().then(function (position) {
           PostsService.findNearbyPosts(position.coords);
+          $ionicLoading.hide();
         });
       } else if (value === POST_TYPE.USER_FEED) {
         PostsService.findUserFeedPosts();
@@ -44,15 +41,15 @@ angular.module('Trendicity')
       }
     };
 
-    this.updatePosts = function (searchValue, isUserAction) {
-      $scope.getPosts(searchValue, isUserAction);
+    this.updatePosts = function (searchValue) {
+      $scope.getPosts(searchValue);
       $scope.closePopover();
       $ionicScrollDelegate.scrollTop();
     };
 
     $scope.$watch('search.value', function(newValue) {
         // Triggered when user changes search value
-        homeCtrl.updatePosts(newValue, true);
+        homeCtrl.updatePosts(newValue);
     });
 
     $ionicPopover.fromTemplateUrl('templates/search.html', {
@@ -84,6 +81,6 @@ angular.module('Trendicity')
       if ($scope.search.value == POST_TYPE.USER_FEED || $scope.search.value == POST_TYPE.LIKED_POST) {
           homeCtrl.clearPosts();
       }
-    });*/
+    });
   }
 );
