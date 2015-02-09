@@ -1,0 +1,11 @@
+<div class="list">
+  <div class="item item-avatar">
+    <img ng-src="{{currentPost.user.profile_picture}}">
+    <h2>{{currentPost.user.username}}</h2>
+    <p>{{currentPost.caption.text}}</p>
+  </div>
+
+  <div class="item item-image">
+    <img ng-src="{{currentPost.images.standard_resolution.url}}">
+  </div>
+</div>

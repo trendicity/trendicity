@@ -5,6 +5,7 @@ angular.module('Trendicity')
   $scope,
   $log,
   $ionicHistory,
+  $ionicPopup,
   $ionicSideMenuDelegate,
   $ionicLoading,
   $stateParams,
@@ -46,6 +47,30 @@ angular.module('Trendicity')
     $ionicSideMenuDelegate.canDragContent(true);
   });
 
+  // Show the current post in a popup
+  $scope.showPost = function(post) {
+    $scope.currentPost = post;
+    var postPopup = $ionicPopup.show({
+      templateUrl: 'templates/post-popup.html',
+      scope: $scope,
+      buttons: [{
+        text: 'Like',
+        type: 'button-default',
+        onTap: function(e) {
+          e.preventDefault();
+          // TODO: Like this post
+        }
+      }, {
+        text: 'Cancel',
+        type: 'button-default',
+        onTap: function(e) {
+          $scope.currentPost = null;
+          return true;
+        }
+      }]
+    });
+  };
+
   // Helper function for refreshing new posts from map pin
   $scope.refresh = function(position) {
     var pinPos = position || {
@@ -68,7 +93,7 @@ angular.module('Trendicity')
           data: post
         };
         marker.showPost = function() {
-          marker.show = !marker.show;
+          $scope.showPost(post);
         };
         markers.push(marker);
       });
