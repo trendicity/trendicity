@@ -8,6 +8,7 @@ angular.module('Trendicity')
   $ionicSideMenuDelegate,
   $ionicLoading,
   $stateParams,
+  $timeout,
   uiGmapIsReady,
   uiGmapGoogleMapApi,
   GeolocationService,
@@ -26,14 +27,18 @@ angular.module('Trendicity')
     $ionicHistory.clearHistory();
     $ionicSideMenuDelegate.canDragContent(false);
 
-    if ($stateParams.latitude && $stateParams.longitude) {
-      $scope.map.center = $stateParams;
-      uiGmapGoogleMapApi.then(function(maps) {
-        $scope.refresh($stateParams);
-      });
-    } else {
-      $scope.locate();
-    }
+    uiGmapGoogleMapApi.then(function(maps) {
+      if ($stateParams.latitude && $stateParams.longitude) {
+        $scope.map.center = $stateParams;
+        uiGmapGoogleMapApi.then(function(maps) {
+          $scope.refresh($stateParams);
+        });
+      } else {
+        $timeout(function(){
+          $scope.locate();
+        });
+      }
+    });
   });
 
   // Enable menu dragging
