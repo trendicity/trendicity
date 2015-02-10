@@ -13,7 +13,8 @@ angular.module('Trendicity')
   uiGmapIsReady,
   uiGmapGoogleMapApi,
   GeolocationService,
-  PostsService
+  PostsService,
+  InstagramService
 ) {
   // Main map object for this view
   $scope.map = {
@@ -59,7 +60,16 @@ angular.module('Trendicity')
         type: 'button-default',
         onTap: function(e) {
           e.preventDefault();
-          // TODO: Like this post
+          
+          // Like this post
+          if (!post.user_has_liked) { // jshint ignore:line
+            InstagramService.likePost(post.id)
+              .success(function () {
+                console.log('you liked it!');
+              });
+          } else {
+            console.log('you already liked it previously!');
+          }
         }
       }, {
         text: 'Cancel',
