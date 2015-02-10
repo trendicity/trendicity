@@ -14,11 +14,15 @@ angular.module('Trendicity')
 
   // Enable Menu Dragging
   $scope.$on('$ionicView.enter', function() {
+    // Update favorites
+    $scope.favorites = FavoritesService.getFavorites();
+
     $ionicSideMenuDelegate.canDragContent(true);
   });
 
   // Add a new favorite using the service
   $scope.addFavorite = function(favorite) {
+    console.log(favorite);
     FavoritesService.add(favorite).then(function (data) {
       $scope.favorites = FavoritesService.getFavorites();
       $scope.closeAddFavoriteForm();
