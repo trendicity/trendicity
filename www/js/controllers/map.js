@@ -36,7 +36,8 @@ angular.module('Trendicity')
         });
       } else {
         $timeout(function(){
-          $scope.locate();
+          var options = { maximumAge: 600000 };
+          $scope.locate(options);
         });
       }
     });
@@ -102,13 +103,18 @@ angular.module('Trendicity')
   };
 
   // Helper function for locating the user before refreshing
-  $scope.locate = function () {
+  $scope.locate = function (options) {
     $ionicLoading.show();
-    GeolocationService.getCurrentPosition().then(function (position) {
-      $scope.map.center = position.coords;
-      $scope.map.control.refresh(position.coords);
-      $scope.refresh();
-      $ionicLoading.hide();
-    });
+    GeolocationService.getCurrentPosition(options).then(
+      function (position) {
+        $scope.map.center = position.coords;
+        $scope.map.control.refresh(position.coords);
+        $scope.refresh();
+        $ionicLoading.hide();
+      },
+      function() {
+        $ionicLoading.hide();
+      }
+    );
   };
 });

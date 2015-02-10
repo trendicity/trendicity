@@ -13,6 +13,7 @@ angular.module('Trendicity')
   POST_TYPE,
   $rootScope,
   $scope,
+  $state,
   $ionicPopover,
   $ionicLoading,
   $ionicScrollDelegate,
@@ -29,15 +30,26 @@ angular.module('Trendicity')
       if (value === POST_TYPE.TRENDING) {
         PostsService.findPopularPosts();
       } else if (value === POST_TYPE.NEARBY) {
-        $ionicLoading.show();
-        GeolocationService.getCurrentPosition().then(function (position) {
-          PostsService.findNearbyPosts(position.coords);
-          $ionicLoading.hide();
-        });
+        homeCtrl.handleNearbyPosts();
       } else if (value === POST_TYPE.USER_FEED) {
         PostsService.findUserFeedPosts();
       } else if (value === POST_TYPE.LIKED) {
         PostsService.findLikedPosts();
+      }
+    };
+
+    this.handleNearbyPosts = function() {
+      if ($state.current.name != 'app.home.map') {
+        $ionicLoading.show();
+        var options = { maximumAge: 600000 };
+        GeolocationService.getCurrentPosition(options).then(
+          function(position) {
+            PostsService.findNearbyPosts(position.coords);
+           },
+          function() {
+            $ionicLoading.hide();
+          }
+        );
       }
     };
 
