@@ -21,8 +21,6 @@ angular.module('Trendicity')
   PostsService,
   GeolocationService
 ) {
-    var homeCtrl = this;
-
     $scope.model =  PostsService.getModel();
     $scope.search = { value: POST_TYPE.NEARBY};
 
@@ -30,7 +28,7 @@ angular.module('Trendicity')
       if (value === POST_TYPE.TRENDING) {
         PostsService.findPopularPosts();
       } else if (value === POST_TYPE.NEARBY) {
-        homeCtrl.handleNearbyPosts();
+        $scope.findNearbyPosts();
       } else if (value === POST_TYPE.USER_FEED) {
         PostsService.findUserFeedPosts();
       } else if (value === POST_TYPE.LIKED) {
@@ -38,8 +36,8 @@ angular.module('Trendicity')
       }
     };
 
-    this.handleNearbyPosts = function() {
-      if ($state.current.name != 'app.home.map') {
+    $scope.findNearbyPosts = function() {
+      if ($state.current.name !== 'app.home.map') {
         $ionicLoading.show();
         var options = { maximumAge: 600000 };
         GeolocationService.getCurrentPosition(options).then(
@@ -53,7 +51,7 @@ angular.module('Trendicity')
       }
     };
 
-    this.updatePosts = function (searchValue) {
+    $scope.updatePosts = function (searchValue) {
       $scope.getPosts(searchValue);
       $scope.closePopover();
       $ionicScrollDelegate.scrollTop();
@@ -61,7 +59,7 @@ angular.module('Trendicity')
 
     $scope.$watch('search.value', function(newValue) {
         // Triggered when user changes search value
-        homeCtrl.updatePosts(newValue);
+        $scope.updatePosts(newValue);
     });
 
     $ionicPopover.fromTemplateUrl('templates/search.html', {
@@ -90,8 +88,8 @@ angular.module('Trendicity')
     //*** Register some event handlers
     $scope.$on('event:auth-logoutComplete', function() {
       console.log('handling event:auth-logoutComplete...');
-      if ($scope.search.value == POST_TYPE.USER_FEED || $scope.search.value == POST_TYPE.LIKED_POST) {
-          homeCtrl.clearPosts();
+      if ($scope.search.value === POST_TYPE.USER_FEED || $scope.search.value === POST_TYPE.LIKED_POST) {
+        PostsService.clearCurrentPosts();
       }
     });
   }
