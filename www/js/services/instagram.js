@@ -28,7 +28,7 @@ angular.module('Trendicity')
 
     var configUpdater = function(config) {
       config.params = config.params || {};
-      config.params.access_token = self.getAccessToken();
+      config.params.access_token = self.getAccessToken(); // jshint ignore:line
       return config;
     }
 
