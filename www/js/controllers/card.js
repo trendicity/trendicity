@@ -35,7 +35,7 @@ angular.module('Trendicity')
           text: 'Next',
           type: 'button-positive',
           onTap: function(e) {
-            if (slidebox.currentIndex() == 0) {
+            if (slidebox.currentIndex() === 0) {
               // Go to next slide
               slidebox.next();
 
@@ -93,4 +93,4 @@ angular.module('Trendicity')
     $scope.model.currentPosts.splice(index, 1);
   };
 
-})
+});
