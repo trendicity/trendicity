@@ -19,7 +19,7 @@ angular.module('Trendicity')
 
   // Add a new favorite using the service
   $scope.addFavorite = function(favorite) {
-    FavoritesService.add(favorite).then(function (data) {
+    FavoritesService.add(favorite).then(function () {
       $scope.favorites = FavoritesService.getFavorites();
       $scope.closeAddFavoriteForm();
     });
