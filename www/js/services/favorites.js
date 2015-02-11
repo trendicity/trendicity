@@ -16,7 +16,6 @@ angular.module('Trendicity')
           lat: data.latitude,
           lng: data.longitude
         };
-
         favorites.push(newLocation);
         localStorageService.set('Favorites', favorites);
       });
@@ -24,10 +23,9 @@ angular.module('Trendicity')
       var newLocation = {
         id: id,
         city: favorite.city,
-        lat: favorite.latitude,
-        lng: favorite.longitude
+        lat: favorite.lat,
+        lng: favorite.lng
       };
-
       favorites.push(newLocation);
       localStorageService.set('Favorites', favorites);
     }
