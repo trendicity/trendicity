@@ -30,7 +30,7 @@ angular.module('Trendicity')
       config.params = config.params || {};
       config.params.access_token = self.getAccessToken(); // jshint ignore:line
       return config;
-    }
+    };
 
     if (ionic.Platform.isWebView()) { // If running in a WebView (i.e. on a mobile device/simulator)
       loginWindow.addEventListener('loadstart', function (event) {
@@ -45,7 +45,7 @@ angular.module('Trendicity')
       });
     } else { // if running on a desktop browser, use this hack
       var intervalCount = 0, timesToRepeat = 100, intervalDelay = 3000;
-      var loginPoller = function(event) {
+      var loginPoller = function() {
         intervalCount++;
         if (self.isLoggedIn()) {
           console.log('user is logged in now');
