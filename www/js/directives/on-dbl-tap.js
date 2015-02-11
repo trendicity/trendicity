@@ -5,7 +5,7 @@ angular.module('Trendicity')
   return {
     restrict: 'A',
     link: function($scope, $element, $attr) {
-      var fn = $parse($attr['onDblTap']);
+      var fn = $parse($attr.onDblTap);
 
       var listener = function(ev) {
         $scope.$apply(function() {
