@@ -16,7 +16,7 @@
       </div>
     <ion-list class="ng-hide" ng-show="favorites.length > 0">
       <ion-item class="item-icon-right"
-        ng-repeat="f in favorites"
+        ng-repeat="f in favorites track by f.id"
         ui-sref="app.home.map({latitude: f.lat, longitude: f.lng})">
         {{f.city}}
         <i class="icon ion-chevron-right icon-accessory"></i>
