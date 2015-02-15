@@ -1,8 +1,16 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('CardViewCtrl', function ($scope, $ionicSideMenuDelegate, $ionicPopup, $ionicSlideBoxDelegate,
-                                      $timeout, $ionicHistory, localStorageService, InstagramService) {
+.controller('CardViewCtrl', function (
+  $scope,
+  $ionicSideMenuDelegate,
+  $ionicPopup,
+  $ionicSlideBoxDelegate,
+  $timeout,
+  $ionicHistory,
+  localStorageService,
+  PostsService,
+  InstagramService) {
 
   // Disable side-menu drag so that it doesnt interfere with our tinder cards functionality
   $scope.$on('$ionicView.enter', function() {
@@ -62,7 +70,7 @@ angular.module('Trendicity')
 
     var post = $scope.model.currentPosts[index];
     if (post.user_has_liked) { // jshint ignore:line
-      InstagramService.dislikePost(post.id)
+      PostsService.dislikePost(post.id)
         .success(function() {
           console.log('you disliked it!');
         });
@@ -79,7 +87,7 @@ angular.module('Trendicity')
 
     var post = $scope.model.currentPosts[index];
     if (!post.user_has_liked) { // jshint ignore:line
-      InstagramService.likePost(post.id)
+      PostsService.likePost(post.id)
         .success(function () {
           console.log('you liked it!');
         });

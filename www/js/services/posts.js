@@ -47,4 +47,12 @@ angular.module('Trendicity')
         model.currentPosts = response.data;
       });
     };
+
+    this.likePost = function(mediaId) {
+      return InstagramService.likePost(mediaId);
+    };
+
+    this.dislikePost = function(mediaId) {
+      return InstagramService.dislikePost(mediaId);
+    };
 });

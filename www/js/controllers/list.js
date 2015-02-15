@@ -85,7 +85,7 @@ angular.module('Trendicity')
 
     var post = $scope.model.currentPosts[index];
     if (!post.user_has_liked) { // jshint ignore:line
-      InstagramService.likePost(post.id)
+      PostsService.likePost(post.id)
         .success(function () {
           console.log('you liked it!');
 

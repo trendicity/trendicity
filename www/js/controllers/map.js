@@ -13,8 +13,7 @@ angular.module('Trendicity')
   uiGmapIsReady,
   uiGmapGoogleMapApi,
   GeolocationService,
-  PostsService,
-  InstagramService
+  PostsService
 ) {
   // Main map object for this view
   $scope.map = {
@@ -63,7 +62,7 @@ angular.module('Trendicity')
           
           // Like this post
           if (!post.user_has_liked) { // jshint ignore:line
-            InstagramService.likePost(post.id)
+            PostsService.likePost(post.id)
               .success(function () {
                 console.log('you liked it!');
               });
