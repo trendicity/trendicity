@@ -48,26 +48,13 @@
                   <li>Favorite</li>
               </ol>
           </div>
-          <p>For best use of Trendicity, we'd like to use your current location.</p>
-
-          <button class="button button-positive" ng-click="getCurrentPosition()" ng-disabled="fetchingPosition">
-              <span ng-hide="fetchingPosition">Allow location access</span>
-              <span class="ng-hide" ng-show="fetchingPosition">Determining your position... </span>
-          </button>
-
-          <div class="card ng-hide" ng-show="noPosition">
-              <div class="item item-text-wrap">
-                 We are unable to determine your location.
-              </div>
-          </div>
       </ion-slide>
 
     <ion-slide>
-      <h3>Any questions?</h3>
-      <p>
-        Mention something about the book and list all our names here.
-      </p>
+      <h3>Developed by <a href="javascript:void(0)" ng-click="openWindow('http://thehybridcollective.org')">The Hybrid Collective</a></h3>
+      <h4>
+        A companion app for the "<a href="javascript:void(0)" ng-click="openWindow('http://shop.oreilly.com/product/9781939902160.do')">Developing an Ionic Edge</a>" book.
+      </h4>
     </ion-slide>
   </ion-slide-box>
 </ion-view>
-
