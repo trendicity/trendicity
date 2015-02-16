@@ -8,7 +8,7 @@ angular.module('Trendicity')
     var id = favorites.length + 1;
 
     if (favorite.city && favorite.region) {
-      var address = favorite.city + ", " + favorite.region;
+      var address = favorite.city + ', ' + favorite.region;
       return GeolocationService.addressToPosition(address).then(function (data) {
         var newLocation = {
           id: id,
@@ -39,7 +39,7 @@ angular.module('Trendicity')
   // DELETE
   this.delete = function (favorite) {
     var favorites = this.getFavorites();
-    _.remove(favorites, favorite);
+    _.remove(favorites, favorite); // jshint ignore:line
     localStorageService.set('Favorites', favorites);
     return this.getFavorites();
   };

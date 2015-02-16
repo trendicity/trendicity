@@ -53,7 +53,7 @@ angular.module('Trendicity')
                     return {
                         latitude: location.lat,
                         longitude: location.lng
-                    }
+                    };
                 },
                 function (reason) {
                     return $q.reject(reason);

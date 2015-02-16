@@ -1,8 +1,15 @@
 'use strict';
 angular.module('Trendicity')
 
-.controller('AppCtrl', function($rootScope, $scope, $ionicModal, $timeout, $state, InstagramService,
-                                FavoritesService, localStorageService) {
+.controller('AppCtrl', function(
+  $rootScope,
+  $scope,
+  $ionicModal,
+  $timeout,
+  $state,
+  InstagramService,
+  FavoritesService,
+  localStorageService) {
   // Check if use has seen intro
   if (!localStorageService.get('seenIntro') || false) {
     $state.go('app.intro');

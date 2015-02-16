@@ -89,7 +89,7 @@ angular.module('Trendicity')
     };
     PostsService.findNearbyPosts(pinPos).then(function (posts) {
       var markers = [];
-      _.each(posts, function (post) {
+      _.each(posts, function (post) { // jshint ignore:line
         var image = {
           url: post.images.thumbnail.url,
           scaledSize: new google.maps.Size(20,20),
