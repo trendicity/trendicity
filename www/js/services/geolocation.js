@@ -10,7 +10,11 @@ angular.module('Trendicity')
 
     this.getCurrentPosition = function (options) {
         var defer = $q.defer();
-        options = options || { timeout: 10000, maximumAge: 0, enableHighAccuracy: false };
+        options = options || {
+          timeout: 10000,
+          maximumAge: 0,
+          enableHighAccuracy: false
+        };
 
         $ionicPlatform.ready(function () {
             $cordovaGeolocation

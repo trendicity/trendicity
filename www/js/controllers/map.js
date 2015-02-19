@@ -36,7 +36,11 @@ angular.module('Trendicity')
         });
       } else {
         $timeout(function(){
-          var options = { timeout: 10000, maximumAge: 600000, enableHighAccuracy: false };
+          var options = {
+            timeout: 10000,
+            maximumAge: 600000,
+            enableHighAccuracy: false
+          };
           $scope.locate(options);
         });
       }

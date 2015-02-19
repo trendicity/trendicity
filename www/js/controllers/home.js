@@ -39,7 +39,11 @@ angular.module('Trendicity')
     $scope.findNearbyPosts = function() {
       if ($state.current.name !== 'app.home.map') {
         $ionicLoading.show();
-        var options = { maximumAge: 600000 };
+        var options = {
+          timeout: 10000,
+          maximumAge: 600000,
+          enableHighAccuracy: false
+        };
         GeolocationService.getCurrentPosition(options).then(
           function(position) {
             PostsService.findNearbyPosts(position.coords);
