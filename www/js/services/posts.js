@@ -28,10 +28,16 @@ angular.module('Trendicity')
         lat: position.latitude,
         lng: position.longitude
       };
-      InstagramService.findNearbyPosts(options).success(function (response) {
-        model.currentPosts = response.data;
-        deferred.resolve(response.data);
-      });
+
+      if (options.lat && options.lng) {
+        InstagramService.findNearbyPosts(options).success(function (response) {
+          model.currentPosts = response.data;
+          deferred.resolve(response.data);
+        });
+      } else {
+        console.log('Unable to obtain both latitude and longitude.  position:' + angular.toJson(position));
+        deferred.reject();
+      }
 
       return deferred.promise;
     };
