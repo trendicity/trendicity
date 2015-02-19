@@ -22,11 +22,11 @@ angular.module('Trendicity')
       });
     };
 
-    this.findNearbyPosts = function(position) {
+    this.findNearbyPosts = function(coords) {
       var deferred = $q.defer();
       var options = {
-        lat: position.latitude,
-        lng: position.longitude
+        lat: coords.latitude,
+        lng: coords.longitude
       };
 
       if (options.lat && options.lng) {
@@ -35,7 +35,7 @@ angular.module('Trendicity')
           deferred.resolve(response.data);
         });
       } else {
-        console.log('Unable to obtain both latitude and longitude.  position:' + angular.toJson(position));
+        console.log('Unable to obtain both latitude and longitude.  position:' + angular.toJson(coords));
         deferred.reject();
       }
 

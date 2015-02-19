@@ -36,7 +36,7 @@ angular.module('Trendicity')
         });
       } else {
         $timeout(function(){
-          var options = { maximumAge: 600000 };
+          var options = { timeout: 10000, maximumAge: 600000, enableHighAccuracy: false };
           $scope.locate(options);
         });
       }
@@ -84,8 +84,8 @@ angular.module('Trendicity')
   // Helper function for refreshing new posts from map pin
   $scope.refresh = function(position) {
     var pinPos = position || {
-      latitude: $scope.map.control.getGMap().center.k,
-      longitude: $scope.map.control.getGMap().center.C
+      latitude: $scope.map.control.getGMap().getCenter().lat(),
+      longitude: $scope.map.control.getGMap().getCenter().lng()
     };
     PostsService.findNearbyPosts(pinPos).then(function (posts) {
       var markers = [];
@@ -118,7 +118,7 @@ angular.module('Trendicity')
       function (position) {
         $scope.map.center = position.coords;
         $scope.map.control.refresh(position.coords);
-        $scope.refresh();
+        $scope.refresh(position.coords);
         $ionicLoading.hide();
       },
       function() {
