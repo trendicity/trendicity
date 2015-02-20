@@ -10,7 +10,7 @@ angular.module('Trendicity')
 ) {
   // Create the add favorite modal that we will use later
   $ionicModal.fromTemplateUrl('templates/modals/favorite-add.html', {
-   scope: $scope
+    scope: $scope
   }).then(function(modal) {
     $scope.modalAddFavorite = modal;
   });
