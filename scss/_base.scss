@@ -2,13 +2,18 @@
   height: 100%;
 }
 
-.vertical-center > * {
-  @include display-flex;
-  @include flex-direction(row);
-  @include flex-wrap(nowrap);
+.vertical-center-container {
+  height: 100%;
+
+  @include display-flex();
   @include justify-content(center);
-  @include align-content(stretch);
   @include align-items(center);
+
+  .vertical-center {
+    width: 100%;
+    @include display-flex();
+    @include flex-direction(column);
+  }
 }
 
 #logo {
