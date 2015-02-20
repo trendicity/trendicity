@@ -1,11 +1,15 @@
+.slide-box-positive {
+  .slider-pager .slider-pager-page {
+    color: $positive;
+  }
+}
+
 .slider {
   height: 100%;
 }
 
 .slider-slide {
-  padding-top: $bar-height;
   color: #000;
-  background-color: #fff;
   text-align: center;
 
   font-family: $font-family-light-sans-serif;

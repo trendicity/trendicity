@@ -1,4 +1,4 @@
-<ion-view cache-view="false">
+<ion-view id="intro" ng-class="{ 'slide-center': slideIndex == 1, 'slide-right': slideIndex == 2 }" hide-back-button="true" cache-view="false">
   <ion-nav-bar>
     <ion-nav-buttons side="left">
       <button class="button button-positive button-clear"
@@ -22,41 +22,48 @@
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-
-  <ion-slide-box show-pager="false" on-slide-changed="slideChanged(index)">
-    <ion-slide class="vertical-center-container">
-        <div class="vertical-center">
-          <h3 style="margin-top: 15px;">Welcome to Trendicity</h3>
-          <div id="logo">
-            <img src="img/placeholder-city.jpg">
+  <ion-content scroll="false">
+    <ion-slide-box class="slide-box-positive" on-slide-changed="slideChanged(index)">
+      <ion-slide class="vertical-center-container">
+          <div class="vertical-center">
+            <h3>Welcome to Trendicity</h3>
+            <div id="logo">
+              <img src="img/placeholder-city.jpg">
+            </div>
+              <p>
+                  Explore Instagram posts by popular locations,
+              </p>
+              <p>
+                  or Log In to visualize your feed on a map.
+              </p>
           </div>
-            <p>
-                Explore Instagram posts by popular locations,
-            </p>
-            <p>
-                or Log In to visualize your feed on a map.
-            </p>
-        </div>
-    </ion-slide>
+      </ion-slide>
 
-    <ion-slide class="vertical-center-container">
+      <ion-slide class="vertical-center-container">
+          <div class="vertical-center padding">
+            <h3 class="text-center">You can...</h3>
+            <div id="intro-info" class="text-center">
+              <h2><i class="icon ion-earth positive"></i></h2>
+              <h4>Explore</h4>
+              <hr>
+              <h2><i class="icon ion-android-exit"></i></h2>
+              <h4>Swipe</h4>
+              <hr>
+              <h2><i class="icon ion-heart assertive"></i></h2>
+              <h4>Favorite</h4>
+            </div>
+          </div>
+      </ion-slide>
+
+      <ion-slide class="vertical-center-container">
         <div class="vertical-center">
-          <ul>
-            <li><h2><i class="icon ion-earth positive"></i> Explore</h2></li>
-            <li><h2><i class="icon ion-android-exit"></i> Swipe</h2></li>
-            <li><h2><i class="icon ion-heart assertive"></i> Favorite</h2></li>
-          </ul>
+          <h3>Developed by <br /><a href="javascript:void(0)" ng-click="openWindow('http://thehybridcollective.org')">The Hybrid Collective</a></h3>
+          <br />
+          <h4>
+            A companion app for the <br />"<a href="javascript:void(0)" ng-click="openWindow('http://shop.oreilly.com/product/9781939902160.do')">Developing an Ionic Edge</a>" book.
+          </h4>
         </div>
-    </ion-slide>
-
-    <ion-slide class="vertical-center-container">
-      <div class="vertical-center">
-        <h3>Developed by <br /><a href="javascript:void(0)" ng-click="openWindow('http://thehybridcollective.org')">The Hybrid Collective</a></h3>
-        <br />
-        <h4>
-          A companion app for the <br />"<a href="javascript:void(0)" ng-click="openWindow('http://shop.oreilly.com/product/9781939902160.do')">Developing an Ionic Edge</a>" book.
-        </h4>
-      </div>
-    </ion-slide>
-  </ion-slide-box>
+      </ion-slide>
+    </ion-slide-box>
+  </ion-content>
 </ion-view>
