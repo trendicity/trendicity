@@ -8,13 +8,14 @@
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content>
+    <!-- List all existing favorites -->
     <ion-list>
       <ion-item
         class="item-icon-right"
         ng-repeat="favorite in favorites"
         ui-sref="app.home.map({ latitude: favorite.lat, longitude: favorite.lng })">
         {{ favorite.city }}
-        <i class="icon ion-chevron-right icon-accessory"></i>
+        <i class="icon ion-ios-arrow-forward icon-accessory"></i>
         <ion-option-button class="button-assertive" ng-click="removeFavorite(favorite)">
           Remove
         </ion-option-button>

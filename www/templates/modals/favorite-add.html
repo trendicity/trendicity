@@ -4,16 +4,18 @@
     <button class="button button-clear button-dark" ng-click="hideModalAddFavorite()">Cancel</button>
   </ion-header-bar>
   <ion-content>
-  <div class="list">
-    <label class="item item-input item-stacked-label">
-      <span class="input-label">City</span>
-      <input type="text" placeholder="Dallas" ng-model="favorite.city">
-    </label>
-    <label class="item item-input item-stacked-label">
-      <span class="input-label">State or Country</span>
-      <input type="text" placeholder="TX" ng-model="favorite.region">
-    </label>
-    <button class="button button-block button-positive activated" ng-click="addFavorite(favorite)">Submit</button>
-  </div>
+    <div class="list">
+      <form name="formAddFavorite" ng-submit="addFavorite(favorite)" no-validate>
+        <label class="item item-input item-floating-label" ng-class="{ 'item-error': formAddFavorite.city.$dirty && formAddFavorite.city.$invalid, 'item-valid': formAddFavorite.city.$valid }">
+          <span class="input-label">City</span>
+          <input type="text" name="city" ng-model="favorite.city" placeholder="City" required="required">
+        </label>
+        <label class="item item-input item-floating-label" ng-class="{ 'item-error': formAddFavorite.region.$dirty && formAddFavorite.region.$invalid, 'item-valid': formAddFavorite.region.$valid }">
+          <span class="input-label">Country</span>
+          <input type="text" name="region" ng-model="favorite.region" placeholder="Country" required="required">
+        </label>
+        <button class="button button-full button-positive" type="submit">Add</button>
+      </form>
+    </div>
   </ion-content>
 </ion-modal-view>
