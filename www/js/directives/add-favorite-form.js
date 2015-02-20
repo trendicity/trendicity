@@ -7,11 +7,6 @@ angular.module('Trendicity')
     scope: {
       'onSubmit': '&'
     },
-    controller: function($scope) {
-      $scope.submit = function(favorite) {
-        $scope.onSubmit({ favorite: favorite });
-      }
-    },
     link: function($scope, $element, $attr) {
       $scope.$on('modal.hidden', function() {
         // Clear form

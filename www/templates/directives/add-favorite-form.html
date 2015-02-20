@@ -1,4 +1,4 @@
-<form name="formAddFavorite" ng-submit="submit(favorite)" no-validate>
+<form name="formAddFavorite" ng-submit="onSubmit({ favorite: favorite })" no-validate>
   <label class="item item-input item-floating-label" ng-class="{ 'item-error': formAddFavorite.city.$dirty && formAddFavorite.city.$invalid, 'item-valid': formAddFavorite.city.$valid }">
     <span class="input-label">City</span>
     <input type="text" name="city" ng-model="favorite.city" placeholder="City" required="required">
