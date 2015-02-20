@@ -1,0 +1,30 @@
+.popup-full {
+    .popup {
+        width: $popup-width + 50px;
+    }
+
+    .popup-head {
+        display: none;
+    }
+
+    .popup-body {
+        padding: 0;
+    }
+
+    .popup-buttons {
+        @extend .button-bar;
+        padding: 0;
+        min-height: $button-height;
+
+        > .button {
+            margin-right: initial;
+            border-width: 0;
+            border-right-width: 1px;
+            border-radius: 0;
+
+            &:last-child {
+                border-right-width: 0;
+            }
+        }
+    }
+}
