@@ -27,25 +27,3 @@
     </ion-list>
   </ion-content>
 </ion-view>
-
-<script id="add-favorite-modal.html" type="text/ng-template">
-  <ion-modal-view>
-    <ion-header-bar>
-      <h1 class="title">Add Favorite Location</h1>
-      <button class="button button-clear button-positive" ng-click="closeAddFavoriteForm()">Cancel</button>
-    </ion-header-bar>
-    <ion-content>
-    <div class="list">
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">City</span>
-        <input type="text" placeholder="Dallas" ng-model="favorite.city">
-      </label>
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">State or Country</span>
-        <input type="text" placeholder="TX" ng-model="favorite.region">
-      </label>
-      <button class="button button-block button-positive activated" ng-click="addFavorite(favorite)">Submit</button>
-    </div>
-    </ion-content>
-  </ion-modal-view>
-</script>

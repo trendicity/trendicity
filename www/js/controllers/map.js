@@ -56,7 +56,7 @@ angular.module('Trendicity')
   $scope.showPost = function(post) {
     $scope.currentPost = post;
     var postPopup = $ionicPopup.show({
-      templateUrl: 'templates/post-popup.html',
+      templateUrl: 'templates/popups/post.html',
       scope: $scope,
       buttons: [{
         text: 'Like',

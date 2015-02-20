@@ -34,7 +34,7 @@ angular.module('Trendicity')
   };
 
   // Favorite creation modal template and helper functions
-  $ionicModal.fromTemplateUrl('add-favorite-modal.html', {
+  $ionicModal.fromTemplateUrl('templates/modals/favorite-add.html', {
    scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {

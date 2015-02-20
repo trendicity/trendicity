@@ -36,7 +36,7 @@ angular.module('Trendicity')
     // Show explanation message
     $ionicPopup.show({
       title: 'Swipe Cards',
-      templateUrl: 'templates/card-intro.html',
+      templateUrl: 'templates/popups/card-intro.html',
       scope: $scope,
       buttons: [
         {

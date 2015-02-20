@@ -16,7 +16,7 @@ angular.module('Trendicity')
   }
 
   // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
+  $ionicModal.fromTemplateUrl('templates/modals/login.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
