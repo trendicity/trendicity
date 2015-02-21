@@ -12,7 +12,7 @@
     <ion-list>
       <ion-item
         class="item-icon-right"
-        ng-repeat="favorite in favorites"
+        ng-repeat="favorite in favorites track by favorite.id"
         ui-sref="app.home.map({ latitude: favorite.lat, longitude: favorite.lng })">
         {{ favorite.city }}
         <i class="icon ion-ios-arrow-forward icon-accessory"></i>
