@@ -4,6 +4,9 @@
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+// Include all of Ionicons
+@import "www/lib/ionicons/scss/ionicons";
+
 // Include custom styles
 @import "base";
 @import "list";
@@ -13,3 +16,5 @@
 @import "button";
 @import "tdcards";
 @import "slide-box";
+@import "input";
+@import "popup";

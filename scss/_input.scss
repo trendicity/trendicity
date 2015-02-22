@@ -1,0 +1,9 @@
+.item-error {
+  padding-left: $item-padding - 4px;
+  border-left: 4px solid $assertive;
+}
+
+.item-valid {
+  padding-left: $item-padding - 4px;
+  border-left: 4px solid $balanced;
+}

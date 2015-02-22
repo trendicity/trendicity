@@ -1,61 +1,69 @@
-<ion-view title="">
+<ion-view id="intro" ng-class="{ 'slide-center': slideIndex == 1, 'slide-right': slideIndex == 2 }" hide-back-button="true" cache-view="false">
   <ion-nav-bar>
     <ion-nav-buttons side="left">
-      <button class="button button-positive button-clear no-animation"
-        nav-clear ng-click="startApp()" ng-if="!slideIndex">
+      <button class="button button-positive button-clear"
+        ng-click="startApp()" ng-show="!slideIndex">
         Skip
       </button>
-      <button class="button button-positive button-clear no-animation"
-        ng-click="previous()" ng-if="slideIndex > 0">
+      <button class="button button-positive button-clear"
+        ng-click="previous()" ng-show="slideIndex > 0">
         Back
       </button>
     </ion-nav-buttons>
 
     <ion-nav-buttons side="right"> 
-      <button class="button button-positive button-clear no-animation"
-        ng-click="next()" ng-if="slideIndex != 2">
+      <button class="button button-positive button-clear"
+        ng-click="next()" ng-show="slideIndex != 2">
         Next
       </button>
-      <button class="button button-positive button-clear no-animation"
-        nav-clear ng-click="startApp()" ng-if="slideIndex == 2">
+      <button class="button button-positive button-clear"
+        ng-click="startApp()" ng-show="slideIndex == 2">
         Explore
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-
-  <ion-slide-box on-slide-changed="slideChanged(index)">
-    <ion-slide>
-        <ion-content>
-          <h3 style="margin-top: 15px;">Welcome to Trendicity</h3>
-          <div id="logo">
-            <img src="img/placeholder-city.jpg">
-          </div>
-            <p>
-                Explore Instagram posts by popular locations,
-            </p>
-            <p>
-                or Log In to visualize your feed on a map.
-            </p>
-        </ion-content>
-    </ion-slide>
-
-      <ion-slide>
-          <h3>Using Trendicity</h3>
-          <div id="list">
-              <ol>
-                  <li>Explore</li>
-                  <li>Swipe</li>
-                  <li>Favorite</li>
-              </ol>
+  <ion-content scroll="false">
+    <ion-slide-box class="slide-box-positive" on-slide-changed="slideChanged(index)">
+      <ion-slide class="vertical-center-container">
+          <div class="vertical-center">
+            <h3>Welcome to Trendicity</h3>
+            <div id="logo">
+              <img src="img/placeholder-city.jpg">
+            </div>
+              <p>
+                  Explore Instagram posts by popular locations,
+              </p>
+              <p>
+                  or Log In to visualize your feed on a map.
+              </p>
           </div>
       </ion-slide>
 
-    <ion-slide>
-      <h3>Developed by <br /><a href="javascript:void(0)" ng-click="openWindow('http://thehybridcollective.org')">The Hybrid Collective</a></h3>
-      <br />
-      <h4>
-        A companion app for the <br />"<a href="javascript:void(0)" ng-click="openWindow('http://shop.oreilly.com/product/9781939902160.do')">Developing an Ionic Edge</a>" book.
-      </h4>
-    </ion-slide>
-  </ion-slide-box>
+      <ion-slide class="vertical-center-container">
+          <div class="vertical-center padding">
+            <h3 class="text-center">You can...</h3>
+            <div id="intro-info" class="text-center">
+              <h2><i class="icon ion-earth positive"></i></h2>
+              <h4>Explore</h4>
+              <hr>
+              <h2><i class="icon ion-android-exit"></i></h2>
+              <h4>Swipe</h4>
+              <hr>
+              <h2><i class="icon ion-heart assertive"></i></h2>
+              <h4>Favorite</h4>
+            </div>
+          </div>
+      </ion-slide>
+
+      <ion-slide class="vertical-center-container">
+        <div class="vertical-center">
+          <h3>Developed by <br /><a href="javascript:void(0)" ng-click="openWindow('http://thehybridcollective.org')">The Hybrid Collective</a></h3>
+          <br />
+          <h4>
+            A companion app for the <br />"<a href="javascript:void(0)" ng-click="openWindow('http://shop.oreilly.com/product/9781939902160.do')">Developing an Ionic Edge</a>" book.
+          </h4>
+        </div>
+      </ion-slide>
+    </ion-slide-box>
+  </ion-content>
 </ion-view>

@@ -4,49 +4,48 @@ angular.module('Trendicity')
 .controller('FavoritesCtrl', function(
   $scope,
   $state,
-  FavoritesService,
   $ionicModal,
-  $ionicSideMenuDelegate
+  $ionicSideMenuDelegate,
+  FavoritesService
 ) {
-  // Initialize variables needed for view
-  $scope.favorite = {};
-  $scope.favorites = FavoritesService.getFavorites();
-
-  // Enable Menu Dragging
-  $scope.$on('$ionicView.enter', function() {
-    // Update favorites
-    $scope.favorites = FavoritesService.getFavorites();
-
-    $ionicSideMenuDelegate.canDragContent(true);
+  // Create the add favorite modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/modals/favorite-add.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modalAddFavorite = modal;
   });
 
   // Add a new favorite using the service
   $scope.addFavorite = function(favorite) {
     FavoritesService.add(favorite).then(function () {
       $scope.favorites = FavoritesService.getFavorites();
-      $scope.closeAddFavoriteForm();
+      $scope.hideModalAddFavorite();
     });
   };
 
-  // Delete a favorite using the service and update scope var
+  // Remove a favorite using the service and update scope var
   $scope.removeFavorite = function (favorite) {
     $scope.favorites = FavoritesService.delete(favorite);
   };
 
-  // Favorite creation modal template and helper functions
-  $ionicModal.fromTemplateUrl('add-favorite-modal.html', {
-   scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-  $scope.openAddFavoriteForm = function () {
-    $scope.modal.show();
+  $scope.showModalAddFavorite = function () {
+    $scope.modalAddFavorite.show();
   };
-  $scope.closeAddFavoriteForm = function() {
-    $scope.modal.hide();
+
+  $scope.hideModalAddFavorite = function() {
+    $scope.modalAddFavorite.hide();
   };
+
+  // Remove add favorite modal
   $scope.$on('$destroy', function() {
-    $scope.modal.remove();
+    $scope.modalAddFavorite.remove();
+  });
+
+  $scope.$on('$ionicView.enter', function() {
+    // Update favorites
+    $scope.favorites = FavoritesService.getFavorites();
+
+    // Enable menu dragging
+    $ionicSideMenuDelegate.canDragContent(true);
   });
 });

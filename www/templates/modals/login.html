@@ -1,0 +1,24 @@
+<ion-modal-view id="login">
+  <ion-header-bar class="bar-transparent">
+    <div class="buttons">
+      <button class="button button-light button-clear button-icon button-right icon ion-close" ng-click="closeLogin()"></button>
+    </div>
+  </ion-header-bar>
+  <ion-content scroll="false">
+      <div class="vertical-center-container">
+        <div class="vertical-center">
+          <div class="row light-bg">
+            <div class="col">
+              <h3 class="text-center">Login with Instagram to</h3>
+              <ul class="text-center">
+                <li><i class="icon ion-heart assertive"></i> Like Posts</li>
+                <li><i class="icon ion-images"></i> View Your Feed</li>
+                <li><i class="icon ion-star energized"></i> View Your Liked Posts</li>
+              </ul>
+              <button class="button button-block button-positive button-outline icon-left ion-social-instagram-outline" ng-click="loginToInstagram()">Login with Instagram</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </ion-content>
+</ion-modal-view>

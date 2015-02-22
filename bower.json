@@ -11,7 +11,8 @@
     "ngCordova": "~0.1.11-alpha",
     "angular-google-maps": "~2.0.12",
     "ionic-contrib-icon": "~0.0.3",
-    "lodash": "~3.1.0"
+    "lodash": "~3.1.0",
+    "ionicons": "~2.0.1"
   },
   "resolutions": {
     "lodash": "~3.1.0"

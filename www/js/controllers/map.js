@@ -56,11 +56,12 @@ angular.module('Trendicity')
   $scope.showPost = function(post) {
     $scope.currentPost = post;
     var postPopup = $ionicPopup.show({
-      templateUrl: 'templates/post-popup.html',
+      templateUrl: 'templates/popups/post.html',
       scope: $scope,
+      cssClass: 'popup-full', 
       buttons: [{
         text: 'Like',
-        type: 'button-default',
+        type: 'button-light',
         onTap: function(e) {
           e.preventDefault();
           
@@ -76,7 +77,7 @@ angular.module('Trendicity')
         }
       }, {
         text: 'Cancel',
-        type: 'button-default',
+        type: 'button-light',
         onTap: function(e) {
           $scope.currentPost = null;
           return true;
