@@ -17,6 +17,7 @@ angular.module('Trendicity')
 
       var gesture = $ionicGesture.on('doubletap', listener, $element);
 
+      // Remove gesture recognition on DOM element
       $scope.$on('$destroy', function() {
         $ionicGesture.off(gesture, 'doubletap', listener);
       });
