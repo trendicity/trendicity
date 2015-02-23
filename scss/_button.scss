@@ -8,3 +8,15 @@
         right: $bar-padding-portrait;
     }
 }
+
+.button-bar-vertical {
+  > .button {
+    @extend .button-block;
+    margin: 0;
+    border-bottom-width: 0;
+  }
+
+  > .button:last-child {
+    border-bottom-width: $button-border-width;
+  }
+}
