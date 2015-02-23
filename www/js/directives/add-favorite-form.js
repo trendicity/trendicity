@@ -8,9 +8,18 @@ angular.module('Trendicity')
       'onSubmit': '&'
     },
     link: function($scope, $element, $attr) {
+      $scope.submit = function() {
+        $scope.formAddFavorite.$attempt = true;
+
+        if ($scope.formAddFavorite.$valid) {
+          $scope.onSubmit({ favorite: $scope.favorite });
+        }
+      };
+
       $scope.$on('modal.hidden', function() {
         // Clear form
         $scope.favorite = null;
+        $scope.formAddFavorite.$attempt = false;
         $scope.formAddFavorite.$setPristine(true);
       });
     },
