@@ -2,16 +2,16 @@
 angular.module('Trendicity')
 
 .service('FavoritesService', function(localStorageService, GeolocationService) {
-  // CREATE
+  // ADD
   this.add = function (favorite) {
-    var favorites = this.getFavorites() ? this.getFavorites() : [];
-    var id = favorites.length + 1;
+    var favorites = this.getFavorites() || [];
+    var favoritesId = favorites.length + 1;
 
     if (favorite.city && favorite.region) {
       var address = favorite.city + ', ' + favorite.region;
       return GeolocationService.addressToPosition(address).then(function (data) {
         var newLocation = {
-          id: id,
+          id: favoritesId,
           city: address,
           lat: data.latitude,
           lng: data.longitude
@@ -21,7 +21,7 @@ angular.module('Trendicity')
       });
     } else {
       var newLocation = {
-        id: id,
+        id: favoritesId,
         city: favorite.city,
         lat: favorite.lat,
         lng: favorite.lng
@@ -31,7 +31,7 @@ angular.module('Trendicity')
     }
   };
 
-  // READ
+  // GET
   this.getFavorites = function () {
     return localStorageService.get('Favorites');
   };

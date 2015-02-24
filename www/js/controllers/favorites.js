@@ -23,8 +23,8 @@ angular.module('Trendicity')
     });
   };
 
-  // Remove a favorite using the service and update scope var
-  $scope.removeFavorite = function (favorite) {
+  // Delete a favorite using the service and update scope var
+  $scope.deleteFavorite = function (favorite) {
     $scope.favorites = FavoritesService.delete(favorite);
   };
 

@@ -17,8 +17,24 @@
   }
 }
 
+.rounded-image {
+  border-radius: 50%;
+}
+
+.intro-text {
+  margin-bottom: $content-padding / 2;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
 #logo {
   margin: 15px 0px;
+  height: 200px;
+  background-image: url('../img/placeholder-city.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 #login {
@@ -65,6 +81,6 @@
 }
 
 #intro-info {
-  width: 50%;
+  width: 150px;
   margin: 0 auto;
 }
