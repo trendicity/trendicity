@@ -38,6 +38,6 @@ angular.module('Trendicity')
   };
 
   $scope.openWindow = function(url) {
-    window.open(url, '_blank', 'location=no,clearsessioncache=yes,clearcache=yes');
+    window.open(url, '_system', 'location=no,clearsessioncache=yes,clearcache=yes');
   };
 });
