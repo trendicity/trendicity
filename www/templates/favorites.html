@@ -16,7 +16,7 @@
         ui-sref="app.home.map({ latitude: favorite.lat, longitude: favorite.lng })">
         {{ favorite.city }}
         <i class="icon ion-ios-arrow-forward icon-accessory"></i>
-        <ion-option-button class="button-assertive" ng-click="removeFavorite(favorite)">
+        <ion-option-button class="button-assertive" ng-click="deleteFavorite(favorite)">
           Remove
         </ion-option-button>
       </ion-item>
