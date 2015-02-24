@@ -46,11 +46,21 @@ angular.module('Trendicity', [
       }
     })
 
+    .state('app.favorites', {
+      url: '/favorites',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/favorites.html',
+          controller: 'FavoritesCtrl'
+        }
+      }
+    })
+
     .state('app.home', {
       url: '/home',
       abstract: true,
       views: {
-        'menuContent' :{
+        'menuContent': {
           templateUrl: 'templates/home.html',
           controller: 'HomeCtrl'
         }
@@ -60,7 +70,7 @@ angular.module('Trendicity', [
     .state('app.home.map', {
       url: '/map/?latitude&longitude',
       views: {
-        'tab-map' :{
+        'tab-map': {
           templateUrl: 'templates/tab-map.html',
           controller: 'MapViewCtrl as mapCtrl'
         }
@@ -70,7 +80,7 @@ angular.module('Trendicity', [
     .state('app.home.card', {
       url: '/card',
       views: {
-        'tab-card' :{
+        'tab-card': {
           templateUrl: 'templates/tab-card.html',
           controller: 'CardViewCtrl'
         }
@@ -80,19 +90,9 @@ angular.module('Trendicity', [
     .state('app.home.list', {
       url: '/list',
       views: {
-        'tab-list' :{
+        'tab-list': {
           templateUrl: 'templates/tab-list.html',
           controller: 'ListViewCtrl'
-        }
-      }
-    })
-
-    .state('app.favorites', {
-      url: '/favorites',
-      views: {
-        'menuContent' :{
-          templateUrl: 'templates/favorites.html',
-          controller: 'FavoritesCtrl'
         }
       }
     });
