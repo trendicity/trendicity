@@ -9,7 +9,7 @@ angular.module('Trendicity')
   FavoritesService
 ) {
   // Create the add favorite modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/modals/favorite-add.html', {
+  $ionicModal.fromTemplateUrl('templates/modals/add-favorite.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modalAddFavorite = modal;
