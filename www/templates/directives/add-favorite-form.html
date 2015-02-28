@@ -1,4 +1,4 @@
-<form name="formAddFavorite" ng-submit="onSubmit({ favorite: favorite })" no-validate>
+<form name="formAddFavorite" no-validate>
   <label class="item item-input item-stacked-label" ng-class="{ 'item-error': formAddFavorite.$attempt && formAddFavorite.city.$invalid, 'item-valid': formAddFavorite.city.$valid }">
     <span class="input-label">City</span>
     <input type="text" name="city" ng-model="favorite.city" placeholder="Dallas" required="required">
