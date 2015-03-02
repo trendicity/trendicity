@@ -40,7 +40,6 @@ angular.module('Trendicity')
           // Skip was clicked
           startApp();
         } else {
-          console.log('nextback');
           $scope.backButtonLabel = 'Back';
           $scope.nextButtonLabel = 'Next';
         }
