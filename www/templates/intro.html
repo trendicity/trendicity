@@ -2,15 +2,23 @@
   <ion-nav-bar>
     <ion-nav-buttons side="left">
       <button class="button button-positive button-clear"
-        ng-click="previous(slideIndex)">
-          {{ backButtonLabel }}
+        ng-click="startApp()" ng-show="!slideIndex">
+        Skip
+      </button>
+      <button class="button button-positive button-clear"
+        ng-click="previous()" ng-show="slideIndex > 0">
+        Back
       </button>
     </ion-nav-buttons>
 
     <ion-nav-buttons side="right"> 
       <button class="button button-positive button-clear"
-        ng-click="next(slideIndex)">
-        {{ nextButtonLabel }}
+        ng-click="next()" ng-show="slideIndex != 2">
+        Next
+      </button>
+      <button class="button button-positive button-clear"
+        ng-click="startApp()" ng-show="slideIndex == 2">
+        Explore
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
