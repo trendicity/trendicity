@@ -58,7 +58,7 @@ angular.module('Trendicity')
       case 2:
         if (buttonAction === BUTTON_ACTION.BACK) {
           $scope.backButtonLabel = 'Back';
-          $scope.nextButtonLabel = 'Explore';
+          $scope.nextButtonLabel = 'Next';
         } else {
           // 'Explore' was clicked.
           startApp();
