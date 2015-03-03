@@ -5,7 +5,7 @@ angular.module('Trendicity')
   // ADD
   this.add = function (favorite) {
     var favorites = this.getFavorites() || [];
-    var favoritesId =  favorites[favorites.length - 1] ? favorites[favorites.length - 1].id  + 1 : 1;
+    var favoritesId =  new Date().getTime();
 
     if (favorite.city && favorite.region) {
       var address = favorite.city + ', ' + favorite.region;
