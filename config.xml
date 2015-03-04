@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="org.thehybridcollective.trendicity" version="0.0.8" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="org.thehybridcollective.trendicity" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Trendicity</name>
   <description>
         An Instagram mashup that displays posts on a map, card view and list view.
     </description>
-  <author email="info@thehybridcollective" href="http://thehybridcollective.org">
+  <author email="info@thehybridcollective.org" href="http://thehybridcollective.org">
       The Hybrid Collective
     </author>
   <content src="index.html"/>
