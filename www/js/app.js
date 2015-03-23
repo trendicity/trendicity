@@ -102,7 +102,7 @@ angular.module('Trendicity', [
 })
 
 .constant('$ionicLoadingConfig', {
-  template: '<h3><icon ios="ion-loading-d" android="ion-loading-c" default="ion-refreshing"></icon></h3>Loading...'
+  template: '<ion-spinner></ion-spinner>Loading...'
 })
 
 .config(function($httpProvider) {
