@@ -2,12 +2,11 @@
 <widget id="org.thehybridcollective.trendicity" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Trendicity</name>
   <description>
-        A sample application for the Developing an Ionic edge book that displays posts on a map, card view and list view, implementing the Instagram API.
-          
-        </description>
+    A sample application for the Developing an Ionic Edge book that displays posts on a map, card view and list view, implementing the Instagram API.
+  </description>
   <author email="info@thehybridcollective.org" href="http://thehybridcollective.org">
-      The Hybrid Collective
-    </author>
+    The Hybrid Collective
+  </author>
   <content src="index.html"/>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
