@@ -1,0 +1,282 @@
+body, p, a, h1, h2, h3, h4, span, ul, li{
+	font-family: 'Dosis', sans-serif;
+	color:#24323f;
+}
+
+#header{
+	background-color: #f8e51d;
+	padding-top: 2em;
+	display:block;
+	width:100%;
+}
+
+h1{
+	font-weight:800;
+	font-size:44px;
+	padding-top:2em;
+}
+
+.h1-big{
+	font-weight:800;
+	font-size:88px;
+	line-height: 1em;
+}
+
+h2{
+	font-weight:300;
+	font-size:26px;
+	line-height: 1.2em;
+	padding-bottom:1em;
+}
+
+.xtra-bold{
+	font-weight:800;
+}
+
+a:hover{
+	opacity:.9;
+}
+
+a:active{
+	opacity:1;
+	color: #f8e51d !important;
+}
+
+a.action{
+	display:block;
+	width:180px;
+	text-align:center;
+	font-weight:800;
+	font-size: 19px;
+	color:#fff;
+	background-color: #24323f;
+	text-decoration: none;
+	padding: .6em 4em;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+}
+
+
+#learn{
+	padding-top: 2em;
+	background: #fff url("../img/ionic-blur.jpg") no-repeat right; 
+	display:block;
+	width:100%;
+}
+
+
+.youlearn{
+	font-weight:800;
+	font-size:30px;
+	line-height: 1.2em;
+}
+
+ul{
+	list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+ul.learnul li{
+	background-image: url('../img/icon.png');
+    background-repeat: no-repeat;
+    background-position: 0px center; 
+    padding-left: 45px; 
+
+	font-weight:300;
+	font-size:20px;
+	line-height: 1.2em;
+	padding-bottom:.6em;
+	display: block;
+
+}
+
+a.dbook{
+	margin-top:8em;
+	width:180px;
+	display:block;
+}
+
+.testemonial{
+	font-weight:300;
+	font-size:20px;
+	line-height: 1.4em;
+	text-align: center;
+	font-style: italic;
+	padding-top:3em;
+}
+
+.testemonial-author{
+	text-align: center;
+	font-weight:700;
+	font-size:20px;
+}
+
+.center{
+	text-align:center;
+}
+
+h3{
+	font-weight:800;
+	font-size:58px;
+	line-height: 1em;
+	margin:0;
+	padding:0;
+	margin-top:-0.5em;
+	z-index:999;
+}
+
+h4{
+	font-weight:300;
+	font-size:26px;
+	line-height: 1em;
+	padding-top:2em;
+	text-transform: uppercase;
+}
+
+#team{
+	background-color: #24323f;
+	padding-top: 4em;
+	padding-bottom:4em;
+	display:block;
+	width:100%;
+}
+
+#footer{
+	background-color: #24323f;
+	padding-top: 2em;
+	padding-bottom:2em;
+	display:block;
+	width:100%;
+	color:#738591;
+}
+
+#footer a{
+	color:#fff;
+	font-weight:700;
+}
+
+
+#footer a:hover{
+	opacity:.9;
+	text-decoration: none;
+}
+
+#footer a:active{
+	opacity:1;
+	text-decoration: none;
+}
+
+
+#get-book{
+	display:block;
+	width:100%;
+	text-align:center;
+	font-weight:800;
+	font-size: 24px;
+	color:#24323f;
+	background-color: #f8e51d;
+	text-decoration: none;
+	padding: 1em 0;
+}
+
+a.downloadapp{
+	display:block;
+	float:left;
+	padding-bottom:40px;
+	padding-left:20px;
+}
+
+.hybrid{
+	font-weight:300;
+	font-size:39px;
+	line-height: 1em;
+	margin:0;
+	padding:0;
+	margin-top:0.5em;
+	padding-bottom:2em;
+	color:#fff;
+	letter-spacing: .1em;
+}
+
+.hybrid-bold{
+	font-weight:700;
+	text-transform: uppercase;
+	color:#fff;
+}
+
+a.author{
+	opacity:.5;
+}
+
+a.author:hover{
+	opacity:1;
+}
+
+a.author:active{
+	opacity:.5;
+}
+
+.author_name{
+	font-weight:800;
+	text-transform: uppercase;
+	font-size:24px;
+}
+
+figcaption{
+	font-size: 20px;
+	line-height: 6em;
+}
+
+.uk-overlay-background{
+	background: rgba(36, 50, 63, .8);
+}
+
+.uk-modal-dialog{
+	color:#24323f;
+	background-color: #f8e51d;
+	text-align:center;
+	font-size: 18px;
+	line-height: 1.4em;
+}
+
+@media screen and (max-width: 768px) {
+    h1{
+		padding-top:0;
+	}
+
+	a.dbook{
+		display:block;
+		margin-top:0;
+		margin-bottom:30px !important;
+	}
+
+	a.downloadapp{
+	padding-bottom:0;
+	padding-left:20px;
+	}
+
+	.header-text{
+		text-align: center;
+	}
+
+	.action{
+		margin:0 auto;
+	}
+
+	#learn{
+		padding-top: 0;
+	}
+
+	.testemonial{
+		padding-top:0;
+	}
+
+	.testemonial-author{
+		padding-bottom:1em;
+	}
+
+	ul li{
+		font-weight:400;
+	}
+}
