@@ -1,7 +1,7 @@
 Trendicity
 ==================
 
-Companion app for the [Developing an Ionic Edge](http://shop.oreilly.com/product/9781939902160.do) book published by Bleeding Edge Press.
+Companion app for the [Developing an Ionic Edge](http://trendicity.co) book published by Bleeding Edge Press.
 
 Clone this repo then run the following commands:
 
