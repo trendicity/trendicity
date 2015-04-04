@@ -1,7 +1,7 @@
 <ion-view title="List View" cache-view="false">
   <ion-content class="has-header">
     <ion-refresher pulling-icon="ion-ios-arrow-up" spinner="none" pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
-    <div class="list-post" collection-repeat="post in model.currentPosts">
+    <div class="list-post" ng-repeat="post in model.currentPosts">
         <img ng-src="{{ post.images.standard_resolution.url }}" on-double-tap="like($index)" on-hold="displayOptions($index)"/>
         <div class="item item-avatar">
             <img ng-src="{{ post.user.profile_picture }}">

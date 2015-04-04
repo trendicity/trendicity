@@ -112,4 +112,7 @@ angular.module('Trendicity', [
 .config(function($ionicConfigProvider) {
   // Make tabs show up at the bottom for android if you so desire
   // $ionicConfigProvider.tabs.position('bottom');
+
+  // Use native scrolling on Android
+  if(ionic.Platform.isAndroid()) $ionicConfigProvider.scrolling.jsScrolling(false);
 });
