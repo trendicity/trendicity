@@ -2,7 +2,7 @@
   "name": "Trendicity",
   "version": "1.0.0",
   "dependencies": {
-    "ionic": "driftyco/ionic-bower#v1.0.0-rc.1",
+    "ionic": "driftyco/ionic-bower#v1.0.0-rc.2",
     "angular-local-storage": "~0",
     "ionic-contrib-tinder-cards": "*",
     "angular-http-auth": "https://github.com/witoldsz/angular-http-auth.git#1.2.2",
