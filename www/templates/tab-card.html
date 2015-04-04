@@ -1,15 +1,17 @@
-<ion-view title="Card View" cache-view="false">
-    <ion-content class="has-header padding" scroll="false">
-        <td-cards>
-            <td-card ng-repeat="post in model.currentPosts" on-destroy="cardDestroyed($index)"
-                     on-transition-left="cardTransitionedLeft($index)"
-                     on-transition-right="cardTransitionedRight($index)">
-                <div class="image">
-                    <div class="no-text">NOPE</div>
-                    <img ng-src="{{ post.images.low_resolution.url }}" />
-                    <div class="yes-text">LIKE</div>
-                </div>
-            </td-card>
-        </td-cards>
+<ion-view title="Card View" cache-view="false" no-scroll>
+    <ion-content class="has-header padding">
+        <div ng-if="model.currentPosts.length">
+            <td-cards>
+                <td-card ng-repeat="post in model.currentPosts" on-destroy="cardDestroyed($index)"
+                         on-transition-left="cardTransitionedLeft($index)"
+                         on-transition-right="cardTransitionedRight($index)">
+                    <div class="image">
+                        <div class="no-text">NOPE</div>
+                        <img ng-src="{{ post.images.low_resolution.url }}" />
+                        <div class="yes-text">LIKE</div>
+                    </div>
+                </td-card>
+            </td-cards>
+        </div>
     </ion-content>
 </ion-view>
