@@ -6,6 +6,7 @@ angular.module('Trendicity')
   $ionicSideMenuDelegate,
   $ionicPopup,
   $ionicSlideBoxDelegate,
+  $ionicActionSheet,
   $timeout,
   $ionicHistory,
   localStorageService,
@@ -100,5 +101,30 @@ angular.module('Trendicity')
     console.log('cardDestroyed called with index:' + index);
     $scope.model.currentPosts.splice(index, 1);
   };
+
+    // Display action sheet
+    $scope.displayOptions = function(index) {
+      // Get post
+      var post = $scope.model.currentPosts[index];
+      var buttons = [
+        { text: 'Like' }
+      ];
+
+      $ionicActionSheet.show({
+        buttons: [],
+        titleText: 'Options',
+        destructiveText: 'Report as offensive',
+        cancelText: 'Close',
+        destructiveButtonClicked: function () {
+          PostsService.reportPost(post).then(function() {
+            $ionicPopup.alert({
+              title: 'Report Offensive Content',
+              template: 'Thanks for reporting this post as offensive.  Our moderators will review this post. If found to be offensive, it will be removed.'
+            });
+          });
+          return true;
+        }
+      });
+    };
 
 });

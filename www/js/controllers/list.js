@@ -5,6 +5,7 @@ angular.module('Trendicity')
   $scope,
   $ionicActionSheet,
   $ionicLoading,
+  $ionicPopup,
   InstagramService,
   PostsService,
   FavoritesService
@@ -28,6 +29,7 @@ angular.module('Trendicity')
     $ionicActionSheet.show({
         buttons: buttons,
         titleText: 'Options',
+        destructiveText: 'Report as offensive',
         cancelText: 'Close',
         buttonClicked: function(i) {
             if (i === 0) {
@@ -43,14 +45,23 @@ angular.module('Trendicity')
 
               // Display confirmation
               $ionicLoading.show({
-                  template: 'Added to Favorites',
-                  noBackdrop: true,
-                  duration: 1000
+                template: 'Added to Favorites',
+                noBackdrop: true,
+                duration: 1000
               });
             }
 
             // Close action sheet
             return true;
+        },
+        destructiveButtonClicked: function() {
+          PostsService.reportPost(post).then(function() {
+            $ionicPopup.alert({
+              title: 'Report Offensive Content',
+              template: 'Thanks for reporting this post as offensive.  Our moderators will review this post. If found to be offensive, it will be removed.'
+            });
+          });
+          return true;
         }
     });
   };

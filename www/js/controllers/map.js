@@ -82,6 +82,20 @@ angular.module('Trendicity')
           $scope.currentPost = null;
           return true;
         }
+      }, {
+        text: 'Report as offensive',
+        type: 'button-light button-assertive',
+        onTap: function(e) {
+         // e.preventDefault();
+          console.log('report as offensive tapped...');
+          PostsService.reportPost($scope.currentPost).then(function() {
+            $ionicPopup.alert({
+              title: 'Report Offensive Content',
+              template: 'Thanks for reporting this post as offensive.  Our moderators will review this post. If found to be offensive, it will be removed.'
+            });
+          });
+          return true;
+        }
       }]
     });
   };

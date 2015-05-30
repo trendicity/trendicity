@@ -7,7 +7,7 @@
                          on-transition-right="cardTransitionedRight($index)">
                     <div class="image">
                         <div class="no-text">NOPE</div>
-                        <img ng-src="{{ post.images.low_resolution.url }}" />
+                        <img ng-src="{{ post.images.low_resolution.url }}" on-hold="displayOptions($index)" />
                         <div class="yes-text">LIKE</div>
                     </div>
                 </td-card>

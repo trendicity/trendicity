@@ -1,7 +1,9 @@
 'use strict';
 angular.module('Trendicity')
 
-.service('PostsService', function($q, InstagramService) {
+.service('PostsService', function($q, $http, InstagramService, BlacklistService) {
+    var self = this;
+
     var model = { currentPosts: [] };
 
     this.getModel = function () {
@@ -31,8 +33,14 @@ angular.module('Trendicity')
 
       if (options.lat && options.lng) {
         InstagramService.findNearbyPosts(options).success(function (response) {
-          model.currentPosts = response.data;
-          deferred.resolve(response.data);
+          BlacklistService.filterPosts(response.data).then(
+            function(filteredPosts) {
+              model.currentPosts = filteredPosts;
+              console.log('model.currentPosts:');
+              console.log(model.currentPosts);
+              deferred.resolve(filteredPosts);
+            }
+          );
         });
       } else {
         console.log('Unable to obtain both latitude and longitude.  position:' + angular.toJson(coords));
@@ -60,5 +68,12 @@ angular.module('Trendicity')
 
     this.dislikePost = function(mediaId) {
       return InstagramService.dislikePost(mediaId);
+    };
+
+    this.reportPost = function(post) {
+      console.log('reporting post.id:' + post.id);
+      console.log('reporting userId:' + post.user.id);
+
+      return BlacklistService.reportPost(post);
     };
 });

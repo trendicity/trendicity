@@ -10,6 +10,35 @@ angular.module('Trendicity')
   InstagramService,
   FavoritesService,
   localStorageService) {
+
+  var EULA_ACCEPTED = 'eulaAccepted';
+
+  // Create the eula modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/modals/eula.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.eulaModal = modal;
+    // Check if user has not accepted eula
+    $scope.handleEula();
+  });
+
+  $scope.$on('$ionicView.beforeEnter', function() {
+    // Check if user has not accepted eula
+    $scope.handleEula();
+  });
+
+  $scope.handleEula = function() {
+    if ($scope.eulaModal != undefined && !localStorageService.get(EULA_ACCEPTED) || false) {
+      $scope.eulaModal.show();
+    }
+  };
+
+  $scope.acceptEula = function() {
+    localStorageService.set(EULA_ACCEPTED, true);
+    $scope.eulaModal.hide();
+  };
+
   // Check if use has seen intro
   if (!localStorageService.get('seenIntro') || false) {
     $state.go('app.intro');
@@ -66,4 +95,3 @@ angular.module('Trendicity')
     console.log('handling event:auth-loginConfirmed...');
   });
 });
-

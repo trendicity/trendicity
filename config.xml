@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="org.thehybridcollective.Trendicity" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" version="1.0.0" ios-CFBundleVersion="5" android-versionCode="10003">
+<widget id="org.thehybridcollective.trendicity" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" version="1.0.0" ios-CFBundleVersion="8" android-versionCode="10004">
   <name>Trendicity</name>
   <description>
     A sample application for the Developing an Ionic Edge book that displays posts on a map, card view and list view, implementing the Instagram API.
@@ -15,6 +15,7 @@
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashScreen" value="screen"/>
   <preference name="SplashScreenDelay" value="3000"/>
+  <preference name="android-minSdkVersion" value="14"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
