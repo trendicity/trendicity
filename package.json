@@ -29,6 +29,7 @@
     "org.apache.cordova.inappbrowser",
     "org.apache.cordova.geolocation",
     "org.apache.cordova.network-information",
-    "com.ionic.keyboard"
+    "com.ionic.keyboard",
+    "cordova-plugin-whitelist"
   ]
 }
