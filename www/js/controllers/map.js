@@ -63,8 +63,6 @@ angular.module('Trendicity')
         text: 'Like',
         type: 'button-light',
         onTap: function(e) {
-          e.preventDefault();
-          
           // Like this post
           if (!post.user_has_liked) { // jshint ignore:line
             PostsService.likePost(post.id)
